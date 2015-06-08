@@ -13,7 +13,9 @@
 		0ED7E6F41B262CE800ABE472 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0ED7E6F21B262CE800ABE472 /* Main.storyboard */; };
 		0ED7E6F61B262CE800ABE472 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0ED7E6F51B262CE800ABE472 /* Images.xcassets */; };
 		0ED7E6F91B262CE800ABE472 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0ED7E6F71B262CE800ABE472 /* LaunchScreen.xib */; };
-		0ED7E7051B262CE800ABE472 /* CohortTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ED7E7041B262CE800ABE472 /* CohortTests.m */; };
+		0ED7E7101B26306F00ABE472 /* CHCueTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ED7E70F1B26306F00ABE472 /* CHCueTest.m */; };
+		0ED7E7131B2635DD00ABE472 /* CHCue.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ED7E7121B2635DD00ABE472 /* CHCue.m */; };
+		0ED7E7141B2635DD00ABE472 /* CHCue.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ED7E7121B2635DD00ABE472 /* CHCue.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,7 +41,9 @@
 		0ED7E6F81B262CE800ABE472 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		0ED7E6FE1B262CE800ABE472 /* CohortTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CohortTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0ED7E7031B262CE800ABE472 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		0ED7E7041B262CE800ABE472 /* CohortTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CohortTests.m; sourceTree = "<group>"; };
+		0ED7E70F1B26306F00ABE472 /* CHCueTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHCueTest.m; sourceTree = "<group>"; };
+		0ED7E7111B2635DD00ABE472 /* CHCue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CHCue.h; path = CohortModel/CHCue.h; sourceTree = "<group>"; };
+		0ED7E7121B2635DD00ABE472 /* CHCue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CHCue.m; path = CohortModel/CHCue.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +85,7 @@
 		0ED7E6E71B262CE800ABE472 /* Cohort */ = {
 			isa = PBXGroup;
 			children = (
+				0ED7E70E1B262F8200ABE472 /* Cohort */,
 				0ED7E6EC1B262CE800ABE472 /* AppDelegate.h */,
 				0ED7E6ED1B262CE800ABE472 /* AppDelegate.m */,
 				0ED7E6EF1B262CE800ABE472 /* ViewController.h */,
@@ -105,8 +110,8 @@
 		0ED7E7011B262CE800ABE472 /* CohortTests */ = {
 			isa = PBXGroup;
 			children = (
-				0ED7E7041B262CE800ABE472 /* CohortTests.m */,
 				0ED7E7021B262CE800ABE472 /* Supporting Files */,
+				0ED7E70F1B26306F00ABE472 /* CHCueTest.m */,
 			);
 			path = CohortTests;
 			sourceTree = "<group>";
@@ -117,6 +122,15 @@
 				0ED7E7031B262CE800ABE472 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		0ED7E70E1B262F8200ABE472 /* Cohort */ = {
+			isa = PBXGroup;
+			children = (
+				0ED7E7111B2635DD00ABE472 /* CHCue.h */,
+				0ED7E7121B2635DD00ABE472 /* CHCue.m */,
+			);
+			name = Cohort;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -221,6 +235,7 @@
 			files = (
 				0ED7E6F11B262CE800ABE472 /* ViewController.m in Sources */,
 				0ED7E6EE1B262CE800ABE472 /* AppDelegate.m in Sources */,
+				0ED7E7131B2635DD00ABE472 /* CHCue.m in Sources */,
 				0ED7E6EB1B262CE800ABE472 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -229,7 +244,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0ED7E7051B262CE800ABE472 /* CohortTests.m in Sources */,
+				0ED7E7141B2635DD00ABE472 /* CHCue.m in Sources */,
+				0ED7E7101B26306F00ABE472 /* CHCueTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
