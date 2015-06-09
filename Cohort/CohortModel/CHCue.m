@@ -10,4 +10,8 @@
 
 @implementation CHCue
 
+- (void) fire {
+    self.action();
+}
+
 @end

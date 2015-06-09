@@ -15,12 +15,45 @@
 @end
 
 @implementation CHCueTest
-- (void)testCueWithJSON {
+
+- (void)testCueExists {
+    CHCue *cue = [[CHCue alloc] init];
+    XCTAssertNotNil(cue);
+}
+
+- (void)testCueWithTargetGroup {
     CHCue *cue = [[CHCue alloc] init];
     cue.targetGroup = @"blue";
     XCTAssert([cue.targetGroup isEqualToString:@"blue"]);
 }
 
+- (void)testCueWithMediaType {
+    CHCue *cue = [[CHCue alloc] init];
+    cue.mediaType = CHMediaTypeSound;
+    XCTAssert(cue.mediaType == CHMediaTypeSound);
+}
+
+- (void)testCueWithDuration {
+    CHCue *cue = [[CHCue alloc] init];
+    cue.duration = 5.0;
+}
+
+- (void)testCueWithActionBlock {
+    CHCue *cue = [[CHCue alloc] init];
+    XCTestExpectation *expectation = [self expectationWithDescription:@"action block executed"];
+
+    cue.action = ^void {
+        [expectation fulfill];
+    };
+    
+    [cue fire];
+    
+    [self waitForExpectationsWithTimeout:5.0 handler:^(NSError *error) {
+        if(error){
+            
+        }
+    }];
+}
 
 - (void)testPerformanceExample {
     // This is an example of a performance test case.
