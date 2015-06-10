@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>SchemeUserState</key>
+	<dict>
+		<key>Pods-Cohort-TheAmazingAudioEngine.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-Cohort.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-CohortTests-TheAmazingAudioEngine.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-CohortTests.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+	</dict>
+	<key>SuppressBuildableAutocreation</key>
+	<dict>
+		<key>09250C04C2576092E2AF5EE5</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>36667286B724F61AE4687A18</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>47CE0CF034A112A158FE3473</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>5C089E216FB6F57BAE9C2C47</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+	</dict>
+</dict>
+</plist>
