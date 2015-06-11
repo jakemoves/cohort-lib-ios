@@ -31,13 +31,4 @@
     XCTAssertNotNil(asset);
 }
 
-- (void)testAssetWithURL {
-    CHMediaAsset *asset = [[CHMediaAsset alloc] init];
-    NSURL *assetURL = [[NSURL alloc] initFileURLWithPath:@"clicktrack.m4a"];
-    asset.sourceFile = assetURL;
-    XCTAssertTrue(asset.sourceFile == assetURL);
-}
-
-
-
 @end

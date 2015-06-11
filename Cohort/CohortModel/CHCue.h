@@ -7,16 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
-
-typedef NS_ENUM(NSInteger, CHMediaType) {
-    CHMediaTypeSound
-};
+#import "CHMediaAsset.h"
 
 @interface CHCue : NSObject
 
 @property (nonatomic) NSString *targetGroup;
 @property (nonatomic) CHMediaType *mediaType;
-@property (nonatomic, copy) void (^action)();
 @property (nonatomic) double duration;
 
 - (void) fire;

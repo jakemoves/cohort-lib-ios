@@ -38,23 +38,6 @@
     cue.duration = 5.0;
 }
 
-- (void)testCueWithActionBlock {
-    CHCue *cue = [[CHCue alloc] init];
-    XCTestExpectation *expectation = [self expectationWithDescription:@"action block executed"];
-
-    cue.action = ^void {
-        [expectation fulfill];
-    };
-    
-    [cue fire];
-    
-    [self waitForExpectationsWithTimeout:5.0 handler:^(NSError *error) {
-        if(error){
-            
-        }
-    }];
-}
-
 - (void)testPerformanceExample {
     // This is an example of a performance test case.
     [self measureBlock:^{

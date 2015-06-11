@@ -14,6 +14,6 @@ typedef NS_ENUM(NSInteger, CHMediaType) {
 
 @interface CHMediaAsset : NSObject
 
-@property (strong, nonatomic) NSURL *sourceFile;
+//@property (strong, nonatomic) NSURL *sourceFile;
 
 @end
