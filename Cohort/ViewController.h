@@ -7,9 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CHSoundCue.h"
 
 @interface ViewController : UIViewController
-
 
 @end
 

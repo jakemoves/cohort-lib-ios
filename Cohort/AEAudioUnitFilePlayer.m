@@ -69,8 +69,7 @@ static inline BOOL _checkResult(OSStatus result, const char *operation, const ch
 //-----------------------------------------------------------------------------
 + (id)audioUnitFilePlayerWithController:(AEAudioController*)audioController error:(NSError**)error
 {
-	//return [[[AEAudioUnitFilePlayer alloc] initWithAudioController:audioController error:error] autorelease];
-    return [[AEAudioUnitFilePlayer alloc] initWithAudioController:audioController error:error];
+	return [[[AEAudioUnitFilePlayer alloc] initWithAudioController:audioController error:error] autorelease];
 }
 
 //-----------------------------------------------------------------------------
@@ -82,7 +81,7 @@ static inline BOOL _checkResult(OSStatus result, const char *operation, const ch
         checkResult(AUGraphRemoveNode(_audioGraph, _converterNode), "AUGraphRemoveNode");
     }
     
-    //checkResult(AUGraphUpdate(_audioGraph, NULL), "AUGraphUpdate");
+    checkResult(AUGraphUpdate(_audioGraph, NULL), "AUGraphUpdate");
 
     if ( _audioUnitFile ) {
         AudioFileClose(_audioUnitFile);
@@ -90,7 +89,7 @@ static inline BOOL _checkResult(OSStatus result, const char *operation, const ch
 
     _audioControllerRef = nil;
    
-    //[super dealloc];
+    [super dealloc];
 }
 
 //-----------------------------------------------------------------------------
@@ -224,7 +223,7 @@ static inline BOOL _checkResult(OSStatus result, const char *operation, const ch
 				!checkResult(result=AUGraphNodeInfo(_audioGraph, _node, NULL, &_audioUnit), "AUGraphNodeInfo") ) {
 			  
 			  if ( error ) *error = [NSError errorWithDomain:NSOSStatusErrorDomain code:result userInfo:[NSDictionary dictionaryWithObject:@"Couldn't initialise audio unit" forKey:NSLocalizedDescriptionKey]];
-			  //[self release];
+			  [self release];
 			  return nil;
 		 }
 		 
@@ -240,7 +239,7 @@ static inline BOOL _checkResult(OSStatus result, const char *operation, const ch
 			  AEAudioStreamBasicDescriptionSetChannelsPerFrame(&defaultAudioDescription, audioDescription.mChannelsPerFrame);
 			  if ( !checkResult(result=AudioUnitSetProperty(_audioUnit, kAudioUnitProperty_StreamFormat, kAudioUnitScope_Output, 0, &defaultAudioDescription, size), "AudioUnitSetProperty") ) {
 					if ( error ) *error = [NSError errorWithDomain:NSOSStatusErrorDomain code:result userInfo:[NSDictionary dictionaryWithObject:@"Incompatible audio format" forKey:NSLocalizedDescriptionKey]];
-					//[self release];
+					[self release];
 					return nil;
 			  }
 			  
@@ -253,7 +252,7 @@ static inline BOOL _checkResult(OSStatus result, const char *operation, const ch
 					 !checkResult(result=AudioUnitSetProperty(_converterUnit, kAudioUnitProperty_StreamFormat, kAudioUnitScope_Output, 0, &audioDescription, sizeof(AudioStreamBasicDescription)), "AudioUnitSetProperty(kAudioUnitProperty_StreamFormat)") ) {
 					
 					if ( error ) *error = [NSError errorWithDomain:NSOSStatusErrorDomain code:result userInfo:[NSDictionary dictionaryWithObject:@"Couldn't setup converter audio unit" forKey:NSLocalizedDescriptionKey]];
-					//[self release];
+					[self release];
 					return nil;
 			  }
 		 }
@@ -297,7 +296,7 @@ static inline BOOL _checkResult(OSStatus result, const char *operation, const ch
 
 	if(url)
 	{
-		checkResult(result=AudioFileOpenURL((__bridge CFURLRef)url, kAudioFileReadPermission, 0, &_audioUnitFile), "AudioFileOpenURL");
+		checkResult(result=AudioFileOpenURL((CFURLRef)url, kAudioFileReadPermission, 0, &_audioUnitFile), "AudioFileOpenURL");
 		if(noErr == result)
 		{
 			 // Set the file to play
@@ -326,7 +325,7 @@ static inline BOOL _checkResult(OSStatus result, const char *operation, const ch
 //-----------------------------------------------------------------------------
 - (void)completionCallSetup
 {
-	 NSLog(@"AEAudioUnitFilePlayer - completionCallSetup\n");
+	// NSlog(@"AEAudioUnitFilePlayer - completionCallSetup\n");
 
 	// We get the completion call after a notification for the last buffer
 	// and -not- when audio is finished playing, so we need to let this continue
@@ -366,7 +365,7 @@ static inline BOOL _checkResult(OSStatus result, const char *operation, const ch
 //-----------------------------------------------------------------------------
 - (void)completionCallComplete
 {
-	NSLog(@"AEAudioUnitFilePlayer - completionCallComplete\n");
+	// NSlog(@"AEAudioUnitFilePlayer - completionCallComplete\n");
 
 	// playback has completed and buffers have been audibly played out
 	self.channelIsPlaying = NO;
@@ -398,7 +397,7 @@ static void audioRegionCompletion(void *userData, ScheduledAudioFileRegion *file
 {
 	if(userData)
 	{
-		AEAudioUnitFilePlayer *THIS = (__bridge_transfer AEAudioUnitFilePlayer*)userData;
+		AEAudioUnitFilePlayer *THIS = (AEAudioUnitFilePlayer*)userData;
 
 		// already stopped?
 		if((THIS->_channelIsPlaying) && (THIS->_audioControllerRef))
@@ -426,7 +425,7 @@ static void audioRegionCompletion(void *userData, ScheduledAudioFileRegion *file
 		region.mTimeStamp.mFlags = kAudioTimeStampSampleTimeValid;
 		region.mTimeStamp.mSampleTime = 0;
 		region.mCompletionProc = audioRegionCompletion;
-		region.mCompletionProcUserData = (__bridge void *)(self);
+		region.mCompletionProcUserData = self;
 		region.mAudioFile = _audioUnitFile;
 		region.mLoopCount = 0;
 		region.mStartFrame = _locatehead;

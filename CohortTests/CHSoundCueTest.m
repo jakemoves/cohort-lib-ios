@@ -28,6 +28,10 @@
 
 - (void)testThatItInitsWithAValidMediaAsset {
     AEAudioController *audioController = [[AEAudioController alloc] initWithAudioDescription:[AEAudioController nonInterleaved16BitStereoAudioDescription] inputEnabled:NO];
+    audioController.preferredBufferDuration = 0.005;
+    audioController.useMeasurementMode = YES;
+    [audioController start:NULL];
+    
     CHSoundAsset *asset = [[CHSoundAsset alloc] initWithAssetId:@"clicktrack" andFilename:@"clicktrack.m4a"];
     CHSoundCue *cue = [[CHSoundCue alloc] initWithAudioController:audioController andAsset:asset withCompletionBlock:^void{}];
     XCTAssertNotNil(cue.audio);
@@ -36,20 +40,28 @@
 
 - (void)testThatItPlaysTheSound {
     AEAudioController *audioController = [[AEAudioController alloc] initWithAudioDescription:[AEAudioController nonInterleaved16BitStereoAudioDescription] inputEnabled:NO];
+    audioController.preferredBufferDuration = 0.005;
+    audioController.useMeasurementMode = YES;
+    [audioController start:NULL];
+    
     CHSoundAsset *asset = [[CHSoundAsset alloc] initWithAssetId:@"clicktrack" andFilename:@"clicktrack.m4a"];
     CHSoundCue *cue = [[CHSoundCue alloc] initWithAudioController:audioController andAsset:asset withCompletionBlock:^void{}];
     [cue play];
     XCTAssertEqual(cue.audio.playing, true);
 }
 
-- (void)DISABLED_testThatItStopsPlayingTheSound {
+- (void)testThatItFinishesPlayingTheSound {
     XCTestExpectation *expectation = [self expectationWithDescription:@"sound cue no longer playing"];
     AEAudioController *audioController = [[AEAudioController alloc] initWithAudioDescription:[AEAudioController nonInterleaved16BitStereoAudioDescription] inputEnabled:NO];
+    audioController.preferredBufferDuration = 0.005;
+    audioController.useMeasurementMode = YES;
+    [audioController start:NULL];
+    
     CHSoundAsset *asset = [[CHSoundAsset alloc] initWithAssetId:@"clicktrack" andFilename:@"clicktrack.m4a"];
-    CHSoundCue *cue = [[CHSoundCue alloc] initWithAudioController:audioController andAsset:asset withCompletionBlock:^void{}];
+    CHSoundCue *cue = [[CHSoundCue alloc] initWithAudioController:audioController andAsset:asset withCompletionBlock:^void{ NSLog(@"sound cue finished playing"); }];
     [cue play];
     
-    NSTimeInterval timeTilEndOfCue = cue.audio.duration + 3.0;
+    NSTimeInterval timeTilEndOfCue = cue.audio.duration + 10.0;
     
     [self waitForExpectationsWithTimeout:timeTilEndOfCue handler:^(NSError *error) {
         if (error) {
@@ -57,6 +69,8 @@
         }
         NSLog(@"Checking expectation...");
         if(cue.audio.playing == false){
+            [audioController removeChannels:audioController.channels];
+            [audioController stop];
             [expectation fulfill];
         }
     }];
@@ -68,11 +82,11 @@
     CHSoundAsset *asset = [[CHSoundAsset alloc] initWithAssetId:@"clicktrack" andFilename:@"clicktrack.m4a"];
     CHSoundCue *cue = [[CHSoundCue alloc] initWithAudioController:audioController
                                                          andAsset:asset withCompletionBlock:^void{
-                                                             [expectation fulfill];
+                                                             NSLog(@"sound cue finished playing");
     }];
     [cue play];
     
-    NSTimeInterval timeTilEndOfCue = cue.audio.duration + 5.0;
+    NSTimeInterval timeTilEndOfCue = cue.audio.duration + 10.0;
     
     [self waitForExpectationsWithTimeout:timeTilEndOfCue handler:^(NSError *error) {
         if (error) {

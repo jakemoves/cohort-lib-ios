@@ -22,7 +22,6 @@
         _audio.completionBlock = completionBlock;
         [audioController addChannels:[NSArray arrayWithObject:_audio]];
         _audio.url = asset.sourceFile;
-        
     }
     return self;
 }
