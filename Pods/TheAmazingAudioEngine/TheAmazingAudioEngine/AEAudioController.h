@@ -26,7 +26,8 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-
+    
+#import <Foundation/Foundation.h>
 #import <AudioToolbox/AudioToolbox.h>
 #import <AudioUnit/AudioUnit.h>
 

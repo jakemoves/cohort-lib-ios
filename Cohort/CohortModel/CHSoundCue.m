@@ -14,28 +14,28 @@
     if (self = [super init]) {
         // custom initialization
         
-        _audio = [[AEAudioUnitFilePlayer alloc] init];
+        _audio = [[AEAudioUnitFilePlayer alloc] initAudioUnitFilePlayerWithAudioController:audioController error:nil];
         
-        _audio = [AEAudioUnitFilePlayer audioUnitFilePlayerWithController:audioController error:nil];
-        _audio.playing = false;
+        _audio.loop = false;
         _audio.volume = 1.0;
         _audio.completionBlock = completionBlock;
+        //set duration...
+        [_audio loadAudioFileFromUrl:asset.sourceFile];
         [audioController addChannels:[NSArray arrayWithObject:_audio]];
-        _audio.url = asset.sourceFile;
     }
     return self;
 }
 
 - (void) play {
-    if(_audio.playing == false){
-        _audio.playing = true;
-    }
+    //if(_audio.channelIsPlaying == false){
+        [_audio play];
+    //}
 }
 
 - (void) pause {
-    if(_audio.playing == true){
-        _audio.playing = false;
-    }
+    //if(_audio.channelIsPlaying == true){
+        [_audio stop];
+    //}
 }
 
 @end
