@@ -4,7 +4,8 @@
 //
 //  Created by Aran Mulholland on 19/11/2013.
 //  Copyright (c) 2013 A Tasty Pixel. All rights reserved.
-//
+//  https://github.com/aranm/TheAmazingAudioEngine
+
 #ifdef __cplusplus
 extern "C" {
 #endif
