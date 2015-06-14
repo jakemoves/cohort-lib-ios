@@ -1,10 +1,13 @@
 PODS:
+  - EventSource (1.0.0)
   - TheAmazingAudioEngine (1.4.6)
 
 DEPENDENCIES:
+  - EventSource (~> 1.0)
   - TheAmazingAudioEngine (~> 1.4)
 
 SPEC CHECKSUMS:
+  EventSource: 58cfd8560bbe8a809e987f1bfa336168b8781873
   TheAmazingAudioEngine: 014e942f20456feaf5ccb48f440402306350abf8
 
 COCOAPODS: 0.37.2

@@ -3,9 +3,11 @@
 
 target 'Cohort' do
 	pod 'TheAmazingAudioEngine', '~> 1.4'
+	pod 'EventSource', '~> 1.0'
 end
 
 target 'CohortTests' do
 	pod 'TheAmazingAudioEngine', '~> 1.4'
+	pod 'EventSource', '~> 1.0'
 end
 

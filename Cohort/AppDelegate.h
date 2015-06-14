@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "TheAmazingAudioEngine.h"
+#import "EventSource.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 

@@ -4,12 +4,22 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>Pods-Cohort-EventSource.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-Cohort-TheAmazingAudioEngine.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
 		<key>Pods-Cohort.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-CohortTests-EventSource.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -27,22 +37,32 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>09250C04C2576092E2AF5EE5</key>
+		<key>03379C8C38A52821A9C0A2BD</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>36667286B724F61AE4687A18</key>
+		<key>5CEF4A5E9A42D1A52B905CCC</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>47CE0CF034A112A158FE3473</key>
+		<key>5F4E5DE7809294E2F17774BE</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>5C089E216FB6F57BAE9C2C47</key>
+		<key>7152763A7432CA855FFFD62B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>8D89D1C66321C0A7DA025AB2</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>DA35C7E7610E4BFB5B24F2DA</key>
 		<dict>
 			<key>primary</key>
 			<true/>
