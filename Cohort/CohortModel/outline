@@ -1,6 +1,8 @@
 A CUE unites a MEDIA ASSET, a MEDIA HANDLER (i.e. player), a FIRING CONDITION, and a TARGET GROUP.
 
-A SESSION prepares and plays a set of CUES for a set of TARGET GROUPS.
+A SESSION handles ongoing functionality that needs to be run through the app delegate: audio, networking.
+
+An EPISODE prepares and plays a set of CUES for a set of TARGET GROUPS.
 
 CUE
 
@@ -17,3 +19,16 @@ FIRING CONDITION
 ~ proximity
 
 TARGET GROUP
+
+
+TESTING
+- need to figure out how to test server interactions
+
+
+WORKPLAN
+audio playback
+    DONE
+SSE connection
+    DONE
+JSON parsing
+patron UI

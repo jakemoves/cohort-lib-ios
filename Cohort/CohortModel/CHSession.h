@@ -8,9 +8,13 @@
 
 #import <Foundation/Foundation.h>
 #import "TheAmazingAudioEngine.h"
+#import "EventSource.h"
 
 @interface CHSession : NSObject
 
 @property (strong, nonatomic) AEAudioController *audioController;
+@property (strong, nonatomic) EventSource *sseClient;
+
+- (void)listenForCuesWithURL:(NSURL *)url withCompletionHandler:(void (^)(BOOL success, NSError *error))handler;
 
 @end
