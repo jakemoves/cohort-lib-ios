@@ -10,11 +10,16 @@
 
 @implementation CHSoundAsset
 
+@synthesize sourceFile = _sourceFile;
+@synthesize mediaType = _mediaType;
+@synthesize assetId = _assetId;
+
 - (id)initWithAssetId:(NSString *)assetId andFilename:(NSString *)filename{
     if (self = [super init]) {
         // custom initialization
         
         NSError *error = nil;
+        
         _mediaType = CHMediaTypeSound;
         _assetId = assetId;
         

@@ -10,32 +10,52 @@
 
 @implementation CHSoundCue
 
-- (id)initWithAudioController: (AEAudioController *)audioController andAsset:(CHSoundAsset *)asset withCompletionBlock:(void (^)()) completionBlock {
+@synthesize targetGroup = _targetGroup;
+@synthesize mediaType = _mediaType;
+@synthesize duration = _duration;
+
+- (id)initWithSession: (CHSession *)session andAsset:(CHSoundAsset *)asset {
     if (self = [super init]) {
         // custom initialization
         
-        _audio = [[AEAudioUnitFilePlayer alloc] initAudioUnitFilePlayerWithAudioController:audioController error:nil];
+        _session = session;
+        _asset = asset;
+        
+        _audio = [[AEAudioUnitFilePlayer alloc] initAudioUnitFilePlayerWithAudioController:_session.audioController error:nil];
         
         _audio.loop = false;
         _audio.volume = 1.0;
-        _audio.completionBlock = completionBlock;
-        //set duration...
-        [_audio loadAudioFileFromUrl:asset.sourceFile];
-        [audioController addChannels:[NSArray arrayWithObject:_audio]];
     }
     return self;
 }
 
-- (void) play {
-    //if(_audio.channelIsPlaying == false){
-        [_audio play];
-    //}
+- (void)load:(void (^)())callback {
+    [_audio loadAudioFileFromUrl:_asset.sourceFile];
+    [_session.audioController addChannels:[NSArray arrayWithObject:_audio]];
+    _duration = _audio.duration;
+    if(callback){
+        callback();
+    }
 }
 
-- (void) pause {
-    //if(_audio.channelIsPlaying == true){
-        [_audio stop];
-    //}
+- (void)fire:(void (^)())callback withCompletionHandler:(void (^)())completionHandler {
+    _audio.completionBlock = completionHandler;
+    [self play:callback];
+}
+
+- (void)play:(void (^)())callback {
+    [_audio play];
+    if(callback){
+        callback();
+    }
+}
+
+// not tested yet!
+- (void)pause:(void (^)())callback {
+    [_audio stop];
+    if(callback){
+        callback();
+    }
 }
 
 @end

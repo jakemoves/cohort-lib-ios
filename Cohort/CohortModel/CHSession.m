@@ -13,7 +13,13 @@
 - (id)init {
     if (self = [super init]) {
         // custom initialization
+        
+        // start up audio functionality
         _audioController = [[AEAudioController alloc] initWithAudioDescription:[AEAudioController nonInterleaved16BitStereoAudioDescription]];
+        _audioController.preferredBufferDuration = 0.005;
+        _audioController.useMeasurementMode = YES;
+        [_audioController start:NULL];
+        
         _sseClient = [[EventSource alloc] init];
     }
     
@@ -25,12 +31,12 @@
     _sseClient = [EventSource eventSourceWithURL:url];
     
     [_sseClient onOpen:^(Event *event) {
-        NSLog(@"SSE: onOpen, %@", event);
+        //NSLog(@"SSE: onOpen, %@", event);
         handler(true, nil);
     }];
     
     [_sseClient onError:^(Event *event) {
-        NSLog(@"SSE: onError, %@", event);
+        //NSLog(@"SSE: onError, %@", event);
         handler(false, event.error);
     }];
     
@@ -39,6 +45,8 @@
     }];
 }
 
-
+- (void)dealloc{
+    [_sseClient close];
+}
 
 @end

@@ -95,4 +95,21 @@
     }];
 }
 
+- (void)MANUALtestThatItClosesSSEConnectionWhenDeallocd {
+    __block CHSession *session = [[CHSession alloc] init];
+    
+    [session listenForCuesWithURL:[[NSURL alloc] initWithString:@"http://169.254.135.25:8000/listen"]
+            withCompletionHandler:^(BOOL success, NSError *error) {
+                if(success){
+                    NSLog(@"connected!");
+                }
+            }
+     ];
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 10.0 * NSEC_PER_SEC);
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        NSLog(@"killing session");
+        session = nil;
+    });
+}
+
 @end

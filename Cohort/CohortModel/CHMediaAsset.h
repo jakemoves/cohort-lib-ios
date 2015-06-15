@@ -7,13 +7,14 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "Cohort.h"
 
-typedef NS_ENUM(NSInteger, CHMediaType) {
-    CHMediaTypeSound
-};
+@protocol CHMediaAsset <NSObject>
 
-@interface CHMediaAsset : NSObject
+@property (strong, nonatomic) NSURL *sourceFile;
+@property (readonly, nonatomic) CHMediaType mediaType;
+@property (readonly, nonatomic) NSString *assetId;
 
-//@property (strong, nonatomic) NSURL *sourceFile;
+-(id)initWithAssetId:(NSString *)assetId andFilename:(NSString *)filename;
 
 @end

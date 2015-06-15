@@ -6,17 +6,19 @@
 //  Copyright (c) 2015 Jacob Niedzwiecki. All rights reserved.
 //
 
-#import "CHCue.h"
+#import <Foundation/Foundation.h>
 #import "CHSoundAsset.h"
+#import "CHSession.h"
+#import "CHCueing.h"
 #import "TheAmazingAudioEngine.h"
 #import "AEAudioUnitFilePlayer.h"
 
-@interface CHSoundCue : CHCue
+@interface CHSoundCue : NSObject <CHCueing>
 
+@property (strong, nonatomic) CHSession *session;
+@property (strong, nonatomic) CHSoundAsset *asset;
 @property (strong, nonatomic) AEAudioUnitFilePlayer *audio;
 
-- (id)initWithAudioController: (AEAudioController *)audioController andAsset:(CHSoundAsset *)asset withCompletionBlock:(void (^)())completionBlock;
-- (void) play;
-- (void) pause;
+- (id)initWithSession: (CHSession *)session andAsset:(CHSoundAsset *)asset;
 
 @end

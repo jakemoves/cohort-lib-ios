@@ -8,13 +8,7 @@
 
 #import "CHMediaAsset.h"
 
-@interface CHSoundAsset : CHMediaAsset
-
-@property (readonly, nonatomic) CHMediaType mediaType;
-@property (readonly, nonatomic) NSString *assetId;
-@property (readonly, nonatomic) NSURL *sourceFile;
-
--(id)initWithAssetId:(NSString *)assetId andFilename:(NSString *)filename;
+@interface CHSoundAsset : NSObject <CHMediaAsset>
 
 //refactor -- maybe id should live in cuelist or showbook once we have them?
 
