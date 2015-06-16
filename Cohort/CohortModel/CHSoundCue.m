@@ -13,6 +13,7 @@
 @synthesize targetGroup = _targetGroup;
 @synthesize mediaType = _mediaType;
 @synthesize duration = _duration;
+@synthesize isLoaded = _isLoaded;
 
 - (id)initWithSession: (CHSession *)session andAsset:(CHSoundAsset *)asset {
     if (self = [super init]) {
@@ -20,6 +21,8 @@
         
         _session = session;
         _asset = asset;
+        _mediaType = CHMediaTypeSound;
+        _isLoaded = false;
         
         _audio = [[AEAudioUnitFilePlayer alloc] initAudioUnitFilePlayerWithAudioController:_session.audioController error:nil];
         
@@ -33,6 +36,7 @@
     [_audio loadAudioFileFromUrl:_asset.sourceFile];
     [_session.audioController addChannels:[NSArray arrayWithObject:_audio]];
     _duration = _audio.duration;
+    _isLoaded = true;
     if(callback){
         callback();
     }

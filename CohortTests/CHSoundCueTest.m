@@ -40,6 +40,7 @@
     CHSoundAsset *asset = [[CHSoundAsset alloc] initWithAssetId:@"clicktrack" andFilename:@"clicktrack.m4a"];
     CHSoundCue *cue = [[CHSoundCue alloc] initWithSession:session andAsset:asset];
     [cue load:nil];
+    XCTAssertTrue(cue.isLoaded);
     XCTAssertEqual(cue.duration, 62.6706575964);
 }
 

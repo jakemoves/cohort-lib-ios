@@ -14,6 +14,7 @@
 @property (strong, nonatomic) NSString *targetGroup;
 @property (readonly, nonatomic) CHMediaType *mediaType;
 @property (readonly, nonatomic) double duration;
+@property (nonatomic) BOOL isLoaded;
 
 -(void) load:(void (^)())callback;
 -(void) fire:(void (^)())callback withCompletionHandler:(void (^)())completionHandler;
