@@ -24,6 +24,9 @@
         _mediaType = CHMediaTypeSound;
         _isLoaded = false;
         
+        _targetGroup = [[NSString alloc] init];
+        _duration = -1;
+        
         _audio = [[AEAudioUnitFilePlayer alloc] initAudioUnitFilePlayerWithAudioController:_session.audioController error:nil];
         
         _audio.loop = false;

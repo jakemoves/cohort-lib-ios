@@ -12,7 +12,7 @@
 @protocol CHCueing <NSObject>
 
 @property (strong, nonatomic) NSString *targetGroup;
-@property (readonly, nonatomic) CHMediaType *mediaType;
+@property (readonly, nonatomic) CHMediaType mediaType;
 @property (readonly, nonatomic) double duration;
 @property (nonatomic) BOOL isLoaded;
 

@@ -28,9 +28,9 @@
 
 - (void)testThatItInitsWithAValidMediaAsset {
     CHSession *session = [[CHSession alloc] init];
-    
     CHSoundAsset *asset = [[CHSoundAsset alloc] initWithAssetId:@"clicktrack" andFilename:@"clicktrack.m4a"];
     CHSoundCue *cue = [[CHSoundCue alloc] initWithSession:session andAsset:asset];
+    XCTAssertTrue([cue conformsToProtocol:@protocol(CHCueing)]);
     XCTAssertNotNil(cue.audio);
     XCTAssertEqual(cue.audio.volume, 1.0);
 }
@@ -41,7 +41,6 @@
     CHSoundCue *cue = [[CHSoundCue alloc] initWithSession:session andAsset:asset];
     [cue load:nil];
     XCTAssertTrue(cue.isLoaded);
-    XCTAssertEqual(cue.duration, 62.6706575964);
 }
 
 - (void)testThatItPlaysTheSoundCue {

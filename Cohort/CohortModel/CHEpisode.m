@@ -10,39 +10,42 @@
 
 @implementation CHEpisode
 
-- (id)initWithSession: (CHSession *)session andCues:(NSDictionary *)cues error:(NSError **)error {
+- (id)initWithSession: (CHSession *)session andCues:(NSSet *)cues error:(NSError **)error {
     NSError *localError = nil;
+    NSMutableArray *tempCues = [[NSMutableArray alloc] init];
     if (self = [super init]) {
         // custom initialization
         
         _session = session;
-        NSMutableArray *tempCues = [[NSMutableArray alloc] init];
+        _isLoaded = false;
         
-        for(NSObject *cue in cues){
+        for(NSObject<CHCueing> *cue in cues){
             if([cue conformsToProtocol:@protocol(CHCueing)]){
                 [tempCues addObject:cue];
             } else {
-                NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:NSLocalizedDescriptionKey, @"Malformed cue: %@", cue, nil];
-                if(error){
-                    localError = [NSError errorWithDomain:@"Cohort" code:1 userInfo:userInfo];
-                    *error = localError;
-                }
+                NSDictionary *tempDic = @{NSLocalizedDescriptionKey: @"Could not add cue to episode because the cue is not valid"};
+                localError = [[NSError alloc] initWithDomain:@"rocks.cohort.ErrorDomain" code:1 userInfo:tempDic];
             }
         }
-        _cues = [NSSet setWithArray:tempCues];
     }
-    // if error, pass it and return nil, else return self
+    
     if(!localError) {
+        _cues = [NSSet setWithArray:tempCues];
         return self;
     } else {
+        *error = localError;
         return nil;
     }
 }
 
 -(void) load:(void (^)())callback {
-    // enumerate _cues, call load() on each
-    for(id<CHCueing> cue in _cues){
+    for(id<NSObject, CHCueing> cue in _cues){
         [cue load:nil];
+    }
+    _isLoaded = true;
+    
+    if(callback){
+        callback();
     }
 }
 

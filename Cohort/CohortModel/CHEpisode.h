@@ -14,9 +14,10 @@
 
 @property (readonly, strong, nonatomic) CHSession *session;
 @property (strong, nonatomic) NSSet *cues;
+@property (nonatomic) BOOL isLoaded;
 
-- (id)initWithSession: (CHSession *)session andCues:(NSDictionary *)cues error:(NSError **)error;
+- (id)initWithSession: (CHSession *)session andCues:(NSSet *)cues error:(NSError **)error;
 - (NSSet *)cuesOfType: (CHMediaType)mediaType;
--(void) load:(void (^)())callback;
+- (void) load:(void (^)())callback;
 
 @end
