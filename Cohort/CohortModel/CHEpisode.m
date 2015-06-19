@@ -19,7 +19,7 @@
         _session = session;
         _isLoaded = false;
         
-        for(NSObject<CHCueing> *cue in cues){
+        for(id<NSObject, CHCueing> cue in cues){
             if([cue conformsToProtocol:@protocol(CHCueing)]){
                 [tempCues addObject:cue];
             } else {

@@ -98,7 +98,7 @@
     
     [episode load:nil];
     
-    for(NSObject<CHCueing> *cue in episode.cues){
+    for(id<NSObject, CHCueing> cue in episode.cues){
         if([cue conformsToProtocol:@protocol(CHCueing)]){
             XCTAssertTrue(cue.isLoaded);
         }
