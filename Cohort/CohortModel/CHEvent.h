@@ -7,7 +7,14 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "CHEpisode.h"
+#import "CHMediaAsset.h"
 
 @interface CHEvent : NSObject
+
+@property (strong, nonatomic) NSMutableDictionary *assets;
+@property (strong, nonatomic) NSMutableDictionary *episodes;
+
+-(id)initWithAssets:(NSDictionary *)assets andEpisodes:(NSDictionary *)episodes error:(NSError **)error;
 
 @end

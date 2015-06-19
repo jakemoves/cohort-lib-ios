@@ -14,40 +14,43 @@
 @synthesize mediaType = _mediaType;
 @synthesize assetId = _assetId;
 
-- (id)initWithAssetId:(NSString *)assetId andFilename:(NSString *)filename{
+- (id)initWithAssetId:(NSString *)assetId andFilename:(NSString *)filename error:(NSError **)error {
     if (self = [super init]) {
         // custom initialization
         
-        NSError *error = nil;
-        
         _mediaType = CHMediaTypeSound;
-        _assetId = assetId;
+        
+        // not tested yet!
+        if(assetId){
+            if([assetId isEqualToString:@""]){
+                NSDictionary *tempDic = @{NSLocalizedDescriptionKey: @"Could not create asset because the assetId is an empty string"};
+                *error = [[NSError alloc] initWithDomain:@"rocks.cohort.Asset.ErrorDomain" code:2 userInfo:tempDic];
+            } else {
+                _assetId = assetId;
+            }
+        } else {
+            NSDictionary *tempDic = @{NSLocalizedDescriptionKey: @"Could not create asset because the assetId is nil"};
+            *error = [[NSError alloc] initWithDomain:@"rocks.cohort.Episode.ErrorDomain" code:1 userInfo:tempDic];
+        }
         
         NSString *assetPath = [[NSBundle mainBundle] resourcePath];
         NSString *filepath = [assetPath stringByAppendingPathComponent:filename];
         if([[NSFileManager defaultManager] fileExistsAtPath: filepath] == NO)
         {
-            error = [NSError errorWithDomain:[NSString stringWithFormat:@"File %@ does not exist at path %@", filename, filepath] code:408 userInfo:nil];
+            NSDictionary *tempDic = @{NSLocalizedDescriptionKey: [NSString stringWithFormat:@"Could not create asset because file '%@' does not exist at path ' %@", filename, filepath]};
+            *error = [[NSError alloc] initWithDomain:@"rocks.cohort.Asset.ErrorDomain" code:3 userInfo:tempDic];
         } else {
             _sourceFile = [[NSURL alloc] initWithString:filepath];
             
             // ~save basic info about asset? (i.e. duration?)
         }
         
-        // flag errors
-        if(error){
-            NSDictionary *errorPackage = [[NSDictionary alloc] initWithObjectsAndKeys:error,@"error", nil];
-            
-            // ncbt (not covered by test)
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"error" object:self userInfo:errorPackage];
-            
-            return nil;
-        } else {
-            return self;
+        if(!_assetId || !_sourceFile){
+            self = nil;
         }
-    } else {
-        return self;
     }
+    
+    return self;
 }
 
 @end

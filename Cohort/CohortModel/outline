@@ -1,10 +1,14 @@
-A CUE unites a MEDIA ASSET, a MEDIA HANDLER (i.e. player), a TRIGGER, and a TARGET GROUP.
+A CUE unites a MEDIA ASSET, a MEDIA HANDLER (i.e. player), a TRIGGER, and TARGET TAG(S).
 
 A SESSION handles ongoing functionality that needs to be run through the app delegate: audio, networking.
 
-An EPISODE defines and loads one or more CUES, and primes TRIGGERS for them.
+An EPISODE defines and loads one or more CUES, and primes TRIGGERS for them. It is STARTED via a network cue received and passed by a SESSION.
 
-An EVENT creates TARGET GROUPS, MEDIA ASSETS, and EPISODES based on a JSON SHOWBOOK.
+An EVENT creates MEDIA ASSETS and EPISODES based on a JSON SHOWBOOK, and a PARTICIPANT based on user input. It never takes action based on network cues.
+
+A PARTICIPANT has TAGS (i.e. "red group", "wheelchair") used to determine which CUES play for them.
+
+
 
 CUE
 
@@ -32,7 +36,12 @@ audio playback
     DONE
 SSE connection
     DONE
-JSON parsing
 Episodes
+    DONE
 Events
 patron UI
+
+abstract error domain defs to header(s)
+refactor asset tests to include errors
+
+JSON parsing

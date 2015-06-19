@@ -1,5 +1,5 @@
 //
-//  CHCue.h
+//  CHCueing.h
 //  Cohort
 //
 //  Created by Jacob Niedzwiecki on 2015-06-08.

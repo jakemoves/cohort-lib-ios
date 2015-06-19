@@ -10,6 +10,8 @@
 		0E66A6981B2E7EB600E8E010 /* CHEpisodeTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E66A6971B2E7EB600E8E010 /* CHEpisodeTest.m */; };
 		0E66A69B1B2F130500E8E010 /* CHEpisode.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E66A69A1B2F130500E8E010 /* CHEpisode.m */; };
 		0E66A6A01B2F13CF00E8E010 /* AEAudioUnitFilePlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E66A69F1B2F13CF00E8E010 /* AEAudioUnitFilePlayer.m */; };
+		0E66A6A21B34729800E8E010 /* CHEventTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E66A6A11B34729800E8E010 /* CHEventTest.m */; };
+		0E66A6A51B34730B00E8E010 /* CHEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E66A6A41B34730B00E8E010 /* CHEvent.m */; };
 		0ECFA0BA1B292A0A0052DDC7 /* CHSoundCueTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ECFA0B91B292A0A0052DDC7 /* CHSoundCueTest.m */; };
 		0ECFA0C61B293F840052DDC7 /* outline in Resources */ = {isa = PBXBuildFile; fileRef = 0ECFA0C51B293F840052DDC7 /* outline */; };
 		0ECFA0CC1B2940400052DDC7 /* CHSoundCue.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ECFA0CB1B2940400052DDC7 /* CHSoundCue.m */; };
@@ -49,6 +51,9 @@
 		0E66A69A1B2F130500E8E010 /* CHEpisode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CHEpisode.m; path = CohortModel/CHEpisode.m; sourceTree = "<group>"; };
 		0E66A69E1B2F13CF00E8E010 /* AEAudioUnitFilePlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AEAudioUnitFilePlayer.h; path = CohortModel/libs/AEAudioUnitFilePlayer.h; sourceTree = "<group>"; };
 		0E66A69F1B2F13CF00E8E010 /* AEAudioUnitFilePlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AEAudioUnitFilePlayer.m; path = CohortModel/libs/AEAudioUnitFilePlayer.m; sourceTree = "<group>"; };
+		0E66A6A11B34729800E8E010 /* CHEventTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHEventTest.m; sourceTree = "<group>"; };
+		0E66A6A31B34730B00E8E010 /* CHEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CHEvent.h; path = CohortModel/CHEvent.h; sourceTree = "<group>"; };
+		0E66A6A41B34730B00E8E010 /* CHEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CHEvent.m; path = CohortModel/CHEvent.m; sourceTree = "<group>"; };
 		0ECFA0B31B28C73C0052DDC7 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		0ECFA0B51B28C7430052DDC7 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		0ECFA0B71B28C74A0052DDC7 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
@@ -184,6 +189,7 @@
 				0ED7E7261B288F2B00ABE472 /* CHSessionTest.m */,
 				0ECFA0B91B292A0A0052DDC7 /* CHSoundCueTest.m */,
 				0E66A6971B2E7EB600E8E010 /* CHEpisodeTest.m */,
+				0E66A6A11B34729800E8E010 /* CHEventTest.m */,
 			);
 			path = CohortTests;
 			sourceTree = "<group>";
@@ -214,6 +220,8 @@
 				0ED7E7231B288F0C00ABE472 /* CHSession.m */,
 				0E66A6991B2F130400E8E010 /* CHEpisode.h */,
 				0E66A69A1B2F130500E8E010 /* CHEpisode.m */,
+				0E66A6A31B34730B00E8E010 /* CHEvent.h */,
+				0E66A6A41B34730B00E8E010 /* CHEvent.m */,
 			);
 			name = Cohort;
 			sourceTree = "<group>";
@@ -417,6 +425,7 @@
 				0E66A69B1B2F130500E8E010 /* CHEpisode.m in Sources */,
 				0ED7E71E1B273BA900ABE472 /* CHSoundAsset.m in Sources */,
 				0ED7E7241B288F0C00ABE472 /* CHSession.m in Sources */,
+				0E66A6A51B34730B00E8E010 /* CHEvent.m in Sources */,
 				0ECFA0CC1B2940400052DDC7 /* CHSoundCue.m in Sources */,
 				0ED7E6EB1B262CE800ABE472 /* main.m in Sources */,
 				0E66A6A01B2F13CF00E8E010 /* AEAudioUnitFilePlayer.m in Sources */,
@@ -432,6 +441,7 @@
 				0ED7E7211B273BC500ABE472 /* CHSoundAssetTest.m in Sources */,
 				0ED7E7251B288F0C00ABE472 /* CHSession.m in Sources */,
 				0ED7E71F1B273BA900ABE472 /* CHSoundAsset.m in Sources */,
+				0E66A6A21B34729800E8E010 /* CHEventTest.m in Sources */,
 				0ECFA0BA1B292A0A0052DDC7 /* CHSoundCueTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

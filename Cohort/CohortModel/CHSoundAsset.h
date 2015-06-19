@@ -10,6 +10,6 @@
 
 @interface CHSoundAsset : NSObject <CHMediaAsset>
 
-//refactor -- maybe id should live in cuelist or showbook once we have them?
+- (id)initWithAssetId:(NSString *)assetId andFilename:(NSString *)filename error:(NSError **)error;
 
 @end

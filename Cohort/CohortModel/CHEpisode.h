@@ -12,11 +12,12 @@
 
 @interface CHEpisode : NSObject
 
+@property (strong, nonatomic) NSString *episodeId;
 @property (readonly, strong, nonatomic) CHSession *session;
 @property (strong, nonatomic) NSSet *cues;
 @property (nonatomic) BOOL isLoaded;
 
-- (id)initWithSession: (CHSession *)session andCues:(NSSet *)cues error:(NSError **)error;
+- (id)initWithId:(NSString *)episodeId withSession:(CHSession *)session andCues:(NSSet *)cues error:(NSError **)error;
 - (NSSet *)cuesOfType: (CHMediaType)mediaType;
 - (void) load:(void (^)())callback;
 

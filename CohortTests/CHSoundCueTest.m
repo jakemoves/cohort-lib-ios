@@ -27,8 +27,9 @@
 }
 
 - (void)testThatItInitsWithAValidMediaAsset {
+    NSError *error = nil;
     CHSession *session = [[CHSession alloc] init];
-    CHSoundAsset *asset = [[CHSoundAsset alloc] initWithAssetId:@"clicktrack" andFilename:@"clicktrack.m4a"];
+    CHSoundAsset *asset = [[CHSoundAsset alloc] initWithAssetId:@"clicktrack" andFilename:@"clicktrack.m4a" error:&error];
     CHSoundCue *cue = [[CHSoundCue alloc] initWithSession:session andAsset:asset];
     XCTAssertTrue([cue conformsToProtocol:@protocol(CHCueing)]);
     XCTAssertNotNil(cue.audio);
@@ -36,16 +37,18 @@
 }
 
 - (void)testThatItLoadsTheSoundCue {
+    NSError *error = nil;
     CHSession *session = [[CHSession alloc] init];
-    CHSoundAsset *asset = [[CHSoundAsset alloc] initWithAssetId:@"clicktrack" andFilename:@"clicktrack.m4a"];
+    CHSoundAsset *asset = [[CHSoundAsset alloc] initWithAssetId:@"clicktrack" andFilename:@"clicktrack.m4a" error:&error];
     CHSoundCue *cue = [[CHSoundCue alloc] initWithSession:session andAsset:asset];
     [cue load:nil];
     XCTAssertTrue(cue.isLoaded);
 }
 
 - (void)testThatItPlaysTheSoundCue {
+    NSError *error = nil;
     CHSession *session = [[CHSession alloc] init];
-    CHSoundAsset *asset = [[CHSoundAsset alloc] initWithAssetId:@"clicktrack" andFilename:@"clicktrack.m4a"];
+    CHSoundAsset *asset = [[CHSoundAsset alloc] initWithAssetId:@"clicktrack" andFilename:@"clicktrack.m4a" error:&error];
     CHSoundCue *cue = [[CHSoundCue alloc] initWithSession:session andAsset:asset];
     [cue load:nil];
     [cue fire:nil withCompletionHandler:nil];
@@ -54,12 +57,13 @@
 
 
 - (void)testThatItFiresTheCompletionCallback {
+    NSError *error = nil;
     __weak XCTestExpectation *expectation = [self expectationForNotification:@"sound cue finished playing" object:nil handler:nil];
     //http://stackoverflow.com/questions/27555499/xctestexpectation-how-to-avoid-calling-the-fulfill-method-after-the-wait-contex
     
     CHSession *session = [[CHSession alloc] init];
 
-    CHSoundAsset *asset = [[CHSoundAsset alloc] initWithAssetId:@"clicktrack" andFilename:@"clicktrack.m4a"];
+    CHSoundAsset *asset = [[CHSoundAsset alloc] initWithAssetId:@"clicktrack" andFilename:@"clicktrack.m4a" error:&error];
     CHSoundCue *cue = [[CHSoundCue alloc] initWithSession:session andAsset:asset];
     
     [cue load: nil];
