@@ -52,6 +52,11 @@
     XCTAssertTrue(error.code == 1);
 }
 
+-(void)testThatItInitsWithNilError {
+    CHParticipant *participant = [[CHParticipant alloc] initWithTags:nil error:nil];
+    XCTAssertNotNil(participant);
+}
+
 -(void)testThatItAddsAllTagIfMissing {
     NSError *error = nil;
     NSSet *tags = [NSSet setWithObjects:@"blue", nil];

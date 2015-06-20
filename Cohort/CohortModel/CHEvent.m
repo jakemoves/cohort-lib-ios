@@ -59,4 +59,8 @@
     return self;
 }
 
+-(void)addParticipant:(CHParticipant *)participant {
+    _participant = participant;
+}
+
 @end

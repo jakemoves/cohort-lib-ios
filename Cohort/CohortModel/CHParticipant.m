@@ -16,7 +16,9 @@
      
         if(!tags || tags.count == 0) {
             NSDictionary *tempDic = @{NSLocalizedDescriptionKey: @"Warning: participant created without tags, adding 'all' tag"};
-            *error = [[NSError alloc] initWithDomain:@"rocks.cohort.Participant.ErrorDomain" code:1 userInfo:tempDic];
+            if(error){
+                *error = [[NSError alloc] initWithDomain:@"rocks.cohort.Participant.ErrorDomain" code:1 userInfo:tempDic];
+            }
             tags = [NSSet setWithObjects:@"all", nil];
         } else {
             if(![tags containsObject:@"all"]){

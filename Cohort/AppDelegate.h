@@ -9,11 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "TheAmazingAudioEngine.h"
 #import "EventSource.h"
+#import "CHSession.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
-@property (strong, nonatomic) AEAudioController *audioController;
+@property (strong, nonatomic) CHSession *cohortSession;
 
 @end
 

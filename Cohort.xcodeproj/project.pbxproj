@@ -16,6 +16,8 @@
 		0E66A6AA1B34DF3000E8E010 /* CHParticipant.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E66A6A91B34DF3000E8E010 /* CHParticipant.m */; };
 		0E66A6AD1B34F74700E8E010 /* CHTrigger.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E66A6AC1B34F74700E8E010 /* CHTrigger.m */; };
 		0E66A6AF1B34F98500E8E010 /* CHTriggerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E66A6AE1B34F98500E8E010 /* CHTriggerTest.m */; };
+		0E8BAC201B354CB30065B4F6 /* fluxdelux-iphone-score1-blue.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 0E8BAC1E1B354CB30065B4F6 /* fluxdelux-iphone-score1-blue.m4a */; };
+		0E8BAC211B354CB30065B4F6 /* fluxdelux-iphone-score1-red.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 0E8BAC1F1B354CB30065B4F6 /* fluxdelux-iphone-score1-red.m4a */; };
 		0ECFA0BA1B292A0A0052DDC7 /* CHSoundCueTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ECFA0B91B292A0A0052DDC7 /* CHSoundCueTest.m */; };
 		0ECFA0C61B293F840052DDC7 /* outline in Resources */ = {isa = PBXBuildFile; fileRef = 0ECFA0C51B293F840052DDC7 /* outline */; };
 		0ECFA0CC1B2940400052DDC7 /* CHSoundCue.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ECFA0CB1B2940400052DDC7 /* CHSoundCue.m */; };
@@ -64,6 +66,8 @@
 		0E66A6AB1B34F74700E8E010 /* CHTrigger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CHTrigger.h; path = CohortModel/CHTrigger.h; sourceTree = "<group>"; };
 		0E66A6AC1B34F74700E8E010 /* CHTrigger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CHTrigger.m; path = CohortModel/CHTrigger.m; sourceTree = "<group>"; };
 		0E66A6AE1B34F98500E8E010 /* CHTriggerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHTriggerTest.m; sourceTree = "<group>"; };
+		0E8BAC1E1B354CB30065B4F6 /* fluxdelux-iphone-score1-blue.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = "fluxdelux-iphone-score1-blue.m4a"; sourceTree = "<group>"; };
+		0E8BAC1F1B354CB30065B4F6 /* fluxdelux-iphone-score1-red.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = "fluxdelux-iphone-score1-red.m4a"; sourceTree = "<group>"; };
 		0ECFA0B31B28C73C0052DDC7 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		0ECFA0B51B28C7430052DDC7 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		0ECFA0B71B28C74A0052DDC7 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
@@ -141,6 +145,8 @@
 			isa = PBXGroup;
 			children = (
 				0ECFA0CD1B2B2AB90052DDC7 /* clicktrack.m4a */,
+				0E8BAC1E1B354CB30065B4F6 /* fluxdelux-iphone-score1-blue.m4a */,
+				0E8BAC1F1B354CB30065B4F6 /* fluxdelux-iphone-score1-red.m4a */,
 			);
 			name = media;
 			sourceTree = "<group>";
@@ -351,7 +357,9 @@
 			files = (
 				0ED7E6F41B262CE800ABE472 /* Main.storyboard in Resources */,
 				0ED7E6F91B262CE800ABE472 /* LaunchScreen.xib in Resources */,
+				0E8BAC211B354CB30065B4F6 /* fluxdelux-iphone-score1-red.m4a in Resources */,
 				0ED7E72C1B28C20D00ABE472 /* Cohort.README in Resources */,
+				0E8BAC201B354CB30065B4F6 /* fluxdelux-iphone-score1-blue.m4a in Resources */,
 				0ECFA0C61B293F840052DDC7 /* outline in Resources */,
 				0ED7E6F61B262CE800ABE472 /* Images.xcassets in Resources */,
 				0ECFA0CE1B2B2AB90052DDC7 /* clicktrack.m4a in Resources */,
@@ -584,6 +592,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = Cohort/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -595,6 +604,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = Cohort/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};

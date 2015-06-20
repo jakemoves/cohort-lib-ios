@@ -10,13 +10,14 @@
 
 @implementation CHEpisode
 
-- (id)initWithId:(NSString *)episodeId withSession:(CHSession *)session andCues:(NSSet *)cues error:(NSError **)error {
+- (id)initWithId:(NSString *)episodeId withSession:(CHSession *)session andCues:(NSSet *)cues withParticipant:(CHParticipant *)participant error:(NSError **)error {
     if (self = [super init]) {
         // custom initialization
         
         NSMutableArray *tempCues = nil;
         
         _isLoaded = false;
+        _currentlyPlayingCues = [[NSMutableSet alloc] init];
         
         if(episodeId){
             if([episodeId isEqualToString:@""]){
@@ -63,12 +64,19 @@
             *error = [[NSError alloc] initWithDomain:@"rocks.cohort.Episode.ErrorDomain" code:1 userInfo:tempDic];
         }
         
+        if(participant){
+            _participant = participant;
+        } else {
+            NSDictionary *tempDic = @{NSLocalizedDescriptionKey: @"Could not create episode because the participant is nil"};
+            *error = [[NSError alloc] initWithDomain:@"rocks.cohort.Episode.ErrorDomain" code:7 userInfo:tempDic];
+        }
+        
         if(tempCues) {
             _cues = [NSSet setWithArray:tempCues];
             tempCues = nil;
         }
         
-        if(!_episodeId || !_session || !_cues){
+        if(!_episodeId || !_session || !_cues || !_participant){
             self = nil;
         }
     }
@@ -78,7 +86,9 @@
 
 -(void) load:(void (^)())callback {
     for(id<NSObject, CHCueing> cue in _cues){
-        [cue load:nil];
+        if([cue.targetTags intersectsSet:_participant.tags]){
+            [cue load:nil];
+        }
         
         // if cue trigger type is not timed we can arm it here?
     }
@@ -95,7 +105,7 @@
     // get cues with timed triggers at 0 secs playing ASAP
     NSSet *timedCues = [self cuesOfTriggerType:CHTriggeredAtTime];
     NSSet *immediateCues = [timedCues objectsPassingTest:^BOOL(id<CHCueing> obj, BOOL *stop) {
-        if((double)[obj.trigger.value doubleValue] == 0.0){
+        if(((double)[obj.trigger.value doubleValue] == 0.0) && ([obj.targetTags intersectsSet:_participant.tags])){
             return YES;
         } else {
             return NO;
@@ -103,9 +113,11 @@
     }];
     
     for(id<CHCueing> cue in immediateCues){
+        [_currentlyPlayingCues addObject:cue];
         [cue fire:nil withCompletionHandler:^void{
             NSLog(@"sound cue finished playing");
             [[NSNotificationCenter defaultCenter] postNotificationName:@"sound cue finished playing" object:nil];
+            [_currentlyPlayingCues removeObject:cue];
         }];
     }
     
