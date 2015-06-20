@@ -7,5 +7,13 @@
 //
 
 typedef NS_ENUM(NSInteger, CHMediaType) {
+    CHMediaTypeUnknown,
     CHMediaTypeSound
+};
+
+typedef NS_ENUM(NSInteger, CHTriggerType) {
+    CHTriggerTypeUnknown,
+    CHTriggeredAtTime,
+    CHTriggeredOverNetwork,
+    CHTriggeredByUserInteraction
 };

@@ -30,7 +30,7 @@
     NSError *error = nil;
     CHSession *session = [[CHSession alloc] init];
     CHSoundAsset *asset = [[CHSoundAsset alloc] initWithAssetId:@"clicktrack" andFilename:@"clicktrack.m4a" error:&error];
-    CHSoundCue *cue = [[CHSoundCue alloc] initWithSession:session andAsset:asset];
+    CHSoundCue *cue = [[CHSoundCue alloc] initWithSession:session andAsset:asset withTags:nil withTrigger:nil];
     XCTAssertTrue([cue conformsToProtocol:@protocol(CHCueing)]);
     XCTAssertNotNil(cue.audio);
     XCTAssertEqual(cue.audio.volume, 1.0);
@@ -40,7 +40,7 @@
     NSError *error = nil;
     CHSession *session = [[CHSession alloc] init];
     CHSoundAsset *asset = [[CHSoundAsset alloc] initWithAssetId:@"clicktrack" andFilename:@"clicktrack.m4a" error:&error];
-    CHSoundCue *cue = [[CHSoundCue alloc] initWithSession:session andAsset:asset];
+    CHSoundCue *cue = [[CHSoundCue alloc] initWithSession:session andAsset:asset withTags:nil withTrigger:nil];
     [cue load:nil];
     XCTAssertTrue(cue.isLoaded);
 }
@@ -49,7 +49,7 @@
     NSError *error = nil;
     CHSession *session = [[CHSession alloc] init];
     CHSoundAsset *asset = [[CHSoundAsset alloc] initWithAssetId:@"clicktrack" andFilename:@"clicktrack.m4a" error:&error];
-    CHSoundCue *cue = [[CHSoundCue alloc] initWithSession:session andAsset:asset];
+    CHSoundCue *cue = [[CHSoundCue alloc] initWithSession:session andAsset:asset withTags:nil withTrigger:nil];
     [cue load:nil];
     [cue fire:nil withCompletionHandler:nil];
     XCTAssertEqual(cue.audio.channelIsPlaying, true);
@@ -64,7 +64,7 @@
     CHSession *session = [[CHSession alloc] init];
 
     CHSoundAsset *asset = [[CHSoundAsset alloc] initWithAssetId:@"clicktrack" andFilename:@"clicktrack.m4a" error:&error];
-    CHSoundCue *cue = [[CHSoundCue alloc] initWithSession:session andAsset:asset];
+    CHSoundCue *cue = [[CHSoundCue alloc] initWithSession:session andAsset:asset withTags:nil withTrigger:nil];
     
     [cue load: nil];
     [cue fire:nil withCompletionHandler:^void{

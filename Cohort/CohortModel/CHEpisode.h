@@ -15,10 +15,14 @@
 @property (strong, nonatomic) NSString *episodeId;
 @property (readonly, strong, nonatomic) CHSession *session;
 @property (strong, nonatomic) NSSet *cues;
-@property (nonatomic) BOOL isLoaded;
+@property (readonly, nonatomic) BOOL isLoaded;
+@property (readonly, nonatomic) BOOL hasStarted;
+@property (readonly) uint64_t startTime;
+
 
 - (id)initWithId:(NSString *)episodeId withSession:(CHSession *)session andCues:(NSSet *)cues error:(NSError **)error;
-- (NSSet *)cuesOfType: (CHMediaType)mediaType;
+- (NSSet *)cuesOfMediaType: (CHMediaType)mediaType;
 - (void) load:(void (^)())callback;
+- (void) start;
 
 @end

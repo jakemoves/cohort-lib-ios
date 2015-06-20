@@ -20,6 +20,9 @@
         _audioController.useMeasurementMode = YES;
         [_audioController start:NULL];
         
+        _cueScheduler = [[AEBlockScheduler alloc] initWithAudioController:_audioController];
+        [_audioController addTimingReceiver:_cueScheduler];
+        
         _sseClient = [[EventSource alloc] init];
     }
     

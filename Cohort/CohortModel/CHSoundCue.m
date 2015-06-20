@@ -10,22 +10,27 @@
 
 @implementation CHSoundCue
 
-@synthesize targetGroup = _targetGroup;
+@synthesize targetTags = _targetTags;
 @synthesize mediaType = _mediaType;
-@synthesize duration = _duration;
+@synthesize trigger = _trigger;
 @synthesize isLoaded = _isLoaded;
+@synthesize duration = _duration;
 
-- (id)initWithSession: (CHSession *)session andAsset:(CHSoundAsset *)asset {
+- (id)initWithSession: (CHSession *)session andAsset:(CHSoundAsset *)asset withTags:(NSSet *)tags withTrigger:(CHTrigger *)trigger {
     if (self = [super init]) {
         // custom initialization
         
         _session = session;
         _asset = asset;
+        _trigger = trigger;
         _mediaType = CHMediaTypeSound;
         _isLoaded = false;
         
-        _targetGroup = [[NSString alloc] init];
-        _duration = -1;
+        if(tags){
+            _targetTags = [NSSet setWithSet:tags];
+        } else {
+            _targetTags = [[NSSet alloc] init];
+        }
         
         _audio = [[AEAudioUnitFilePlayer alloc] initAudioUnitFilePlayerWithAudioController:_session.audioController error:nil];
         

@@ -18,7 +18,6 @@
         
         _isLoaded = false;
         
-        // not tested yet!
         if(episodeId){
             if([episodeId isEqualToString:@""]){
                 NSDictionary *tempDic = @{NSLocalizedDescriptionKey: @"Could not create episode because the episodeId is an empty string"};
@@ -31,7 +30,6 @@
             *error = [[NSError alloc] initWithDomain:@"rocks.cohort.Episode.ErrorDomain" code:4 userInfo:tempDic];
         }
         
-        // not tested yet!
         if(session){
             _session = session;
         } else {
@@ -81,6 +79,8 @@
 -(void) load:(void (^)())callback {
     for(id<NSObject, CHCueing> cue in _cues){
         [cue load:nil];
+        
+        // if cue trigger type is not timed we can arm it here?
     }
     _isLoaded = true;
     
@@ -89,10 +89,49 @@
     }
 }
 
-- (NSSet *)cuesOfType: (CHMediaType)mediaType {
+-(void) start {
+    _startTime = [AEBlockScheduler now];
+    
+    // get cues with timed triggers at 0 secs playing ASAP
+    NSSet *timedCues = [self cuesOfTriggerType:CHTriggeredAtTime];
+    NSSet *immediateCues = [timedCues objectsPassingTest:^BOOL(id<CHCueing> obj, BOOL *stop) {
+        if((double)[obj.trigger.value doubleValue] == 0.0){
+            return YES;
+        } else {
+            return NO;
+        }
+    }];
+    
+    for(id<CHCueing> cue in immediateCues){
+        [cue fire:nil withCompletionHandler:^void{
+            NSLog(@"sound cue finished playing");
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"sound cue finished playing" object:nil];
+        }];
+    }
+    
+    // schedule other cues with timed triggers
+    
+    // arm cues with other triggers
+    
+    _hasStarted = true;
+}
+
+- (NSSet *)cuesOfMediaType: (CHMediaType)mediaType {
     NSSet *cueSubset = [_cues objectsPassingTest:^BOOL(id<CHCueing> obj, BOOL *stop) {
         CHMediaType cueType = (CHMediaType)obj.mediaType;
         if(cueType == mediaType){
+            return YES;
+        } else {
+            return NO;
+        }
+    }];
+    return cueSubset;
+}
+
+- (NSSet *)cuesOfTriggerType: (CHTriggerType)triggerType {
+    NSSet *cueSubset = [_cues objectsPassingTest:^BOOL(id<CHCueing> obj, BOOL *stop) {
+        CHTriggerType cueType = (CHTriggerType)obj.trigger.type;
+        if(cueType == triggerType){
             return YES;
         } else {
             return NO;

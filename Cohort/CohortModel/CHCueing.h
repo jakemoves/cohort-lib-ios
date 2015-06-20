@@ -8,11 +8,13 @@
 
 #import <Foundation/Foundation.h>
 #import "Cohort.h"
+#import "CHTrigger.h"
 
 @protocol CHCueing <NSObject>
 
-@property (strong, nonatomic) NSString *targetGroup;
+@property (strong, nonatomic) NSSet *targetTags;
 @property (readonly, nonatomic) CHMediaType mediaType;
+@property (readonly, nonatomic) CHTrigger *trigger;
 @property (readonly, nonatomic) double duration;
 @property (nonatomic) BOOL isLoaded;
 

@@ -39,9 +39,13 @@ SSE connection
 Episodes
     DONE
 Events
-patron UI
+    DONE
 
+add end() to episode
+add reset() to episode
 abstract error domain defs to header(s)
 refactor asset tests to include errors
+refactor sound cue to add error handling
+refactor soundcue tests to include errors
 
 JSON parsing

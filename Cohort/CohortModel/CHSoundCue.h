@@ -19,6 +19,6 @@
 @property (strong, nonatomic) CHSoundAsset *asset;
 @property (strong, nonatomic) AEAudioUnitFilePlayer *audio;
 
-- (id)initWithSession: (CHSession *)session andAsset:(CHSoundAsset *)asset;
+- (id)initWithSession: (CHSession *)session andAsset:(CHSoundAsset *)asset withTags:(NSSet *)tags withTrigger:(CHTrigger *)trigger;
 
 @end
