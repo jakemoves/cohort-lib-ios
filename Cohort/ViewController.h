@@ -17,9 +17,12 @@
 
 @property (readonly, strong, nonatomic) CHSession *session;
 @property (readonly, strong, nonatomic) CHParticipant *participant;
+@property (strong, nonatomic) CHEpisode *iPhoneScore1;
 
 - (IBAction)btnPlayBlueIPhoneScore1:(id)sender;
 - (IBAction)btnPlayRedIPhoneScore1:(id)sender;
+- (IBAction)btnPlayBlueIPhoneScore1WithSolo:(id)sender;
+- (IBAction)btnPlayRedIPhoneScore1WithSolo:(id)sender;
 
 @end
 

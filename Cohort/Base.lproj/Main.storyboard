@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
     </dependencies>
     <scenes>
@@ -25,8 +26,18 @@
                                     <action selector="btnPlayBlueIPhoneScore1:" destination="BYZ-38-t0r" eventType="touchUpInside" id="zaa-NE-h3E"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LJB-Kg-rXs">
+                                <rect key="frame" x="174" y="118" width="253" height="30"/>
+                                <state key="normal" title="Play iPhone Score #1 (with mini solo)">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="btnPlayBlueIPhoneScore1:" destination="BYZ-38-t0r" eventType="touchUpInside" id="06L-3M-tEo"/>
+                                    <action selector="btnPlayBlueIPhoneScore1WithSolo:" destination="BYZ-38-t0r" eventType="touchUpInside" id="OVc-FK-sH5"/>
+                                </connections>
+                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0hk-ze-t04">
-                                <rect key="frame" x="227" y="122" width="147" height="30"/>
+                                <rect key="frame" x="227" y="182" width="147" height="30"/>
                                 <state key="normal" title="Play iPhone Score #1">
                                     <color key="titleColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -35,13 +46,28 @@
                                     <action selector="btnPlayRedIPhoneScore1:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Ctq-br-RLD"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8k8-Qf-qX2">
+                                <rect key="frame" x="174" y="249" width="253" height="30"/>
+                                <state key="normal" title="Play iPhone Score #1 (with mini solo)">
+                                    <color key="titleColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="btnPlayRedIPhoneScore1:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ZWc-2Q-GxS"/>
+                                    <action selector="btnPlayRedIPhoneScore1WithSolo:" destination="BYZ-38-t0r" eventType="touchUpInside" id="vMV-To-2gs"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="8k8-Qf-qX2" firstAttribute="centerX" secondItem="jBm-Il-fl6" secondAttribute="centerX" id="2hk-n9-GNt"/>
                             <constraint firstAttribute="centerX" secondItem="jBm-Il-fl6" secondAttribute="centerX" constant="-0.5" id="2ux-KU-Tqj"/>
-                            <constraint firstItem="jBm-Il-fl6" firstAttribute="bottom" secondItem="0hk-ze-t04" secondAttribute="bottom" constant="-69" id="Zmc-As-DSr"/>
+                            <constraint firstItem="LJB-Kg-rXs" firstAttribute="centerX" secondItem="jBm-Il-fl6" secondAttribute="centerX" id="8Ao-hj-lb0"/>
+                            <constraint firstItem="LJB-Kg-rXs" firstAttribute="top" secondItem="jBm-Il-fl6" secondAttribute="bottom" constant="35" id="I7l-m0-vvO"/>
+                            <constraint firstItem="jBm-Il-fl6" firstAttribute="bottom" secondItem="0hk-ze-t04" secondAttribute="bottom" constant="-129" id="Zmc-As-DSr"/>
                             <constraint firstItem="jBm-Il-fl6" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="33" id="bYs-FF-4IH"/>
-                            <constraint firstItem="0hk-ze-t04" firstAttribute="top" secondItem="jBm-Il-fl6" secondAttribute="bottom" constant="39" id="gAx-7f-I05"/>
+                            <constraint firstItem="0hk-ze-t04" firstAttribute="top" secondItem="jBm-Il-fl6" secondAttribute="bottom" constant="99" id="gAx-7f-I05"/>
+                            <constraint firstItem="8k8-Qf-qX2" firstAttribute="top" secondItem="jBm-Il-fl6" secondAttribute="bottom" constant="166" id="iki-dD-GM6"/>
                             <constraint firstItem="jBm-Il-fl6" firstAttribute="centerX" secondItem="0hk-ze-t04" secondAttribute="centerX" id="ufo-Y2-J6R"/>
                         </constraints>
                     </view>

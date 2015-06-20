@@ -22,6 +22,20 @@
     AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
     _session = [appDelegate cohortSession];
     
+    
+    CHTrigger *trigger = [[CHTrigger alloc] initWithValue:0.0 andType:CHTriggeredAtTime error:nil];
+        
+    CHSoundAsset *iPhoneScore1BlueAsset = [[CHSoundAsset alloc] initWithAssetId:@"iphone1-blue" andFilename:@"iphonescore1-blue.m4a" error:nil];
+    CHSoundAsset *iPhoneScore1RedAsset = [[CHSoundAsset alloc] initWithAssetId:@"iphone1-red" andFilename:@"iphonescore1-red.m4a" error:nil];
+    CHSoundAsset *iPhoneScore1BlueSoloAsset = [[CHSoundAsset alloc] initWithAssetId:@"iphone1-bluesolo" andFilename:@"iphonescore1-blue-solo.m4a" error:nil];
+    CHSoundAsset *iPhoneScore1RedSoloAsset = [[CHSoundAsset alloc] initWithAssetId:@"iphone1-redsolo" andFilename:@"iphonescore1-red-solo.m4a" error:nil];
+
+    CHSoundCue *blueCue = [[CHSoundCue alloc] initWithSession:_session andAsset:iPhoneScore1BlueAsset withTags:[NSSet setWithObjects:@"blue", nil] withTrigger:trigger];
+    CHSoundCue *redCue = [[CHSoundCue alloc] initWithSession:_session andAsset:iPhoneScore1RedAsset withTags:[NSSet setWithObjects:@"red", nil] withTrigger:trigger];
+    CHSoundCue *blueSoloCue = [[CHSoundCue alloc] initWithSession:_session andAsset:iPhoneScore1BlueSoloAsset withTags:[NSSet setWithObjects:@"bluesolo", nil] withTrigger:trigger];
+    CHSoundCue *redSoloCue = [[CHSoundCue alloc] initWithSession:_session andAsset:iPhoneScore1RedSoloAsset withTags:[NSSet setWithObjects:@"redsolo", nil] withTrigger:trigger];
+    
+    _iPhoneScore1 = [[CHEpisode alloc] initWithId:@"iphone-score1" withSession:_session andCues:[NSSet setWithObjects:blueCue, redCue, blueSoloCue, redSoloCue, nil] error:nil];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -33,103 +47,83 @@
     NSLog(@"btn hit");
     NSError *error = nil;
     
-    _participant = [[CHParticipant alloc] initWithTags:[NSSet setWithObjects:@"all", @"blue", nil] error:&error];
-    
-    CHSoundAsset *asset;
-    if(!error){
-         asset = [[CHSoundAsset alloc] initWithAssetId:@"iphone1-blue" andFilename:@"fluxdelux-iphone-score1-blue.m4a" error:&error];
-    } else {
-        NSLog(@"%@", error);
-    }
-    
-    CHTrigger *trigger;
-    if(!error){
-        trigger = [[CHTrigger alloc] initWithValue:0.0 andType:CHTriggeredAtTime error:&error];
-    } else {
-        NSLog(@"%@", error);
-    }
-    
-    CHSoundCue *cue1 = [[CHSoundCue alloc] init];
-    CHSoundCue *cue2 = [[CHSoundCue alloc] init];
-    if(!error){
-        cue1 = [[CHSoundCue alloc] initWithSession:_session andAsset:asset withTags:[NSSet setWithObjects:@"blue", nil] withTrigger:trigger];
-        cue2 = [[CHSoundCue alloc] initWithSession:_session andAsset:asset withTags:[NSSet setWithObjects:@"red", nil] withTrigger:trigger];
-    } else {
-        NSLog(@"%@", error);
-    }
-    
-    CHEpisode *episode;
-    if(!error){
-        episode = [[CHEpisode alloc] initWithId:@"iphone-score1" withSession:_session andCues:[NSSet setWithObjects:cue1, cue2, nil] withParticipant:_participant error:&error];
-    } else {
-        NSLog(@"%@", error);
-    }
-    
-//    if(!error){
-//        CHEvent *event = [[CHEvent alloc] initWithAssets:[[NSDictionary alloc] initWithObjectsAndKeys:asset, asset.assetId, nil]
-//                                             andEpisodes:[[NSDictionary alloc] initWithObjectsAndKeys:episode, episode.episodeId, nil]
-//                                                   error:&error];
-//    } else {
-//        NSLog(@"%@", error);
-//    }
-    
-    if(!error){
-        [episode load:^(void){ NSLog(@"loaded episode"); }];
-        [episode start];
-    } else {
-        NSLog(@"%@", error);
+    if(!_iPhoneScore1.hasStarted){
+        _participant = [[CHParticipant alloc] initWithTags:[NSSet setWithObjects:@"all", @"blue", nil] error:&error];
+        
+        if(!error){
+            [_iPhoneScore1 loadForParticipant:_participant withCallback:^(void){ NSLog(@"loaded episode"); } error:&error];
+        } else {
+            NSLog(@"%@", error);
+        }
+        
+        if(!error){
+            [_iPhoneScore1 start];
+        } else {
+            NSLog(@"%@", error);
+        }
     }
 }
 
 - (IBAction)btnPlayRedIPhoneScore1:(id)sender {NSLog(@"btn hit");
+    NSLog(@"btn hit");
     NSError *error = nil;
     
-    _participant = [[CHParticipant alloc] initWithTags:[NSSet setWithObjects:@"all", @"red", nil] error:&error];
-    
-    CHSoundAsset *asset;
-    if(!error){
-        asset = [[CHSoundAsset alloc] initWithAssetId:@"iphone1-blue" andFilename:@"fluxdelux-iphone-score1-blue.m4a" error:&error];
-    } else {
-        NSLog(@"%@", error);
+    if(!_iPhoneScore1.hasStarted){
+        _participant = [[CHParticipant alloc] initWithTags:[NSSet setWithObjects:@"all", @"red", nil] error:&error];
+        
+        if(!error){
+            [_iPhoneScore1 loadForParticipant:_participant withCallback:^(void){ NSLog(@"loaded episode"); } error:&error];
+        } else {
+            NSLog(@"%@", error);
+        }
+        
+        if(!error){
+            [_iPhoneScore1 start];
+        } else {
+            NSLog(@"%@", error);
+        }
     }
-    
-    CHTrigger *trigger;
-    if(!error){
-        trigger = [[CHTrigger alloc] initWithValue:0.0 andType:CHTriggeredAtTime error:&error];
-    } else {
-        NSLog(@"%@", error);
-    }
-    
-    CHSoundCue *cue1 = [[CHSoundCue alloc] init];
-    CHSoundCue *cue2 = [[CHSoundCue alloc] init];
-    if(!error){
-        cue1 = [[CHSoundCue alloc] initWithSession:_session andAsset:asset withTags:[NSSet setWithObjects:@"blue", nil] withTrigger:trigger];
-        cue2 = [[CHSoundCue alloc] initWithSession:_session andAsset:asset withTags:[NSSet setWithObjects:@"red", nil] withTrigger:trigger];
-    } else {
-        NSLog(@"%@", error);
-    }
-    
-    CHEpisode *episode;
-    if(!error){
-        episode = [[CHEpisode alloc] initWithId:@"iphone-score1" withSession:_session andCues:[NSSet setWithObjects:cue1, cue2, nil] withParticipant:_participant error:&error];
-    } else {
-        NSLog(@"%@", error);
-    }
-    
-    //    if(!error){
-    //        CHEvent *event = [[CHEvent alloc] initWithAssets:[[NSDictionary alloc] initWithObjectsAndKeys:asset, asset.assetId, nil]
-    //                                             andEpisodes:[[NSDictionary alloc] initWithObjectsAndKeys:episode, episode.episodeId, nil]
-    //                                                   error:&error];
-    //    } else {
-    //        NSLog(@"%@", error);
-    //    }
-    
-    if(!error){
-        [episode load:^(void){ NSLog(@"loaded episode"); }];
-        [episode start];
-    } else {
-        NSLog(@"%@", error);
-    }
+}
 
+- (IBAction)btnPlayBlueIPhoneScore1WithSolo:(id)sender {
+    NSLog(@"btn hit");
+    NSError *error = nil;
+    
+    if(!_iPhoneScore1.hasStarted){
+        _participant = [[CHParticipant alloc] initWithTags:[NSSet setWithObjects:@"all", @"bluesolo", nil] error:&error];
+        
+        if(!error){
+            [_iPhoneScore1 loadForParticipant:_participant withCallback:^(void){ NSLog(@"loaded episode"); } error:&error];
+        } else {
+            NSLog(@"%@", error);
+        }
+        
+        if(!error){
+            [_iPhoneScore1 start];
+        } else {
+            NSLog(@"%@", error);
+        }
+    }
+}
+
+- (IBAction)btnPlayRedIPhoneScore1WithSolo:(id)sender {
+    NSLog(@"btn hit");
+    NSError *error = nil;
+    
+    if(!_iPhoneScore1.hasStarted){
+        _participant = [[CHParticipant alloc] initWithTags:[NSSet setWithObjects:@"all", @"redsolo", nil] error:&error];
+        
+        if(!error){
+            [_iPhoneScore1 loadForParticipant:_participant withCallback:^(void){ NSLog(@"loaded episode"); } error:&error];
+        } else {
+            NSLog(@"%@", error);
+        }
+        
+        if(!error){
+            [_iPhoneScore1 start];
+        } else {
+            NSLog(@"%@", error);
+        }
+    }
 }
 @end

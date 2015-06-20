@@ -23,9 +23,9 @@
 @property (strong, nonatomic) CHParticipant *participant;
 
 
-- (id)initWithId:(NSString *)episodeId withSession:(CHSession *)session andCues:(NSSet *)cues withParticipant:(CHParticipant *)participant error:(NSError **)error;
+- (id)initWithId:(NSString *)episodeId withSession:(CHSession *)session andCues:(NSSet *)cues error:(NSError **)error;
 - (NSSet *)cuesOfMediaType: (CHMediaType)mediaType;
-- (void) load:(void (^)())callback;
+- (void) loadForParticipant:(CHParticipant *)participant withCallback:(void (^)())callback error:(NSError **)error;
 - (void) start;
 
 @end

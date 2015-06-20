@@ -28,9 +28,8 @@
 
 - (void)testThatItDoesNotInitWithNilCueset {
     NSError *error = nil;
-    CHParticipant *participant = [[CHParticipant alloc] initWithTags:nil error:nil];
     CHSession *session = [[CHSession alloc] init];
-    CHEpisode *episode = [[CHEpisode alloc] initWithId:@"testEpisode" withSession:(CHSession *)session andCues:nil withParticipant:participant error:&error];
+    CHEpisode *episode = [[CHEpisode alloc] initWithId:@"testEpisode" withSession:(CHSession *)session andCues:nil error:&error];
     if(error){
         NSLog(@"%@", error);
     }
@@ -42,8 +41,7 @@
     NSError *error = nil;
     CHSession *session = [[CHSession alloc] init];
     NSSet *tempCueset = [[NSSet alloc] init];
-    CHParticipant *participant = [[CHParticipant alloc] initWithTags:nil error:nil];
-    CHEpisode *episode = [[CHEpisode alloc] initWithId:@"testEpisode" withSession:(CHSession *)session andCues:tempCueset withParticipant:participant error:&error];
+    CHEpisode *episode = [[CHEpisode alloc] initWithId:@"testEpisode" withSession:(CHSession *)session andCues:tempCueset error:&error];
     if(error){
         NSLog(@"%@", error);
     }
@@ -52,14 +50,13 @@
 }
 
 - (void)testThatItDoesNotInitWithNilEpisodeId {
-    CHParticipant *participant = [[CHParticipant alloc] initWithTags:nil error:nil];
     CHSession *session = [[CHSession alloc] init];
     CHSoundAsset *asset = [[CHSoundAsset alloc] initWithAssetId:@"clicktrack" andFilename:@"clicktrack.m4a" error:nil];
     CHSoundCue *cue = [[CHSoundCue alloc] initWithSession:session andAsset:asset withTags:nil withTrigger:nil];
     
     NSSet *tempCueset = [NSSet setWithObjects:cue, nil];
     NSError *error = nil;
-    CHEpisode *episode = [[CHEpisode alloc] initWithId:nil withSession:(CHSession *)session andCues:tempCueset withParticipant:participant error:&error];
+    CHEpisode *episode = [[CHEpisode alloc] initWithId:nil withSession:(CHSession *)session andCues:tempCueset error:&error];
     if(error){
         NSLog(@"Error: %@", error);
     }
@@ -68,14 +65,13 @@
 }
 
 - (void)testThatItDoesNotInitWithEmptyEpisodeId {
-    CHParticipant *participant = [[CHParticipant alloc] initWithTags:nil error:nil];
     CHSession *session = [[CHSession alloc] init];
     CHSoundAsset *asset = [[CHSoundAsset alloc] initWithAssetId:@"clicktrack" andFilename:@"clicktrack.m4a" error:nil];
     CHSoundCue *cue = [[CHSoundCue alloc] initWithSession:session andAsset:asset withTags:nil withTrigger:nil];
     
     NSSet *tempCueset = [NSSet setWithObjects:cue, nil];
     NSError *error = nil;
-    CHEpisode *episode = [[CHEpisode alloc] initWithId:@"" withSession:(CHSession *)session andCues:tempCueset withParticipant:participant error:&error];
+    CHEpisode *episode = [[CHEpisode alloc] initWithId:@"" withSession:(CHSession *)session andCues:tempCueset error:&error];
     if(error){
         NSLog(@"Error: %@", error);
     }
@@ -84,14 +80,13 @@
 }
 
 - (void)testThatItDoesNotInitWithNilSession {
-    CHParticipant *participant = [[CHParticipant alloc] initWithTags:nil error:nil];
     CHSession *session = nil;
     CHSoundAsset *asset = [[CHSoundAsset alloc] initWithAssetId:@"clicktrack" andFilename:@"clicktrack.m4a" error:nil];
     CHSoundCue *cue = [[CHSoundCue alloc] initWithSession:session andAsset:asset withTags:nil withTrigger:nil];
     
     NSSet *tempCueset = [NSSet setWithObjects:cue, nil];
     NSError *error = nil;
-    CHEpisode *episode = [[CHEpisode alloc] initWithId:@"testEpisode" withSession:(CHSession *)session andCues:tempCueset withParticipant:participant error:&error];
+    CHEpisode *episode = [[CHEpisode alloc] initWithId:@"testEpisode" withSession:(CHSession *)session andCues:tempCueset error:&error];
     if(error){
         NSLog(@"Error: %@", error);
     }
@@ -100,7 +95,6 @@
 }
 
 -(void)testThatItInitsAndLoadsWithOneValidCue {
-    CHParticipant *participant = [[CHParticipant alloc] initWithTags:nil error:nil];
     NSSet *tags = [NSSet setWithObject:@"all"];
     CHSession *session = [[CHSession alloc] init];
     CHSoundAsset *asset = [[CHSoundAsset alloc] initWithAssetId:@"clicktrack" andFilename:@"clicktrack.m4a" error:nil];
@@ -108,7 +102,7 @@
     
     NSSet *tempCueset = [NSSet setWithObjects:cue, nil];
     NSError *error = nil;
-    CHEpisode *episode = [[CHEpisode alloc] initWithId:@"testEpisode" withSession:(CHSession *)session andCues:tempCueset withParticipant:participant error:&error];
+    CHEpisode *episode = [[CHEpisode alloc] initWithId:@"testEpisode" withSession:(CHSession *)session andCues:tempCueset error:&error];
     if(error){
         NSLog(@"Error: %@", error);
     }
@@ -117,7 +111,8 @@
     XCTAssertNotNil(episode.cues);
     XCTAssertTrue(episode.cues.count == 1);
     
-    [episode load:nil];
+    CHParticipant *participant = [[CHParticipant alloc] initWithTags:nil error:nil];
+    [episode loadForParticipant:participant withCallback:nil error:nil];
     
     for(id<NSObject, CHCueing> cue in episode.cues){
         if([cue conformsToProtocol:@protocol(CHCueing)]){
@@ -128,7 +123,6 @@
 }
 
 -(void)testThatItInitsAndLoadsWithSeveralValidCues {
-    CHParticipant *participant = [[CHParticipant alloc] initWithTags:nil error:nil];
     NSSet *tags = [NSSet setWithObject:@"all"];
     CHSession *session = [[CHSession alloc] init];
     CHSoundAsset *asset = [[CHSoundAsset alloc] initWithAssetId:@"clicktrack" andFilename:@"clicktrack.m4a" error:nil];
@@ -138,7 +132,7 @@
     
     NSSet *tempCueset = [NSSet setWithObjects:cue1, cue2, cue3, nil];
     NSError *error = nil;
-    CHEpisode *episode = [[CHEpisode alloc] initWithId:@"testEpisode" withSession:(CHSession *)session andCues:tempCueset withParticipant:participant error:&error];
+    CHEpisode *episode = [[CHEpisode alloc] initWithId:@"testEpisode" withSession:(CHSession *)session andCues:tempCueset error:&error];
     if(error){
         NSLog(@"Error: %@", error);
     }
@@ -147,7 +141,8 @@
     XCTAssertNotNil(episode.cues);
     XCTAssertTrue(episode.cues.count == 3);
     
-    [episode load:nil];
+    CHParticipant *participant = [[CHParticipant alloc] initWithTags:nil error:nil];
+    [episode loadForParticipant:participant withCallback:nil error:nil];
     
     for(id<NSObject, CHCueing> cue in episode.cues){
         if([cue conformsToProtocol:@protocol(CHCueing)]){
@@ -158,7 +153,6 @@
 }
 
 -(void)testThatItReturnsErrorOnInitWithCueArrayContainingNonCueObjects {
-    CHParticipant *participant = [[CHParticipant alloc] initWithTags:nil error:nil];
     NSSet *tags = [NSSet setWithObject:@"all"];
     
     CHSession *session = [[CHSession alloc] init];
@@ -169,7 +163,7 @@
     
     NSSet *tempCueset = [NSSet setWithObjects:cue1, cue2, cue3, nil];
     NSError *error = nil;
-    CHEpisode *episode = [[CHEpisode alloc] initWithId:@"testEpisode" withSession:(CHSession *)session andCues:tempCueset withParticipant:participant error:&error];
+    CHEpisode *episode = [[CHEpisode alloc] initWithId:@"testEpisode" withSession:(CHSession *)session andCues:tempCueset error:&error];
     if(error){
         NSLog(@"Error: %@", error);
     }
@@ -179,7 +173,6 @@
 }
 
 -(void)testThatItReturnsCuesOfMediaType {
-    CHParticipant *participant = [[CHParticipant alloc] initWithTags:nil error:nil];
     NSSet *tags = [NSSet setWithObject:@"all"];
     
     CHSession *session = [[CHSession alloc] init];
@@ -190,7 +183,7 @@
     
     NSSet *tempCueset = [NSSet setWithObjects:cue1, cue2, cue3, nil];
     NSError *error = nil;
-    CHEpisode *episode = [[CHEpisode alloc] initWithId:@"testEpisode" withSession:(CHSession *)session andCues:tempCueset withParticipant:participant error:&error];
+    CHEpisode *episode = [[CHEpisode alloc] initWithId:@"testEpisode" withSession:(CHSession *)session andCues:tempCueset error:&error];
     if(error){
         NSLog(@"Error: %@", error);
     }
@@ -203,7 +196,6 @@
     __weak XCTestExpectation *expectation = [self expectationForNotification:@"sound cue finished playing" object:nil handler:nil];
     //http://stackoverflow.com/questions/27555499/xctestexpectation-how-to-avoid-calling-the-fulfill-method-after-the-wait-contex
 
-    CHParticipant *participant = [[CHParticipant alloc] initWithTags:nil error:nil];
     NSSet *tags = [NSSet setWithObject:@"all"];
     
     CHSession *session = [[CHSession alloc] init];
@@ -212,7 +204,7 @@
     
     NSSet *tempCueset = [NSSet setWithObjects:cue, nil];
     NSError *error = nil;
-    CHEpisode *episode = [[CHEpisode alloc] initWithId:@"testEpisode" withSession:(CHSession *)session andCues:tempCueset withParticipant:participant error:&error];
+    CHEpisode *episode = [[CHEpisode alloc] initWithId:@"testEpisode" withSession:(CHSession *)session andCues:tempCueset error:&error];
     if(error){
         NSLog(@"Error: %@", error);
     }
@@ -221,7 +213,8 @@
     XCTAssertNotNil(episode.cues);
     XCTAssertTrue(episode.cues.count == 1);
     
-    [episode load:nil];
+    CHParticipant *participant = [[CHParticipant alloc] initWithTags:nil error:nil];
+    [episode loadForParticipant:participant withCallback:nil error:nil];
     [episode start];
     XCTAssertTrue(episode.hasStarted);
     XCTAssertTrue(episode.currentlyPlayingCues.count == 1);
@@ -236,7 +229,6 @@
 }
 
 -(void)testThatItDoesNotPlayTimedCueOfTimeZeroWithNoMatchingTag {
-    CHParticipant *participant = [[CHParticipant alloc] initWithTags:nil error:nil];
     NSSet *tags = [NSSet setWithObject:@"blue"];
     
     CHSession *session = [[CHSession alloc] init];
@@ -245,7 +237,7 @@
     
     NSSet *tempCueset = [NSSet setWithObjects:cue, nil];
     NSError *error = nil;
-    CHEpisode *episode = [[CHEpisode alloc] initWithId:@"testEpisode" withSession:(CHSession *)session andCues:tempCueset withParticipant:participant error:&error];
+    CHEpisode *episode = [[CHEpisode alloc] initWithId:@"testEpisode" withSession:(CHSession *)session andCues:tempCueset error:&error];
     if(error){
         NSLog(@"Error: %@", error);
     }
@@ -254,7 +246,8 @@
     XCTAssertNotNil(episode.cues);
     XCTAssertTrue(episode.cues.count == 1);
     
-    [episode load:nil];
+    CHParticipant *participant = [[CHParticipant alloc] initWithTags:nil error:nil];
+    [episode loadForParticipant:participant withCallback:nil error:nil];
     [episode start];
     XCTAssertTrue(episode.hasStarted);
     XCTAssertTrue(episode.currentlyPlayingCues.count == 0);

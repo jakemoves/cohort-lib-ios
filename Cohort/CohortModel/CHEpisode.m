@@ -10,7 +10,7 @@
 
 @implementation CHEpisode
 
-- (id)initWithId:(NSString *)episodeId withSession:(CHSession *)session andCues:(NSSet *)cues withParticipant:(CHParticipant *)participant error:(NSError **)error {
+- (id)initWithId:(NSString *)episodeId withSession:(CHSession *)session andCues:(NSSet *)cues error:(NSError **)error {
     if (self = [super init]) {
         // custom initialization
         
@@ -64,19 +64,12 @@
             *error = [[NSError alloc] initWithDomain:@"rocks.cohort.Episode.ErrorDomain" code:1 userInfo:tempDic];
         }
         
-        if(participant){
-            _participant = participant;
-        } else {
-            NSDictionary *tempDic = @{NSLocalizedDescriptionKey: @"Could not create episode because the participant is nil"};
-            *error = [[NSError alloc] initWithDomain:@"rocks.cohort.Episode.ErrorDomain" code:7 userInfo:tempDic];
-        }
-        
         if(tempCues) {
             _cues = [NSSet setWithArray:tempCues];
             tempCues = nil;
         }
         
-        if(!_episodeId || !_session || !_cues || !_participant){
+        if(!_episodeId || !_session || !_cues){
             self = nil;
         }
     }
@@ -84,7 +77,17 @@
     return self;
 }
 
--(void) load:(void (^)())callback {
+// bad pattern here...invisible fail
+-(void) loadForParticipant:(CHParticipant *)participant withCallback:(void (^)())callback error:(NSError **)error {
+    
+    if(participant){
+        _participant = participant;
+    } else {
+        NSDictionary *tempDic = @{NSLocalizedDescriptionKey: @"Could not load episode because the participant is nil"};
+        *error = [[NSError alloc] initWithDomain:@"rocks.cohort.Episode.ErrorDomain" code:7 userInfo:tempDic];
+        return;
+    }
+    
     for(id<NSObject, CHCueing> cue in _cues){
         if([cue.targetTags intersectsSet:_participant.tags]){
             [cue load:nil];

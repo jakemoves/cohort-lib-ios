@@ -2,51 +2,9 @@ A CUE unites a MEDIA ASSET, a MEDIA HANDLER (i.e. player), a TRIGGER, and TARGET
 
 A SESSION handles ongoing functionality that needs to be run through the app delegate: audio, networking.
 
-An EPISODE defines and loads one or more CUES, and primes TRIGGERS for them. It is STARTED via a network cue received and passed by a SESSION.
+An EPISODE defines and loads one or more CUES, and primes TRIGGERS for them. It is STARTed via a network cue received and passed by a SESSION.
 
 An EVENT creates MEDIA ASSETS and EPISODES based on a JSON SHOWBOOK, and a PARTICIPANT based on user input. It does not have access to the app delegate.
 
-A PARTICIPANT has TAGS (i.e. "red group", "wheelchair") used to determine which CUES play for them.
+A PARTICIPANT has TAGS (i.e. "red group", "wheelchair") used to determine which CUES play for them. A CUE will play for a PARTICIPANT if any of its TARGET TAGS match any of the PARTICIPANT's TAGS.
 
-
-
-CUE
-
-MEDIA ASSET
-
-MEDIA HANDLER
-
-TRIGGER
-- timed
-    - from start of show
-    - from other cue completion
-- called
-    - via network
-~ proximity
-
-TARGET GROUP
-
-
-TESTING
-- need to figure out how to test server interactions
-
-
-WORKPLAN
-audio playback
-    DONE
-SSE connection
-    DONE
-Episodes
-    DONE
-Events
-    DONE
-
-fix circular shit between episode and event -- which should be init'd first (I think event)?!
-add end() to episode
-add reset() to episode
-abstract error domain defs to header(s)
-refactor asset tests to include errors
-refactor sound cue to add error handling
-refactor soundcue tests to include errors
-
-JSON parsing
