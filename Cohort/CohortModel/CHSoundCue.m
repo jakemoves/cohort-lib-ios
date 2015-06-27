@@ -51,8 +51,8 @@
 }
 
 - (void)fire:(void (^)())callback withCompletionHandler:(void (^)())completionHandler {
-    _audio.completionBlock = completionHandler;
-    [self play:callback];
+    _audio.completionBlock = [completionHandler copy];
+    [self play:[callback copy]];
 }
 
 - (void)play:(void (^)())callback {

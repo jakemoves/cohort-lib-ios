@@ -9,6 +9,7 @@
 typedef NS_ENUM(NSInteger, CHMediaType) {
     CHMediaTypeUnknown,
     CHMediaTypeSound
+    //Add episode type
 };
 
 typedef NS_ENUM(NSInteger, CHTriggerType) {

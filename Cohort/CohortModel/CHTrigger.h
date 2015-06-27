@@ -15,5 +15,10 @@
 @property (nonatomic) NSNumber *value;
 
 -(id)initWithValue:(double)value andType:(CHTriggerType)type error:(NSError **)error;
+// add parent of protocol cueable
+
+// add arm() method which activates notification with @fire()
+// add disarm() method which deactivates notification
+// add fire() method which triggers [cueableParent fire]
 
 @end

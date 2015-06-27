@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
+#import "AFNetworking.h"
 #import "CHSession.h"
 
 @interface CHSessionTest : XCTestCase
@@ -65,6 +66,39 @@
                     }
                 }
             }];
+    
+    [self waitForExpectationsWithTimeout:10.0 handler:^(NSError *error) {
+        if (error) {
+            NSLog(@"Timeout Error: %@", error);
+        }
+    }];
+}
+
+- (void)testThatItReceivesSSE {
+    CHSession *session = [[CHSession alloc] init];
+    __weak XCTestExpectation *expectation = [self expectationForNotification:@"sound-1-go" object:nil handler:nil];
+    //http://stackoverflow.com/questions/27555499/xctestexpectation-how-to-avoid-calling-the-fulfill-method-after-the-wait-contex
+
+    [session listenForCuesWithURL:[[NSURL alloc] initWithString:@"http://jqrs.org/test/listen"]
+            withCompletionHandler:^(BOOL success, NSError *error) {
+                if(success){
+                    NSURL *baseURL = [NSURL URLWithString:@"http://cohort-server.herokuapp.com/"];
+                    NSDictionary *body = @{@"action": @"sound-1-go"};
+                    
+                    AFHTTPRequestOperationManager *afManager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:baseURL];
+                    
+                    afManager.requestSerializer = [AFJSONRequestSerializer serializer];
+                    [afManager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+                    
+                    [afManager POST:@"broadcast" parameters:body
+                            success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                                NSLog(@"POST request to cohort server succeeded");
+                                XCTAssertTrue(true);
+                            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                XCTFail(@"POST request to cohort server failed");
+                    }];
+                }
+    }];
     
     [self waitForExpectationsWithTimeout:10.0 handler:^(NSError *error) {
         if (error) {

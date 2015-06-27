@@ -8,3 +8,9 @@ An EVENT creates MEDIA ASSETS and EPISODES based on a JSON SHOWBOOK, and a PARTI
 
 A PARTICIPANT has TAGS (i.e. "red group", "wheelchair") used to determine which CUES play for them. A CUE will play for a PARTICIPANT if any of its TARGET TAGS match any of the PARTICIPANT's TAGS.
 
+change CHCueing to CHCueable
+fix CHSoundCue
+add protocol to CHEpisode & fix
+
+refactor CHTrigger to add arm() method
+

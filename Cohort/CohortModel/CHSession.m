@@ -24,6 +24,8 @@
         [_audioController addTimingReceiver:_cueScheduler];
         
         _sseClient = [[EventSource alloc] init];
+        
+        // create event parser
     }
     
     return self;
@@ -43,13 +45,28 @@
         handler(false, event.error);
     }];
     
-    [_sseClient addEventListener:@"message" handler:^(Event *event) {
+    [_sseClient addEventListener:@"cohortMessage" handler:^(Event *event) {
         NSLog(@"SSE: %@, %@", event.event, event.data);
+        NSError *error = nil;
+        
+        NSDictionary *sseEventData = [NSJSONSerialization JSONObjectWithData:[event.data dataUsingEncoding:NSUTF8StringEncoding] options:kNilOptions error:&error];
+        
+        if(!error){
+            if([sseEventData objectForKey:@"action"]){
+                NSDictionary *userInfo = [[NSDictionary alloc] initWithObjectsAndKeys:[[NSNumber alloc] initWithLongLong:[AEBlockScheduler now]], @"receivedAt", nil];
+                [[NSNotificationCenter defaultCenter] postNotificationName:[sseEventData objectForKey:@"action"] object:nil userInfo:userInfo];
+            }
+        } else {
+            // TODO add error handling
+        }
     }];
 }
 
 - (void)dealloc{
     [_sseClient close];
+    _cueScheduler = nil;
+    [_audioController removeChannels:[_audioController channels]];
+    _audioController = nil;
 }
 
 @end
