@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "TheAmazingAudioEngine.h"
-#import "AEAudioUnitFilePlayer.h"
+#import "libs/AEAudioUnitFilePlayer.h"
 #import "CHCueable.h"
 #import "CHSession.h"
 #import "CHSoundAsset.h"

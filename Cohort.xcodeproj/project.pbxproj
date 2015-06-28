@@ -78,7 +78,6 @@
 		0E5890E31B3FB22F000D205B /* libCohort.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libCohort.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		0E5890ED1B3FB22F000D205B /* CohortTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CohortTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0E5890F31B3FB22F000D205B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		0E5890FA1B3FB279000D205B /* .DS_Store */ = {isa = PBXFileReference; lastKnownFileType = file; path = .DS_Store; sourceTree = "<group>"; };
 		0E5890FB1B3FB279000D205B /* CHCueable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHCueable.h; sourceTree = "<group>"; };
 		0E5890FC1B3FB279000D205B /* CHEpisode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHEpisode.h; sourceTree = "<group>"; };
 		0E5890FD1B3FB279000D205B /* CHEpisode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHEpisode.m; sourceTree = "<group>"; };
@@ -144,7 +143,6 @@
 		0E5890E41B3FB22F000D205B /* Cohort */ = {
 			isa = PBXGroup;
 			children = (
-				0E5890FA1B3FB279000D205B /* .DS_Store */,
 				0E5891291B3FB2ED000D205B /* Cohort.h */,
 				0E58910B1B3FB279000D205B /* CHTypes.h */,
 				0E5890FB1B3FB279000D205B /* CHCueable.h */,
@@ -647,6 +645,7 @@
 				0E83AFF71B3FC5C800E4ABB0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		0ED7E6E01B262CE800ABE472 /* Build configuration list for PBXProject "Cohort" */ = {
 			isa = XCConfigurationList;
