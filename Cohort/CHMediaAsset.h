@@ -15,6 +15,6 @@
 @property (readonly, nonatomic) CHMediaType mediaType;
 @property (readonly, nonatomic) NSString *assetId;
 
-- (id)initWithAssetId:(NSString *)assetId andFilename:(NSString *)filename error:(NSError **)error;
+- (id)initWithAssetId:(NSString *)assetId inBundle:(NSBundle *)bundle andFilename:(NSString *)filename error:(NSError **)error;
 
 @end
