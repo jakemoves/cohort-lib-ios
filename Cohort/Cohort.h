@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Jacob Niedzwiecki. All rights reserved.
 //
 
-#import "AEAudioUnitFilePlayer.h"
+#import "libs/AEAudioUnitFilePlayer.h"
 #import "CHTypes.h"
 #import "CHSession.h"
 #import "CHEvent.h"
