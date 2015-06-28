@@ -34,9 +34,7 @@
 		0ED7E7271B288F2B00ABE472 /* CHSessionTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ED7E7261B288F2B00ABE472 /* CHSessionTest.m */; };
 		0ED7E72C1B28C20D00ABE472 /* Cohort.README in Resources */ = {isa = PBXBuildFile; fileRef = 0ED7E72B1B28C20D00ABE472 /* Cohort.README */; };
 		0ED7E72D1B28C20D00ABE472 /* Cohort.README in Resources */ = {isa = PBXBuildFile; fileRef = 0ED7E72B1B28C20D00ABE472 /* Cohort.README */; };
-		0EEF08DD1B35BA5F000092BD /* iphonescore1-blue-solo.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 0EEF08D91B35BA5F000092BD /* iphonescore1-blue-solo.m4a */; };
 		0EEF08DE1B35BA5F000092BD /* iphonescore1-blue.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 0EEF08DA1B35BA5F000092BD /* iphonescore1-blue.m4a */; };
-		0EEF08DF1B35BA5F000092BD /* iphonescore1-red-solo.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 0EEF08DB1B35BA5F000092BD /* iphonescore1-red-solo.m4a */; };
 		0EEF08E01B35BA5F000092BD /* iphonescore1-red.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 0EEF08DC1B35BA5F000092BD /* iphonescore1-red.m4a */; };
 		11D40BEB568CEAC9A59C0293 /* libPods-Cohort.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F2C240D8EC6EF4280C42AEB9 /* libPods-Cohort.a */; };
 		54F389605F0BA944B6E766E7 /* libPods-CohortTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E8DA03C177D595CF0EA3742 /* libPods-CohortTests.a */; };
@@ -97,9 +95,7 @@
 		0ED7E7231B288F0C00ABE472 /* CHSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CHSession.m; path = CohortModel/CHSession.m; sourceTree = "<group>"; };
 		0ED7E7261B288F2B00ABE472 /* CHSessionTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHSessionTest.m; sourceTree = "<group>"; };
 		0ED7E72B1B28C20D00ABE472 /* Cohort.README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Cohort.README; path = CohortModel/Cohort.README; sourceTree = "<group>"; };
-		0EEF08D91B35BA5F000092BD /* iphonescore1-blue-solo.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; name = "iphonescore1-blue-solo.m4a"; path = "media/iphonescore1-blue-solo.m4a"; sourceTree = "<group>"; };
 		0EEF08DA1B35BA5F000092BD /* iphonescore1-blue.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; name = "iphonescore1-blue.m4a"; path = "media/iphonescore1-blue.m4a"; sourceTree = "<group>"; };
-		0EEF08DB1B35BA5F000092BD /* iphonescore1-red-solo.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; name = "iphonescore1-red-solo.m4a"; path = "media/iphonescore1-red-solo.m4a"; sourceTree = "<group>"; };
 		0EEF08DC1B35BA5F000092BD /* iphonescore1-red.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; name = "iphonescore1-red.m4a"; path = "media/iphonescore1-red.m4a"; sourceTree = "<group>"; };
 		16F64D44EF69B478C6C547B8 /* Pods-Cohort.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cohort.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Cohort/Pods-Cohort.debug.xcconfig"; sourceTree = "<group>"; };
 		9AAE0C2A6907A694B0BBC71E /* Pods-CohortTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CohortTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-CohortTests/Pods-CohortTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -254,9 +250,7 @@
 		0EEF08D81B35BA1B000092BD /* media */ = {
 			isa = PBXGroup;
 			children = (
-				0EEF08D91B35BA5F000092BD /* iphonescore1-blue-solo.m4a */,
 				0EEF08DA1B35BA5F000092BD /* iphonescore1-blue.m4a */,
-				0EEF08DB1B35BA5F000092BD /* iphonescore1-red-solo.m4a */,
 				0EEF08DC1B35BA5F000092BD /* iphonescore1-red.m4a */,
 			);
 			name = media;
@@ -375,14 +369,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0EEF08DD1B35BA5F000092BD /* iphonescore1-blue-solo.m4a in Resources */,
 				0ED7E6F41B262CE800ABE472 /* Main.storyboard in Resources */,
 				0EEF08DE1B35BA5F000092BD /* iphonescore1-blue.m4a in Resources */,
 				0ED7E6F91B262CE800ABE472 /* LaunchScreen.xib in Resources */,
 				0ED7E72C1B28C20D00ABE472 /* Cohort.README in Resources */,
 				0ECFA0C61B293F840052DDC7 /* outline in Resources */,
 				0EEF08E01B35BA5F000092BD /* iphonescore1-red.m4a in Resources */,
-				0EEF08DF1B35BA5F000092BD /* iphonescore1-red-solo.m4a in Resources */,
 				0ED7E6F61B262CE800ABE472 /* Images.xcassets in Resources */,
 				0ECFA0CE1B2B2AB90052DDC7 /* clicktrack.m4a in Resources */,
 			);
