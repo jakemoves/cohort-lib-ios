@@ -18,24 +18,33 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
-//    
-//    AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
-//    _session = [appDelegate cohortSession];
-//    
-//    
-//    CHTrigger *trigger = [[CHTrigger alloc] initWithValue:0.0 andType:CHTriggeredAtTime error:nil];
-//        
-//    CHSoundAsset *iPhoneScore1BlueAsset = [[CHSoundAsset alloc] initWithAssetId:@"iphone1-blue" andFilename:@"iphonescore1-blue.m4a" error:nil];
-//    CHSoundAsset *iPhoneScore1RedAsset = [[CHSoundAsset alloc] initWithAssetId:@"iphone1-red" andFilename:@"iphonescore1-red.m4a" error:nil];
-//    CHSoundAsset *iPhoneScore1BlueSoloAsset = [[CHSoundAsset alloc] initWithAssetId:@"iphone1-bluesolo" andFilename:@"iphonescore1-blue-solo.m4a" error:nil];
-//    CHSoundAsset *iPhoneScore1RedSoloAsset = [[CHSoundAsset alloc] initWithAssetId:@"iphone1-redsolo" andFilename:@"iphonescore1-red-solo.m4a" error:nil];
-//
-//    CHSoundCue *blueCue = [[CHSoundCue alloc] initWithSession:_session andAsset:iPhoneScore1BlueAsset withTags:[NSSet setWithObjects:@"blue", nil] withTrigger:trigger];
-//    CHSoundCue *redCue = [[CHSoundCue alloc] initWithSession:_session andAsset:iPhoneScore1RedAsset withTags:[NSSet setWithObjects:@"red", nil] withTrigger:trigger];
-//    CHSoundCue *blueSoloCue = [[CHSoundCue alloc] initWithSession:_session andAsset:iPhoneScore1BlueSoloAsset withTags:[NSSet setWithObjects:@"bluesolo", nil] withTrigger:trigger];
-//    CHSoundCue *redSoloCue = [[CHSoundCue alloc] initWithSession:_session andAsset:iPhoneScore1RedSoloAsset withTags:[NSSet setWithObjects:@"redsolo", nil] withTrigger:trigger];
-//    
-//    _iPhoneScore1 = [[CHEpisode alloc] initWithId:@"iphone-score1" withSession:_session andCues:[NSSet setWithObjects:blueCue, redCue, blueSoloCue, redSoloCue, nil] error:nil];
+    
+    __block NSError *sseError = nil;
+    AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    _session = [appDelegate cohortSession];
+    [_session listenForCuesWithURL:[NSURL URLWithString:@"http://jqrs.org/test/listen"] withCompletionHandler:^(BOOL success, NSError *error) {
+        if(!success){
+            sseError = error;
+#ifdef DEBUG
+            NSLog(@"%@", error);
+#endif  
+        }
+    }];
+    
+    NSError *error = nil;
+    
+    CHTrigger *trigger = [[CHTrigger alloc] initWithValue:0.0 ofType:CHTriggeredAtTime forMediaType:CHMediaTypeStringSound error:&error];
+    
+    CHTrigger *episodeTrigger = [[CHTrigger alloc] initWithValue:1 ofType:CHTriggeredByServerSentEvent forMediaType:CHMediaTypeStringEpisode error:&error];
+        
+    CHSoundAsset *iPhoneScore1BlueAsset = [[CHSoundAsset alloc] initWithAssetId:@"iphone1-blue" andFilename:@"iphonescore1-blue.m4a" error:nil];
+    CHSoundAsset *iPhoneScore1RedAsset = [[CHSoundAsset alloc] initWithAssetId:@"iphone1-red" andFilename:@"iphonescore1-red.m4a" error:nil];
+
+    CHSoundCue *blueCue = [[CHSoundCue alloc] initWithSession:_session andAsset:iPhoneScore1BlueAsset withTriggers:[NSArray arrayWithObject:trigger] withTags:[NSSet setWithObject:@"blue"] withCompletionBlock:nil];
+    CHSoundCue *redCue = [[CHSoundCue alloc] initWithSession:_session andAsset:iPhoneScore1RedAsset withTriggers:[NSArray arrayWithObject:trigger] withTags:[NSSet setWithObject:@"red"] withCompletionBlock:nil];
+    
+    _iPhoneScore1 = [[CHEpisode alloc] initWithId:@"iPhone Score 1" withSession:_session andCues:[NSSet setWithObjects:blueCue, redCue, nil] withTriggers:[NSArray arrayWithObject:episodeTrigger] withCompletionBlock:nil error:&error];
+     
 }
 
 - (void)didReceiveMemoryWarning {
@@ -43,7 +52,7 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (IBAction)btnPlayBlueIPhoneScore1:(id)sender {
+- (IBAction)btnLoadScoreForBlue:(id)sender {
     NSLog(@"btn hit");
     NSError *error = nil;
     
@@ -51,20 +60,14 @@
         _participant = [[CHParticipant alloc] initWithTags:[NSSet setWithObjects:@"all", @"blue", nil] error:&error];
         
         if(!error){
-            [_iPhoneScore1 loadForParticipant:_participant withCallback:^(void){ NSLog(@"loaded episode"); } error:&error];
-        } else {
-            NSLog(@"%@", error);
-        }
-        
-        if(!error){
-            [_iPhoneScore1 play];
+            [_iPhoneScore1 loadForParticipant:_participant error:&error];
         } else {
             NSLog(@"%@", error);
         }
     }
 }
 
-- (IBAction)btnPlayRedIPhoneScore1:(id)sender {NSLog(@"btn hit");
+- (IBAction)btnLoadScoreForRed:(id)sender {
     NSLog(@"btn hit");
     NSError *error = nil;
     
@@ -72,55 +75,7 @@
         _participant = [[CHParticipant alloc] initWithTags:[NSSet setWithObjects:@"all", @"red", nil] error:&error];
         
         if(!error){
-            [_iPhoneScore1 loadForParticipant:_participant withCallback:^(void){ NSLog(@"loaded episode"); } error:&error];
-        } else {
-            NSLog(@"%@", error);
-        }
-        
-        if(!error){
-            [_iPhoneScore1 play];
-        } else {
-            NSLog(@"%@", error);
-        }
-    }
-}
-
-- (IBAction)btnPlayBlueIPhoneScore1WithSolo:(id)sender {
-    NSLog(@"btn hit");
-    NSError *error = nil;
-    
-    if(!_iPhoneScore1.isRunning){
-        _participant = [[CHParticipant alloc] initWithTags:[NSSet setWithObjects:@"all", @"bluesolo", nil] error:&error];
-        
-        if(!error){
-            [_iPhoneScore1 loadForParticipant:_participant withCallback:^(void){ NSLog(@"loaded episode"); } error:&error];
-        } else {
-            NSLog(@"%@", error);
-        }
-        
-        if(!error){
-            [_iPhoneScore1 play];
-        } else {
-            NSLog(@"%@", error);
-        }
-    }
-}
-
-- (IBAction)btnPlayRedIPhoneScore1WithSolo:(id)sender {
-    NSLog(@"btn hit");
-    NSError *error = nil;
-    
-    if(!_iPhoneScore1.isRunning){
-        _participant = [[CHParticipant alloc] initWithTags:[NSSet setWithObjects:@"all", @"redsolo", nil] error:&error];
-        
-        if(!error){
-            [_iPhoneScore1 loadForParticipant:_participant withCallback:^(void){ NSLog(@"loaded episode"); } error:&error];
-        } else {
-            NSLog(@"%@", error);
-        }
-        
-        if(!error){
-            [_iPhoneScore1 play];
+            [_iPhoneScore1 loadForParticipant:_participant error:&error];
         } else {
             NSLog(@"%@", error);
         }

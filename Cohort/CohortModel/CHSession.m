@@ -24,8 +24,6 @@
         [_audioController addTimingReceiver:_scheduler];
         
         _sseClient = [[EventSource alloc] init];
-        
-        // create event parser
     }
     
     return self;

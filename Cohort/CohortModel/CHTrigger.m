@@ -65,7 +65,7 @@
                 break;
             default:
             {
-                //case CHTriggeredByServerSentEvent and CHTriggeredByUserInteraction:
+                //case CHTriggeredByServerSentEvent, CHTriggeredByUserInteraction
                 NSNumberFormatter *nf = [[NSNumberFormatter alloc] init];
                 nf.numberStyle = NSNumberFormatterDecimalStyle;
                 NSString *value = [nf stringFromNumber:_value];

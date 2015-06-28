@@ -98,7 +98,7 @@
     return self;
 }
 
--(void) loadForParticipant:(CHParticipant *)participant withCallback:(void (^)())callback error:(NSError **)error {
+-(void) loadForParticipant:(CHParticipant *)participant error:(NSError **)error {
     
     if(participant){
         _participant = participant;
@@ -108,8 +108,15 @@
         return;
     }
     
-    if(!error){
-        [self load:error];
+    if(_participant){
+#ifdef DEBUG
+        NSLog(@"loading episode");
+#endif
+        NSError *loadError = nil;
+        [self load:&loadError];
+        if(loadError){
+            *error = loadError;
+        }
     }
 }
 
@@ -119,7 +126,9 @@
     
     if(_triggers && _triggers.count > 0){
         for(CHTrigger *trigger in _triggers){
-            // arm the trigger
+#ifdef DEBUG
+            NSLog(@"arming trigger for episode");
+#endif
             __weak id weakSelf = self;
             [trigger arm:^{
                 [weakSelf fire];
@@ -130,20 +139,25 @@
         *error = [[NSError alloc] initWithDomain:@"rocks.cohort.Episode.ErrorDomain" code:8 userInfo:tempDic];
     }
     
+    NSError *cueError = nil;
     if(_participant){
         for(id<NSObject, CHCueable> cue in _cues){
             if([cue.targetTags intersectsSet:_participant.tags]){
-                [cue load];
+                [cue load:&cueError];
             }
         }
+#ifdef DEBUG
+        NSLog(@"loaded cues for episode");
+#endif
     } else {
         NSDictionary *tempDic = @{NSLocalizedDescriptionKey: @"Could not load episode with nil participant"};
         *error = [[NSError alloc] initWithDomain:@"rocks.cohort.Episode.ErrorDomain" code:9 userInfo:tempDic];
     }
     
-    if(!error){
-        _isLoaded = true;
-    }
+    _isLoaded = true;
+#ifdef DEBUG
+    NSLog(@"finished loading episode");
+#endif
 }
 
 -(void) fire {
@@ -182,8 +196,11 @@
     for(id<CHCueable> cue in [self cuesWithTriggersOfType:CHTriggeredAtTime]){
         double timestamp;
         for(CHTrigger *trigger in cue.triggers){
-            timestamp = [AEBlockScheduler timestampWithSeconds:[trigger.value longLongValue] fromTimestamp:_startTime];
-            if(trigger.value != 0){
+            if(((double)[trigger.value doubleValue] != 0.0) && ([cue.targetTags intersectsSet:_participant.tags])){
+                timestamp = [AEBlockScheduler timestampWithSeconds:[trigger.value longLongValue] fromTimestamp:_startTime];
+#ifdef DEBUG
+                NSLog(@"scheduling cue %@ for playback at %@", cue, trigger.value);
+#endif
                 [self scheduleForExecutionAtTime:timestamp withMainThreadBlock:^{
                     [trigger pull];
                 }];

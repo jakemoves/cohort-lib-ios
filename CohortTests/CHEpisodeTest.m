@@ -139,7 +139,7 @@
     XCTAssertTrue(episode.cues.count == 1);
     
     CHParticipant *participant = [[CHParticipant alloc] initWithTags:nil error:nil];
-    [episode loadForParticipant:participant withCallback:nil error:nil];
+    [episode loadForParticipant:participant error:nil];
     
     for(id<NSObject, CHCueable> cue in episode.cues){
         if([cue conformsToProtocol:@protocol(CHCueable)]){
@@ -175,7 +175,7 @@
      XCTAssertTrue(episode.cues.count == 3);
      
      CHParticipant *participant = [[CHParticipant alloc] initWithTags:nil error:nil];
-     [episode loadForParticipant:participant withCallback:nil error:nil];
+     [episode loadForParticipant:participant error:nil];
      
      for(id<NSObject, CHCueable> cue in episode.cues){
          if([cue conformsToProtocol:@protocol(CHCueable)]){
@@ -262,7 +262,7 @@
     XCTAssertTrue(episode.cues.count == 1);
     
     CHParticipant *participant = [[CHParticipant alloc] initWithTags:nil error:nil];
-    [episode loadForParticipant:participant withCallback:nil error:nil];
+    [episode loadForParticipant:participant error:nil];
     [episode fire];
     XCTAssertTrue(episode.isRunning);
     NSSet *runningCues = [episode cuesCurrentlyRunning];
@@ -303,7 +303,7 @@
     XCTAssertTrue(episode.cues.count == 1);
     
     CHParticipant *participant = [[CHParticipant alloc] initWithTags:nil error:nil];
-    [episode loadForParticipant:participant withCallback:nil error:nil];
+    [episode loadForParticipant:participant error:nil];
     [episode fire];
     XCTAssertTrue(episode.isRunning);
     NSSet *runningCues = [episode cuesCurrentlyRunning];
@@ -312,8 +312,6 @@
 
 -(void)testThatItStartsWithOneTimedCueOfTimeZeroViaNotification {
     __weak XCTestExpectation *expectation = [self expectationForNotification:@"sound cue finished playing" object:nil handler:nil];
-    //http://stackoverflow.com/questions/27555499/xctestexpectation-how-to-avoid-calling-the-fulfill-method-after-the-wait-contex
-    
     
     NSError *error = nil;
     NSSet *tags = [NSSet setWithObject:@"all"];
@@ -323,10 +321,10 @@
     CHTrigger *trigger = [[CHTrigger alloc] initWithValue:0.0 ofType:CHTriggeredAtTime forMediaType:CHMediaTypeStringSound error:&error];
     CHSoundAsset *asset = [[CHSoundAsset alloc] initWithAssetId:@"clicktrack" andFilename:@"clicktrack.m4a" error:nil];
     CHSoundCue *cue = [[CHSoundCue alloc] initWithSession:session andAsset:asset withTriggers:[NSArray arrayWithObject:trigger] withTags:tags withCompletionBlock:^void{
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"sound cue finished playing" object:nil];
+        [expectation fulfill];
     }];
     
-    NSSet *tempCueset = [NSSet setWithObjects:cue, nil];
+    NSSet *tempCueset = [NSSet setWithObject:cue];
     
     CHTrigger *episodeTrigger = [[CHTrigger alloc] initWithValue:1 ofType:CHTriggeredByServerSentEvent forMediaType:CHMediaTypeStringEpisode error:&error];
     
@@ -334,19 +332,18 @@
     if(error){
         NSLog(@"Error: %@", error);
     }
-    XCTAssertNotNil(episode);
-    XCTAssertEqual(session, episode.session);
-    XCTAssertNotNil(episode.cues);
-    XCTAssertTrue(episode.cues.count == 1);
+    NSLog(@"created episode");
     
-    CHParticipant *participant = [[CHParticipant alloc] initWithTags:nil error:nil];
-    [episode loadForParticipant:participant withCallback:nil error:nil];
-    [episode fire];
-    XCTAssertTrue(episode.isRunning);
-    NSSet *runningCues = [episode cuesCurrentlyRunning];
-    XCTAssertTrue(runningCues.count == 1);
+    CHParticipant *participant = [[CHParticipant alloc] initWithTags:[NSSet setWithObject:@"all"] error:&error];
+    [episode loadForParticipant:participant error:&error];
+    if(error){
+        NSLog(@"Error: %@", error);
+    }
+    NSLog(@"loaded episode");
     
-    NSTimeInterval timeTilEndOfCue = cue.audio.duration + 3.0;
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"episode-1-go" object:nil];
+    
+    NSTimeInterval timeTilEndOfCue = 65;
     
     [self waitForExpectationsWithTimeout:timeTilEndOfCue handler:^(NSError *error) {
         if (error) {

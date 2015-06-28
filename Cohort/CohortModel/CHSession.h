@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "TheAmazingAudioEngine.h"
 #import "EventSource.h"
+#import "CHTypes.h"
 
 @interface CHSession : NSObject
 

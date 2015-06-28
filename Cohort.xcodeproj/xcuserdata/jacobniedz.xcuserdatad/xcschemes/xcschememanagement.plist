@@ -6,6 +6,8 @@
 	<dict>
 		<key>Cohort.xcscheme</key>
 		<dict>
+			<key>isShown</key>
+			<true/>
 			<key>orderHint</key>
 			<integer>0</integer>
 		</dict>
@@ -18,6 +20,16 @@
 			<true/>
 		</dict>
 		<key>0ED7E6FD1B262CE800ABE472</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>0ED96F0B1B3FAA6E0004615F</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>0ED96F151B3FAA6E0004615F</key>
 		<dict>
 			<key>primary</key>
 			<true/>

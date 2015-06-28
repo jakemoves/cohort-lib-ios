@@ -83,7 +83,7 @@
     
 }
 
--(void)testThatOtherTriggersArmAndPullWithNotificationWithIntValue {
+-(void)testThatOtherTriggersArmAndPullWithNotificationWithIntValueForCuesOfSoundMediaType {
     NSError *error = nil;
     __weak XCTestExpectation *expectation = [self expectationWithDescription:@"Trigger has been pulled"];
     CHTrigger *trigger = [[CHTrigger alloc] initWithValue:1 ofType:CHTriggeredByServerSentEvent forMediaType:CHMediaTypeStringSound error:&error];
@@ -100,7 +100,7 @@
     }];
 }
 
--(void)testThatOtherTriggersArmAndPullWithNotificationWithFloatValue {
+-(void)testThatOtherTriggersArmAndPullWithNotificationWithFloatValueForCuesOfSoundMediaType {
     NSError *error = nil;
     __weak XCTestExpectation *expectation = [self expectationWithDescription:@"Trigger has been pulled"];
     CHTrigger *trigger = [[CHTrigger alloc] initWithValue:1.5 ofType:CHTriggeredByServerSentEvent forMediaType:CHMediaTypeStringSound error:&error];
@@ -116,5 +116,41 @@
         }
     }];
 }
+
+-(void)testThatOtherTriggersArmAndPullWithNotificationWithIntValueForCuesOfEpisodeMediaType {
+    NSError *error = nil;
+    __weak XCTestExpectation *expectation = [self expectationWithDescription:@"Trigger has been pulled"];
+    CHTrigger *trigger = [[CHTrigger alloc] initWithValue:1 ofType:CHTriggeredByServerSentEvent forMediaType:CHMediaTypeStringEpisode error:&error];
+    [trigger arm:^{
+        [expectation fulfill];
+    }];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"episode-1-go" object:nil];
+    
+    [self waitForExpectationsWithTimeout:5.0 handler:^(NSError *error) {
+        if (error) {
+            NSLog(@"Timeout Error: %@", error);
+        }
+    }];
+}
+
+-(void)testThatOtherTriggersArmAndPullWithNotificationWithFloatValueForCuesOfEpisodeMediaType {
+    NSError *error = nil;
+    __weak XCTestExpectation *expectation = [self expectationWithDescription:@"Trigger has been pulled"];
+    CHTrigger *trigger = [[CHTrigger alloc] initWithValue:1.5 ofType:CHTriggeredByServerSentEvent forMediaType:CHMediaTypeStringEpisode error:&error];
+    [trigger arm:^{
+        [expectation fulfill];
+    }];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"episode-1.5-go" object:nil];
+    
+    [self waitForExpectationsWithTimeout:5.0 handler:^(NSError *error) {
+        if (error) {
+            NSLog(@"Timeout Error: %@", error);
+        }
+    }];
+}
+
+
 
 @end

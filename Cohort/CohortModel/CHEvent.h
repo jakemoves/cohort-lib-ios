@@ -7,9 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "CHTypes.h"
+#import "CHParticipant.h"
 #import "CHEpisode.h"
 #import "CHMediaAsset.h"
-#import "CHParticipant.h"
 
 @interface CHEvent : NSObject
 

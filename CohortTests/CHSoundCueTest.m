@@ -43,7 +43,7 @@
     CHSoundAsset *asset = [[CHSoundAsset alloc] initWithAssetId:@"clicktrack" andFilename:@"clicktrack.m4a" error:&error];
     CHVoidBlock voidBlock;
     CHSoundCue *cue = [[CHSoundCue alloc] initWithSession:session andAsset:asset withTriggers:nil withTags:nil withCompletionBlock:voidBlock];
-    [cue load];
+    [cue load:&error];
     XCTAssertTrue(cue.isLoaded);
 }
 
@@ -53,7 +53,7 @@
     CHSoundAsset *asset = [[CHSoundAsset alloc] initWithAssetId:@"clicktrack" andFilename:@"clicktrack.m4a" error:&error];
     CHVoidBlock voidBlock;
     CHSoundCue *cue = [[CHSoundCue alloc] initWithSession:session andAsset:asset withTriggers:nil withTags:nil withCompletionBlock:voidBlock];
-    [cue load];
+    [cue load:&error];
     [cue fire];
     XCTAssertEqual(cue.audio.channelIsPlaying, true);
 }
@@ -72,7 +72,7 @@
         [[NSNotificationCenter defaultCenter] postNotificationName:@"sound cue finished playing" object:nil];
     }];
     
-    [cue load];
+    [cue load:&error];
     [cue fire];
     
     NSTimeInterval timeTilEndOfCue = cue.audio.duration + 3.0;

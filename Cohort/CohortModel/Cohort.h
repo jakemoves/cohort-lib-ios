@@ -6,22 +6,14 @@
 //  Copyright (c) 2015 Jacob Niedzwiecki. All rights reserved.
 //
 
-typedef NS_ENUM(NSInteger, CHMediaType) {
-    CHMediaTypeUnknown,
-    CHMediaTypeSound,
-    CHMediaTypeEpisode
-};
+#import "CHTypes.h"
+#import "CHEvent.h"
+#import "CHSession.h"
+#import "CHEpisode.h"
+#import "CHTrigger.h"
+#import "CHSoundCue.h"
+#import "CHSoundAsset.h"
+#import "CHParticipant.h"
 
-typedef NSString * CHMediaTypeString;
-#define CHMediaTypeStringUnknown    @""
-#define CHMediaTypeStringSound      @"sound"
-#define CHMediaTypeStringEpisode    @"episode"
-
-typedef NS_ENUM(NSInteger, CHTriggerType) {
-    CHTriggerTypeUnknown,
-    CHTriggeredAtTime,
-    CHTriggeredByServerSentEvent,
-    CHTriggeredByUserInteraction
-};
-
-typedef void (^CHVoidBlock)();
+#import "CHCueable.h"
+#import "CHMediaAsset.h"

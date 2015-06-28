@@ -7,11 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "CHSoundAsset.h"
-#import "CHSession.h"
-#import "CHCueable.h"
 #import "TheAmazingAudioEngine.h"
 #import "AEAudioUnitFilePlayer.h"
+#import "CHCueable.h"
+#import "CHSession.h"
+#import "CHSoundAsset.h"
 #import "CHTrigger.h"
 
 @interface CHSoundCue : NSObject <CHCueable>

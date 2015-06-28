@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "Cohort.h"
+#import "CHTypes.h"
 
 @protocol CHMediaAsset <NSObject>
 

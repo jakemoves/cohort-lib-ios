@@ -52,7 +52,7 @@
     return self;
 }
 
-- (void)load {
+- (void)load:(NSError **)error {
     [_audio loadAudioFileFromUrl:_asset.sourceFile];
     [_session.audioController addChannels:[NSArray arrayWithObject:_audio]];
     _duration = _audio.duration;

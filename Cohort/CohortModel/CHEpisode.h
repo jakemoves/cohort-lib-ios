@@ -7,10 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "CHSession.h"
 #import "CHCueable.h"
-#import "CHParticipant.h"
+#import "CHSession.h"
 #import "CHTrigger.h"
+#import "CHParticipant.h"
 
 @interface CHEpisode : NSObject <CHCueable>
 
@@ -23,6 +23,6 @@
 - (id)initWithId:(NSString *)episodeId withSession:(CHSession *)session andCues:(NSSet *)cues withTriggers:(NSArray *)triggers withCompletionBlock:(CHVoidBlock)completionBlock error:(NSError **)error;
 - (NSSet *)cuesOfMediaType: (CHMediaType)mediaType;
 - (NSSet *)cuesCurrentlyRunning;
-- (void) loadForParticipant:(CHParticipant *)participant withCallback:(void (^)())callback error:(NSError **)error;
+- (void) loadForParticipant:(CHParticipant *)participant error:(NSError **)error;
 
 @end

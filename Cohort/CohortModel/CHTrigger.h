@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "Cohort.h"
 #import "CHCueable.h"
 
 @interface CHTrigger : NSObject

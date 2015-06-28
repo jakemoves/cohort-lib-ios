@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "Cohort.h"
+#import "CHTypes.h"
 
 @protocol CHCueable <NSObject>
 @property (strong, nonatomic) NSSet *targetTags;
@@ -19,7 +19,7 @@
 @property (nonatomic) BOOL isRunning;
 @property (nonatomic, copy) CHVoidBlock completionBlock;
 
--(void) load;
+-(void) load:(NSError **)error;
 -(void) fire;
 -(void) play;
 -(void) pause;
