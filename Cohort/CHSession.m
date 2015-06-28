@@ -23,7 +23,7 @@
         _scheduler = [[AEBlockScheduler alloc] initWithAudioController:_audioController];
         [_audioController addTimingReceiver:_scheduler];
         
-        _sseClient = [[EventSource alloc] init];
+        _sseClient = nil;
         
         [[AFNetworkReachabilityManager sharedManager] setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
             switch (status) {
