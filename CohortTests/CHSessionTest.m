@@ -34,6 +34,17 @@
     XCTAssertNotNil(session.sseClient, @"Session sseClient is nil");
 }
 
+- (void)testThatItReportsReachability {
+    __weak XCTestExpectation *expectation = [self expectationForNotification:@"internet available" object:nil handler:nil];
+    CHSession *session = [[CHSession alloc] init];
+    
+    [self waitForExpectationsWithTimeout:5.0 handler:^(NSError *error) {
+        if (error) {
+            NSLog(@"Timeout Error: %@", error);
+        }
+    }];
+}
+
 - (void)testThatItConnectsToSSEServer {
     // server must be running to pass
     CHSession *session = [[CHSession alloc] init];

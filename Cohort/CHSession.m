@@ -24,6 +24,30 @@
         [_audioController addTimingReceiver:_scheduler];
         
         _sseClient = [[EventSource alloc] init];
+        
+        [[AFNetworkReachabilityManager sharedManager] setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
+            switch (status) {
+                case AFNetworkReachabilityStatusUnknown:
+                case AFNetworkReachabilityStatusReachableViaWWAN:
+                case AFNetworkReachabilityStatusReachableViaWiFi:
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"internet available" object:nil];
+#ifdef DEBUG
+                    NSLog(@"internet available");
+#endif
+                    //available
+                    break;
+                case AFNetworkReachabilityStatusNotReachable:
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"internet not available" object:nil];
+#ifdef DEBUG
+                    NSLog(@"internet not available");
+#endif
+                    //not available
+                    break;
+                default:
+                    break;
+            }
+        }];
+        [[AFNetworkReachabilityManager sharedManager] startMonitoring];
     }
     
     return self;
@@ -31,6 +55,7 @@
 
 - (void)listenForCuesWithURL:(NSURL *)url
        withCompletionHandler:(void (^)(BOOL success, NSError *error))handler {
+   
     _sseClient = [EventSource eventSourceWithURL:url];
     
     [_sseClient onOpen:^(Event *event) {
