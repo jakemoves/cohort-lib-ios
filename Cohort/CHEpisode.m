@@ -109,9 +109,6 @@
     }
     
     if(_participant){
-#ifdef DEBUG
-        NSLog(@"loading episode");
-#endif
         NSError *loadError = nil;
         [self load:&loadError];
         if(loadError){
@@ -126,9 +123,6 @@
     
     if(_triggers && _triggers.count > 0){
         for(CHTrigger *trigger in _triggers){
-#ifdef DEBUG
-            NSLog(@"arming trigger for episode");
-#endif
             __weak id weakSelf = self;
             [trigger arm:^{
                 [weakSelf fire];
@@ -146,18 +140,12 @@
                 [cue load:&cueError];
             }
         }
-#ifdef DEBUG
-        NSLog(@"loaded cues for episode");
-#endif
     } else {
         NSDictionary *tempDic = @{NSLocalizedDescriptionKey: @"Could not load episode with nil participant"};
         *error = [[NSError alloc] initWithDomain:@"rocks.cohort.Episode.ErrorDomain" code:9 userInfo:tempDic];
     }
     
     _isLoaded = true;
-#ifdef DEBUG
-    NSLog(@"finished loading episode");
-#endif
 }
 
 -(void) fire {
@@ -198,9 +186,6 @@
         for(CHTrigger *trigger in cue.triggers){
             if(((double)[trigger.value doubleValue] != 0.0) && ([cue.targetTags intersectsSet:_participant.tags])){
                 timestamp = [AEBlockScheduler timestampWithSeconds:[trigger.value longLongValue] fromTimestamp:_startTime];
-#ifdef DEBUG
-                NSLog(@"scheduling cue %@ for playback at %@", cue, trigger.value);
-#endif
                 [self scheduleForExecutionAtTime:timestamp withMainThreadBlock:^{
                     [trigger pull];
                 }];

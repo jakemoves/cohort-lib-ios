@@ -29,7 +29,8 @@
 - (void)testThatItInitsWithAValidMediaAsset {
     NSError *error = nil;
     CHSession *session = [[CHSession alloc] init];
-    CHSoundAsset *asset = [[CHSoundAsset alloc] initWithAssetId:@"clicktrack" andFilename:@"clicktrack.m4a" error:&error];
+    NSBundle *bundle = [NSBundle bundleForClass:[self class]];
+    CHSoundAsset *asset = [[CHSoundAsset alloc] initWithAssetId:@"clicktrack" inBundle:bundle andFilename:@"clicktrack.m4a" error:&error];
     CHVoidBlock voidBlock;
     CHSoundCue *cue = [[CHSoundCue alloc] initWithSession:session andAsset:asset withTriggers:nil withTags:nil withCompletionBlock:voidBlock];
     XCTAssertTrue([cue conformsToProtocol:@protocol(CHCueable)]);
@@ -40,7 +41,8 @@
 - (void)testThatItLoadsTheSoundCue {
     NSError *error = nil;
     CHSession *session = [[CHSession alloc] init];
-    CHSoundAsset *asset = [[CHSoundAsset alloc] initWithAssetId:@"clicktrack" andFilename:@"clicktrack.m4a" error:&error];
+    NSBundle *bundle = [NSBundle bundleForClass:[self class]];
+    CHSoundAsset *asset = [[CHSoundAsset alloc] initWithAssetId:@"clicktrack" inBundle:bundle andFilename:@"clicktrack.m4a" error:&error];
     CHVoidBlock voidBlock;
     CHSoundCue *cue = [[CHSoundCue alloc] initWithSession:session andAsset:asset withTriggers:nil withTags:nil withCompletionBlock:voidBlock];
     [cue load:&error];
@@ -50,7 +52,8 @@
 - (void)testThatItPlaysTheSoundCue {
     NSError *error = nil;
     CHSession *session = [[CHSession alloc] init];
-    CHSoundAsset *asset = [[CHSoundAsset alloc] initWithAssetId:@"clicktrack" andFilename:@"clicktrack.m4a" error:&error];
+    NSBundle *bundle = [NSBundle bundleForClass:[self class]];
+    CHSoundAsset *asset = [[CHSoundAsset alloc] initWithAssetId:@"clicktrack" inBundle:bundle andFilename:@"clicktrack.m4a" error:&error];
     CHVoidBlock voidBlock;
     CHSoundCue *cue = [[CHSoundCue alloc] initWithSession:session andAsset:asset withTriggers:nil withTags:nil withCompletionBlock:voidBlock];
     [cue load:&error];
@@ -65,8 +68,9 @@
     //http://stackoverflow.com/questions/27555499/xctestexpectation-how-to-avoid-calling-the-fulfill-method-after-the-wait-contex
     
     CHSession *session = [[CHSession alloc] init];
-
-    CHSoundAsset *asset = [[CHSoundAsset alloc] initWithAssetId:@"clicktrack" andFilename:@"clicktrack.m4a" error:&error];
+    
+    NSBundle *bundle = [NSBundle bundleForClass:[self class]];
+    CHSoundAsset *asset = [[CHSoundAsset alloc] initWithAssetId:@"clicktrack" inBundle:bundle andFilename:@"clicktrack.m4a" error:&error];
     CHSoundCue *cue = [[CHSoundCue alloc] initWithSession:session andAsset:asset withTriggers:nil withTags:nil withCompletionBlock:^void(){
         NSLog(@"sound cue finished playing");
         [[NSNotificationCenter defaultCenter] postNotificationName:@"sound cue finished playing" object:nil];

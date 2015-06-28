@@ -14,7 +14,7 @@
 @synthesize mediaType = _mediaType;
 @synthesize assetId = _assetId;
 
-- (id)initWithAssetId:(NSString *)assetId andFilename:(NSString *)filename error:(NSError **)error {
+- (id)initWithAssetId:(NSString *)assetId inBundle:(NSBundle *)bundle andFilename:(NSString *)filename error:(NSError **)error {
     if (self = [super init]) {
         // custom initialization
         
@@ -33,10 +33,11 @@
             *error = [[NSError alloc] initWithDomain:@"rocks.cohort.Episode.ErrorDomain" code:1 userInfo:tempDic];
         }
         
-        NSString *assetPath = [[NSBundle mainBundle] resourcePath];
+        NSString *assetPath = [bundle resourcePath];
         NSString *filepath = [assetPath stringByAppendingPathComponent:filename];
         if([[NSFileManager defaultManager] fileExistsAtPath: filepath] == NO)
         {
+            NSLog(@"Didn't find file");
             NSDictionary *tempDic = @{NSLocalizedDescriptionKey: [NSString stringWithFormat:@"Could not create asset because file '%@' does not exist at path ' %@", filename, filepath]};
             *error = [[NSError alloc] initWithDomain:@"rocks.cohort.Asset.ErrorDomain" code:3 userInfo:tempDic];
         } else {

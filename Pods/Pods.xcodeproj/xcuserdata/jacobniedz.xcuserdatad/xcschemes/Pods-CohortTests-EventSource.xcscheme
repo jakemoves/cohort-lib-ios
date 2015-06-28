@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "65F6BE070CFE044EB64EC1A2"
+               BlueprintIdentifier = "2175606EB24B78039B61120A"
                BuildableName = "libPods-CohortTests-EventSource.a"
                BlueprintName = "Pods-CohortTests-EventSource"
                ReferencedContainer = "container:Pods.xcodeproj">

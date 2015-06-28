@@ -30,7 +30,8 @@
 
 - (void)testThatItGetsCreated {
     NSError *error = nil;
-    CHSoundAsset *asset = [[CHSoundAsset alloc] initWithAssetId:@"clicktrack" andFilename:@"clicktrack.m4a" error:&error];
+    NSBundle *bundle = [NSBundle bundleForClass:[self class]];
+    CHSoundAsset *asset = [[CHSoundAsset alloc] initWithAssetId:@"clicktrack" inBundle:bundle andFilename:@"clicktrack.m4a" error:&error];
     XCTAssertNotNil(asset);
     XCTAssertTrue(asset.mediaType == CHMediaTypeSound);
     XCTAssertTrue([asset.assetId isEqualToString:@"clicktrack"]);
@@ -39,7 +40,8 @@
 - (void)testThatItFailsGracefully {
     NSError *error = nil;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onFileLoadError:) name:@"error" object:nil];
-    CHSoundAsset *asset = [[CHSoundAsset alloc] initWithAssetId:@"clicktrack" andFilename:@"clicktrak.m4a" error:&error];
+    NSBundle *bundle = [NSBundle bundleForClass:[self class]];
+    CHSoundAsset *asset = [[CHSoundAsset alloc] initWithAssetId:@"clicktrack" inBundle:bundle andFilename:@"clicktrak.m4a" error:&error];
     XCTAssertNil(asset);
 }
 
