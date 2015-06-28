@@ -8,17 +8,21 @@
 
 #import <Foundation/Foundation.h>
 #import "Cohort.h"
+#import "CHCueable.h"
 
 @interface CHTrigger : NSObject
 
 @property (readonly, nonatomic) CHTriggerType type;
+@property (readonly, nonatomic) CHMediaTypeString mediaTypeAsString;
 @property (nonatomic) NSNumber *value;
+@property (nonatomic, copy) CHVoidBlock fireBlock;
+@property (nonatomic) BOOL isArmed;
 
--(id)initWithValue:(double)value andType:(CHTriggerType)type error:(NSError **)error;
-// add parent of protocol cueable
+-(id)initWithValue:(double)value ofType:(CHTriggerType)type forMediaType:(CHMediaTypeString)mediaTypeAsString error:(NSError **)error;
 
-// add arm() method which activates notification with @fire()
-// add disarm() method which deactivates notification
-// add fire() method which triggers [cueableParent fire]
+-(void) arm:(void (^)())fireBlock;
+-(void) disarm;
+-(void) removeObservers;
+-(void) pull;
 
 @end

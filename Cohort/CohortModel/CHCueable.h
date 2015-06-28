@@ -8,22 +8,21 @@
 
 #import <Foundation/Foundation.h>
 #import "Cohort.h"
-#import "CHTrigger.h"
 
-@protocol CHCueing <NSObject>
-// change to CHCueable
-
+@protocol CHCueable <NSObject>
 @property (strong, nonatomic) NSSet *targetTags;
 @property (readonly, nonatomic) CHMediaType mediaType;
-@property (readonly, nonatomic) CHTrigger *trigger;
-// change to NSArray *triggers
+@property (readonly, nonatomic) CHMediaTypeString mediaTypeAsString;
+@property (readonly, nonatomic) NSArray *triggers;
 @property (readonly, nonatomic) double duration;
 @property (nonatomic) BOOL isLoaded;
+@property (nonatomic) BOOL isRunning;
+@property (nonatomic, copy) CHVoidBlock completionBlock;
 
--(void) load:(void (^)())callback;
--(void) fire:(void (^)())callback withCompletionHandler:(void (^)())completionHandler;
--(void) play:(void (^)())callback;
--(void) pause:(void (^)())callback;
+-(void) load;
+-(void) fire;
+-(void) play;
+-(void) pause;
 // add unload?
 
 @end

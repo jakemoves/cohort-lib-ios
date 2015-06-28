@@ -10,14 +10,28 @@
 
 @implementation CHEpisode
 
-- (id)initWithId:(NSString *)episodeId withSession:(CHSession *)session andCues:(NSSet *)cues error:(NSError **)error {
+@synthesize targetTags = _targetTags;
+@synthesize mediaType = _mediaType;
+@synthesize mediaTypeAsString = _mediaTypeAsString;
+@synthesize triggers = _triggers;
+@synthesize isLoaded = _isLoaded;
+@synthesize isRunning = _isRunning;
+@synthesize duration = _duration;
+@synthesize completionBlock = _completionBlock;
+
+- (id)initWithId:(NSString *)episodeId withSession:(CHSession *)session andCues:(NSSet *)cues withTriggers:(NSArray *)triggers withCompletionBlock:(CHVoidBlock)completionBlock error:(NSError **)error {
     if (self = [super init]) {
         // custom initialization
         
         NSMutableArray *tempCues = nil;
         
+        _mediaType = CHMediaTypeEpisode;
+        _mediaTypeAsString = CHMediaTypeStringEpisode;
+        
+        _isRunning = false;
         _isLoaded = false;
-        _currentlyPlayingCues = [[NSMutableSet alloc] init];
+        
+        _completionBlock = completionBlock;
         
         if(episodeId){
             if([episodeId isEqualToString:@""]){
@@ -46,8 +60,8 @@
                 *error = [[NSError alloc] initWithDomain:@"rocks.cohort.Episode.ErrorDomain" code:2 userInfo:tempDic];
             } else {
                 // create cues set
-                for(id<NSObject, CHCueing> cue in cues){
-                    if([cue conformsToProtocol:@protocol(CHCueing)]){
+                for(id<NSObject, CHCueable> cue in cues){
+                    if([cue conformsToProtocol:@protocol(CHCueable)]){
                         if(tempCues){
                             [tempCues addObject:cue];
                         } else {
@@ -64,6 +78,13 @@
             *error = [[NSError alloc] initWithDomain:@"rocks.cohort.Episode.ErrorDomain" code:1 userInfo:tempDic];
         }
         
+        if(triggers){
+            _triggers = triggers;
+        } else {
+            NSDictionary *tempDic = @{NSLocalizedDescriptionKey: @"Warning: episode with no triggers will never play"};
+            *error = [[NSError alloc] initWithDomain:@"rocks.cohort.Episode.ErrorDomain" code:6 userInfo:tempDic];
+        }
+        
         if(tempCues) {
             _cues = [NSSet setWithArray:tempCues];
             tempCues = nil;
@@ -77,7 +98,6 @@
     return self;
 }
 
-// bad pattern here...invisible fail
 -(void) loadForParticipant:(CHParticipant *)participant withCallback:(void (^)())callback error:(NSError **)error {
     
     if(participant){
@@ -88,51 +108,98 @@
         return;
     }
     
-    for(id<NSObject, CHCueing> cue in _cues){
-        if([cue.targetTags intersectsSet:_participant.tags]){
-            [cue load:nil];
-        }
-        
-        // if cue trigger type is not timed we can arm it here?
-    }
-    _isLoaded = true;
-    
-    if(callback){
-        callback();
+    if(!error){
+        [self load:error];
     }
 }
 
--(void) start {
-    _startTime = [AEBlockScheduler now];
+// CHCueable ________________________
+
+-(void) load:(NSError **)error {
     
-    // get cues with timed triggers at 0 secs playing ASAP
-    NSSet *timedCues = [self cuesOfTriggerType:CHTriggeredAtTime];
-    NSSet *immediateCues = [timedCues objectsPassingTest:^BOOL(id<CHCueing> obj, BOOL *stop) {
-        if(((double)[obj.trigger.value doubleValue] == 0.0) && ([obj.targetTags intersectsSet:_participant.tags])){
-            return YES;
+    if(_triggers && _triggers.count > 0){
+        for(CHTrigger *trigger in _triggers){
+            // arm the trigger
+            __weak id weakSelf = self;
+            [trigger arm:^{
+                [weakSelf fire];
+            }];
+        }
+    } else {
+        NSDictionary *tempDic = @{NSLocalizedDescriptionKey: @"Could not load episode with no triggers"};
+        *error = [[NSError alloc] initWithDomain:@"rocks.cohort.Episode.ErrorDomain" code:8 userInfo:tempDic];
+    }
+    
+    if(_participant){
+        for(id<NSObject, CHCueable> cue in _cues){
+            if([cue.targetTags intersectsSet:_participant.tags]){
+                [cue load];
+            }
+        }
+    } else {
+        NSDictionary *tempDic = @{NSLocalizedDescriptionKey: @"Could not load episode with nil participant"};
+        *error = [[NSError alloc] initWithDomain:@"rocks.cohort.Episode.ErrorDomain" code:9 userInfo:tempDic];
+    }
+    
+    if(!error){
+        _isLoaded = true;
+    }
+}
+
+-(void) fire {
+    if(_isLoaded){
+        [self play];
+    }
+}
+
+-(void) play {
+    _startTime = [AEBlockScheduler now];
+    _isRunning = true;
+    
+    // this was a performance hack but may not be necessary anymore
+    // get cues with timed triggers at 0 secs and start them playing ASAP
+    NSSet *timedCues = [self cuesWithTriggersOfType:CHTriggeredAtTime];
+    NSSet *immediateCues = [timedCues objectsPassingTest:^BOOL(id<CHCueable> obj, BOOL *stop) {
+        if(obj.triggers.count > 0){
+            for(CHTrigger *trigger in obj.triggers){
+                if(((double)[trigger.value doubleValue] == 0.0) && ([obj.targetTags intersectsSet:_participant.tags])){
+                    return YES;
+                }
+            }
+            return NO;
         } else {
             return NO;
         }
     }];
     
-    for(id<CHCueing> cue in immediateCues){
-        [_currentlyPlayingCues addObject:cue];
-        [cue fire:nil withCompletionHandler:^void{
-            NSLog(@"sound cue finished playing");
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"sound cue finished playing" object:nil];
-            [_currentlyPlayingCues removeObject:cue];
-        }];
+    for(id<CHCueable> cue in immediateCues){
+        // [cue.completionBlock = ^void{}];
+        [cue fire];
     }
+    // end hack
     
-    // schedule other cues with timed triggers
+    // schedule all timed triggers
+    for(id<CHCueable> cue in [self cuesWithTriggersOfType:CHTriggeredAtTime]){
+        double timestamp;
+        for(CHTrigger *trigger in cue.triggers){
+            timestamp = [AEBlockScheduler timestampWithSeconds:[trigger.value longLongValue] fromTimestamp:_startTime];
+            if(trigger.value != 0){
+                [self scheduleForExecutionAtTime:timestamp withMainThreadBlock:^{
+                    [trigger pull];
+                }];
+            }
+        }
+    }
+
+    _isRunning = true;
+}
+
+-(void) pause {
     
-    // arm cues with other triggers
-    
-    _hasStarted = true;
 }
 
 - (NSSet *)cuesOfMediaType: (CHMediaType)mediaType {
-    NSSet *cueSubset = [_cues objectsPassingTest:^BOOL(id<CHCueing> obj, BOOL *stop) {
+    NSSet *cueSubset = [_cues objectsPassingTest:^BOOL(id<CHCueable> obj, BOOL *stop) {
         CHMediaType cueType = (CHMediaType)obj.mediaType;
         if(cueType == mediaType){
             return YES;
@@ -143,10 +210,61 @@
     return cueSubset;
 }
 
-- (NSSet *)cuesOfTriggerType: (CHTriggerType)triggerType {
-    NSSet *cueSubset = [_cues objectsPassingTest:^BOOL(id<CHCueing> obj, BOOL *stop) {
-        CHTriggerType cueType = (CHTriggerType)obj.trigger.type;
-        if(cueType == triggerType){
+// end CHCueable
+// ______________________________________
+
+
+- (NSSet *)cuesWithTriggersOfType: (CHTriggerType)triggerType {
+    NSSet *cueSubset = [_cues objectsPassingTest:^BOOL(id<CHCueable> obj, BOOL *stop) {
+        if(obj.triggers){
+            if(obj.triggers.count > 0){
+                for(CHTrigger *trigger in obj.triggers){
+                    CHTriggerType cueType = (CHTriggerType)trigger.type;
+                    if(cueType == triggerType){
+                        return YES;
+                    }
+                }
+                return NO;
+            } else {
+                return NO;
+            }
+        } else {
+            return NO;
+        }
+    }];
+    return cueSubset;
+}
+
+- (void)scheduleForExecutionAtTime:(uint64_t)timestamp
+      withMainThreadBlock:(void (^)())cueBlock
+ withCoreAudioThreadBlock:(void (^)())coreAudioBlock
+{
+    [_session.scheduler scheduleBlock:^(const AudioTimeStamp *time, UInt32 offset){
+        // null block on core audio thread
+        //NSLog(@"triggering UI cue (core audio thread)");
+        coreAudioBlock();
+    }
+                                        atTime:timestamp
+                                 timingContext:AEAudioTimingContextOutput
+                                    identifier:@"my event"
+                       mainThreadResponseBlock:^(const AudioTimeStamp *time, UInt32 offset) {
+                           // We are now on the main thread at *time*, which is *offset* frames
+                           // before the time we scheduled, *timestamp*.
+                           cueBlock();
+                       }
+     ];
+}
+
+// convenience call when the coreAudio block is null (most cases)
+- (void)scheduleForExecutionAtTime:(uint64_t)timestamp
+      withMainThreadBlock:(void (^)())cueBlock
+{
+    [self scheduleForExecutionAtTime:timestamp withMainThreadBlock:cueBlock withCoreAudioThreadBlock:^(){}];
+}
+
+- (NSSet *)cuesCurrentlyRunning {
+    NSSet *cueSubset = [_cues objectsPassingTest:^BOOL(id<CHCueable> obj, BOOL *stop) {
+        if(obj.isRunning){
             return YES;
         } else {
             return NO;

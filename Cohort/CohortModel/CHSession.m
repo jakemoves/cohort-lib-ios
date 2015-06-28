@@ -20,8 +20,8 @@
         _audioController.useMeasurementMode = YES;
         [_audioController start:NULL];
         
-        _cueScheduler = [[AEBlockScheduler alloc] initWithAudioController:_audioController];
-        [_audioController addTimingReceiver:_cueScheduler];
+        _scheduler = [[AEBlockScheduler alloc] initWithAudioController:_audioController];
+        [_audioController addTimingReceiver:_scheduler];
         
         _sseClient = [[EventSource alloc] init];
         
@@ -64,7 +64,7 @@
 
 - (void)dealloc{
     [_sseClient close];
-    _cueScheduler = nil;
+    _scheduler = nil;
     [_audioController removeChannels:[_audioController channels]];
     _audioController = nil;
 }

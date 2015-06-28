@@ -9,7 +9,6 @@
 #import <XCTest/XCTest.h>
 #import "CHEpisode.h"
 #import "CHSoundCue.h"
-
 @interface CHEpisodeTest : XCTestCase
 
 @end
@@ -29,7 +28,11 @@
 - (void)testThatItDoesNotInitWithNilCueset {
     NSError *error = nil;
     CHSession *session = [[CHSession alloc] init];
-    CHEpisode *episode = [[CHEpisode alloc] initWithId:@"testEpisode" withSession:(CHSession *)session andCues:nil error:&error];
+    CHTrigger *trigger = [[CHTrigger alloc] initWithValue:1.0 ofType:CHTriggeredByServerSentEvent forMediaType:CHMediaTypeStringSound error:&error];
+    NSArray *triggers = [NSArray arrayWithObject:trigger];
+    CHVoidBlock voidBlock;
+    
+    CHEpisode *episode = [[CHEpisode alloc] initWithId:@"testEpisode" withSession:(CHSession *)session andCues:nil withTriggers:triggers withCompletionBlock:voidBlock error:&error];
     if(error){
         NSLog(@"%@", error);
     }
@@ -40,8 +43,12 @@
 - (void)testThatItDoesNotInitWithSetOfZeroCues {
     NSError *error = nil;
     CHSession *session = [[CHSession alloc] init];
+    CHTrigger *trigger = [[CHTrigger alloc] initWithValue:1.0 ofType:CHTriggeredByServerSentEvent forMediaType:CHMediaTypeStringSound error:&error];
+    NSArray *triggers = [NSArray arrayWithObject:trigger];
+    CHVoidBlock voidBlock;
+    
     NSSet *tempCueset = [[NSSet alloc] init];
-    CHEpisode *episode = [[CHEpisode alloc] initWithId:@"testEpisode" withSession:(CHSession *)session andCues:tempCueset error:&error];
+    CHEpisode *episode = [[CHEpisode alloc] initWithId:@"testEpisode" withSession:(CHSession *)session andCues:tempCueset withTriggers:triggers withCompletionBlock:voidBlock error:&error];
     if(error){
         NSLog(@"%@", error);
     }
@@ -50,13 +57,18 @@
 }
 
 - (void)testThatItDoesNotInitWithNilEpisodeId {
-    CHSession *session = [[CHSession alloc] init];
-    CHSoundAsset *asset = [[CHSoundAsset alloc] initWithAssetId:@"clicktrack" andFilename:@"clicktrack.m4a" error:nil];
-    CHSoundCue *cue = [[CHSoundCue alloc] initWithSession:session andAsset:asset withTags:nil withTrigger:nil];
-    
-    NSSet *tempCueset = [NSSet setWithObjects:cue, nil];
     NSError *error = nil;
-    CHEpisode *episode = [[CHEpisode alloc] initWithId:nil withSession:(CHSession *)session andCues:tempCueset error:&error];
+    CHSession *session = [[CHSession alloc] init];
+    
+    CHVoidBlock voidBlock;
+    CHTrigger *trigger = [[CHTrigger alloc] initWithValue:1.0 ofType:CHTriggeredByServerSentEvent forMediaType:CHMediaTypeStringSound error:&error];
+    CHSoundAsset *asset = [[CHSoundAsset alloc] initWithAssetId:@"clicktrack" andFilename:@"clicktrack.m4a" error:nil];
+    CHSoundCue *cue = [[CHSoundCue alloc] initWithSession:session andAsset:asset withTriggers:[NSArray arrayWithObject:trigger] withTags:nil withCompletionBlock:voidBlock];
+    
+    NSArray *triggers = [NSArray arrayWithObject:trigger];
+
+    NSSet *tempCueset = [NSSet setWithObjects:cue, nil];
+    CHEpisode *episode = [[CHEpisode alloc] initWithId:nil withSession:(CHSession *)session andCues:tempCueset withTriggers:triggers withCompletionBlock:voidBlock error:&error];
     if(error){
         NSLog(@"Error: %@", error);
     }
@@ -65,13 +77,18 @@
 }
 
 - (void)testThatItDoesNotInitWithEmptyEpisodeId {
+    NSError *error = nil;
     CHSession *session = [[CHSession alloc] init];
+    
+    CHVoidBlock voidBlock;
+    CHTrigger *trigger = [[CHTrigger alloc] initWithValue:1.0 ofType:CHTriggeredByServerSentEvent forMediaType:CHMediaTypeStringSound error:&error];
     CHSoundAsset *asset = [[CHSoundAsset alloc] initWithAssetId:@"clicktrack" andFilename:@"clicktrack.m4a" error:nil];
-    CHSoundCue *cue = [[CHSoundCue alloc] initWithSession:session andAsset:asset withTags:nil withTrigger:nil];
+    CHSoundCue *cue = [[CHSoundCue alloc] initWithSession:session andAsset:asset withTriggers:[NSArray arrayWithObject:trigger] withTags:nil withCompletionBlock:voidBlock];
+    
+    NSArray *triggers = [NSArray arrayWithObject:trigger];
     
     NSSet *tempCueset = [NSSet setWithObjects:cue, nil];
-    NSError *error = nil;
-    CHEpisode *episode = [[CHEpisode alloc] initWithId:@"" withSession:(CHSession *)session andCues:tempCueset error:&error];
+    CHEpisode *episode = [[CHEpisode alloc] initWithId:@"" withSession:(CHSession *)session andCues:tempCueset withTriggers:triggers withCompletionBlock:voidBlock error:&error];
     if(error){
         NSLog(@"Error: %@", error);
     }
@@ -80,13 +97,18 @@
 }
 
 - (void)testThatItDoesNotInitWithNilSession {
+    NSError *error = nil;
     CHSession *session = nil;
+    
+    CHVoidBlock voidBlock;
+    CHTrigger *trigger = [[CHTrigger alloc] initWithValue:1.0 ofType:CHTriggeredByServerSentEvent forMediaType:CHMediaTypeStringSound error:&error];
     CHSoundAsset *asset = [[CHSoundAsset alloc] initWithAssetId:@"clicktrack" andFilename:@"clicktrack.m4a" error:nil];
-    CHSoundCue *cue = [[CHSoundCue alloc] initWithSession:session andAsset:asset withTags:nil withTrigger:nil];
+    CHSoundCue *cue = [[CHSoundCue alloc] initWithSession:session andAsset:asset withTriggers:[NSArray arrayWithObject:trigger] withTags:nil withCompletionBlock:voidBlock];
+    
+    NSArray *triggers = [NSArray arrayWithObject:trigger];
     
     NSSet *tempCueset = [NSSet setWithObjects:cue, nil];
-    NSError *error = nil;
-    CHEpisode *episode = [[CHEpisode alloc] initWithId:@"testEpisode" withSession:(CHSession *)session andCues:tempCueset error:&error];
+    CHEpisode *episode = [[CHEpisode alloc] initWithId:nil withSession:(CHSession *)session andCues:tempCueset withTriggers:triggers withCompletionBlock:voidBlock error:&error];
     if(error){
         NSLog(@"Error: %@", error);
     }
@@ -95,14 +117,19 @@
 }
 
 -(void)testThatItInitsAndLoadsWithOneValidCue {
+    NSError *error = nil;
     NSSet *tags = [NSSet setWithObject:@"all"];
     CHSession *session = [[CHSession alloc] init];
+    
+    CHVoidBlock voidBlock;
+    CHTrigger *trigger = [[CHTrigger alloc] initWithValue:1.0 ofType:CHTriggeredByServerSentEvent forMediaType:CHMediaTypeStringSound error:&error];
     CHSoundAsset *asset = [[CHSoundAsset alloc] initWithAssetId:@"clicktrack" andFilename:@"clicktrack.m4a" error:nil];
-    CHSoundCue *cue = [[CHSoundCue alloc] initWithSession:session andAsset:asset withTags:tags withTrigger:nil];
+    CHSoundCue *cue = [[CHSoundCue alloc] initWithSession:session andAsset:asset withTriggers:[NSArray arrayWithObject:trigger] withTags:tags withCompletionBlock:voidBlock];
+    
+    CHTrigger *episodeTrigger = [[CHTrigger alloc] initWithValue:1 ofType:CHTriggeredByServerSentEvent forMediaType:CHMediaTypeStringEpisode error:&error];
     
     NSSet *tempCueset = [NSSet setWithObjects:cue, nil];
-    NSError *error = nil;
-    CHEpisode *episode = [[CHEpisode alloc] initWithId:@"testEpisode" withSession:(CHSession *)session andCues:tempCueset error:&error];
+    CHEpisode *episode = [[CHEpisode alloc] initWithId:@"testEpisode" withSession:(CHSession *)session andCues:tempCueset withTriggers:[NSArray arrayWithObject:episodeTrigger] withCompletionBlock:voidBlock error:&error];
     if(error){
         NSLog(@"Error: %@", error);
     }
@@ -114,76 +141,89 @@
     CHParticipant *participant = [[CHParticipant alloc] initWithTags:nil error:nil];
     [episode loadForParticipant:participant withCallback:nil error:nil];
     
-    for(id<NSObject, CHCueing> cue in episode.cues){
-        if([cue conformsToProtocol:@protocol(CHCueing)]){
+    for(id<NSObject, CHCueable> cue in episode.cues){
+        if([cue conformsToProtocol:@protocol(CHCueable)]){
             XCTAssertTrue(cue.isLoaded);
         }
     }
     XCTAssertTrue(episode.isLoaded);
 }
 
--(void)testThatItInitsAndLoadsWithSeveralValidCues {
-    NSSet *tags = [NSSet setWithObject:@"all"];
-    CHSession *session = [[CHSession alloc] init];
-    CHSoundAsset *asset = [[CHSoundAsset alloc] initWithAssetId:@"clicktrack" andFilename:@"clicktrack.m4a" error:nil];
-    CHSoundCue *cue1 = [[CHSoundCue alloc] initWithSession:session andAsset:asset withTags:tags withTrigger:nil];
-    CHSoundCue *cue2 = [[CHSoundCue alloc] initWithSession:session andAsset:asset withTags:tags withTrigger:nil];
-    CHSoundCue *cue3 = [[CHSoundCue alloc] initWithSession:session andAsset:asset withTags:tags withTrigger:nil];
-    
-    NSSet *tempCueset = [NSSet setWithObjects:cue1, cue2, cue3, nil];
-    NSError *error = nil;
-    CHEpisode *episode = [[CHEpisode alloc] initWithId:@"testEpisode" withSession:(CHSession *)session andCues:tempCueset error:&error];
-    if(error){
-        NSLog(@"Error: %@", error);
-    }
-    XCTAssertNotNil(episode);
-    XCTAssertEqual(session, episode.session);
-    XCTAssertNotNil(episode.cues);
-    XCTAssertTrue(episode.cues.count == 3);
-    
-    CHParticipant *participant = [[CHParticipant alloc] initWithTags:nil error:nil];
-    [episode loadForParticipant:participant withCallback:nil error:nil];
-    
-    for(id<NSObject, CHCueing> cue in episode.cues){
-        if([cue conformsToProtocol:@protocol(CHCueing)]){
-            XCTAssertTrue(cue.isLoaded);
-        }
-    }
-    XCTAssertTrue(episode.isLoaded);
+
+ -(void)testThatItInitsAndLoadsWithSeveralValidCues {
+     NSError *error = nil;
+     NSSet *tags = [NSSet setWithObject:@"all"];
+     CHSession *session = [[CHSession alloc] init];
+     
+     CHVoidBlock voidBlock;
+     CHTrigger *trigger = [[CHTrigger alloc] initWithValue:1.0 ofType:CHTriggeredByServerSentEvent forMediaType:CHMediaTypeStringSound error:&error];
+     CHSoundAsset *asset = [[CHSoundAsset alloc] initWithAssetId:@"clicktrack" andFilename:@"clicktrack.m4a" error:nil];
+     CHSoundCue *cue1 = [[CHSoundCue alloc] initWithSession:session andAsset:asset withTriggers:[NSArray arrayWithObject:trigger] withTags:tags withCompletionBlock:voidBlock];
+     CHSoundCue *cue2 = [[CHSoundCue alloc] initWithSession:session andAsset:asset withTriggers:[NSArray arrayWithObject:trigger] withTags:tags withCompletionBlock:voidBlock];
+     CHSoundCue *cue3 = [[CHSoundCue alloc] initWithSession:session andAsset:asset withTriggers:[NSArray arrayWithObject:trigger] withTags:tags withCompletionBlock:voidBlock];
+     
+     CHTrigger *episodeTrigger = [[CHTrigger alloc] initWithValue:1 ofType:CHTriggeredByServerSentEvent forMediaType:CHMediaTypeStringEpisode error:&error];
+     
+     NSSet *tempCueset = [NSSet setWithObjects:cue1,cue2,cue3, nil];
+     CHEpisode *episode = [[CHEpisode alloc] initWithId:@"testEpisode" withSession:(CHSession *)session andCues:tempCueset withTriggers:[NSArray arrayWithObject:episodeTrigger] withCompletionBlock:voidBlock error:&error];
+     if(error){
+         NSLog(@"Error: %@", error);
+     }
+     XCTAssertNotNil(episode);
+     XCTAssertEqual(session, episode.session);
+     XCTAssertNotNil(episode.cues);
+     XCTAssertTrue(episode.cues.count == 3);
+     
+     CHParticipant *participant = [[CHParticipant alloc] initWithTags:nil error:nil];
+     [episode loadForParticipant:participant withCallback:nil error:nil];
+     
+     for(id<NSObject, CHCueable> cue in episode.cues){
+         if([cue conformsToProtocol:@protocol(CHCueable)]){
+             XCTAssertTrue(cue.isLoaded);
+         }
+     }
+     XCTAssertTrue(episode.isLoaded);
 }
 
 -(void)testThatItReturnsErrorOnInitWithCueArrayContainingNonCueObjects {
+    NSError *error = nil;
     NSSet *tags = [NSSet setWithObject:@"all"];
     
+    CHVoidBlock voidBlock;
+    CHTrigger *trigger = [[CHTrigger alloc] initWithValue:1.0 ofType:CHTriggeredByServerSentEvent forMediaType:CHMediaTypeStringSound error:&error];
     CHSession *session = [[CHSession alloc] init];
     CHSoundAsset *asset = [[CHSoundAsset alloc] initWithAssetId:@"clicktrack" andFilename:@"clicktrack.m4a" error: nil];
-    CHSoundCue *cue1 = [[CHSoundCue alloc] initWithSession:session andAsset:asset withTags:tags withTrigger:nil];
+    CHSoundCue *cue1 = [[CHSoundCue alloc] initWithSession:session andAsset:asset withTriggers:[NSArray arrayWithObject:trigger] withTags:tags withCompletionBlock:voidBlock];
     NSObject *cue2 = [[NSObject alloc] init];
-    CHSoundCue *cue3 = [[CHSoundCue alloc] initWithSession:session andAsset:asset withTags:tags withTrigger:nil];
+    CHSoundCue *cue3 = [[CHSoundCue alloc] initWithSession:session andAsset:asset withTriggers:[NSArray arrayWithObject:trigger] withTags:tags withCompletionBlock:voidBlock];
+    
+    CHTrigger *episodeTrigger = [[CHTrigger alloc] initWithValue:1 ofType:CHTriggeredByServerSentEvent forMediaType:CHMediaTypeStringEpisode error:&error];
     
     NSSet *tempCueset = [NSSet setWithObjects:cue1, cue2, cue3, nil];
-    NSError *error = nil;
-    CHEpisode *episode = [[CHEpisode alloc] initWithId:@"testEpisode" withSession:(CHSession *)session andCues:tempCueset error:&error];
+    CHEpisode *episode = [[CHEpisode alloc] initWithId:@"testEpisode" withSession:(CHSession *)session andCues:tempCueset withTriggers:[NSArray arrayWithObject:episodeTrigger] withCompletionBlock:voidBlock error:&error];
     if(error){
         NSLog(@"Error: %@", error);
     }
     XCTAssertNotNil(episode);
     XCTAssertTrue(error.code == 3);
-    
 }
 
 -(void)testThatItReturnsCuesOfMediaType {
-    NSSet *tags = [NSSet setWithObject:@"all"];
-    
-    CHSession *session = [[CHSession alloc] init];
-    CHSoundAsset *asset = [[CHSoundAsset alloc] initWithAssetId:@"clicktrack" andFilename:@"clicktrack.m4a" error:nil];
-    CHSoundCue *cue1 = [[CHSoundCue alloc] initWithSession:session andAsset:asset withTags:tags withTrigger:nil];
-    CHSoundCue *cue2 = [[CHSoundCue alloc] initWithSession:session andAsset:asset withTags:tags withTrigger:nil];
-    CHSoundCue *cue3 = [[CHSoundCue alloc] initWithSession:session andAsset:asset withTags:tags withTrigger:nil];
-    
-    NSSet *tempCueset = [NSSet setWithObjects:cue1, cue2, cue3, nil];
     NSError *error = nil;
-    CHEpisode *episode = [[CHEpisode alloc] initWithId:@"testEpisode" withSession:(CHSession *)session andCues:tempCueset error:&error];
+    NSSet *tags = [NSSet setWithObject:@"all"];
+    CHSession *session = [[CHSession alloc] init];
+    
+    CHVoidBlock voidBlock;
+    CHTrigger *trigger = [[CHTrigger alloc] initWithValue:1.0 ofType:CHTriggeredByServerSentEvent forMediaType:CHMediaTypeStringSound error:&error];
+    CHSoundAsset *asset = [[CHSoundAsset alloc] initWithAssetId:@"clicktrack" andFilename:@"clicktrack.m4a" error:nil];
+    CHSoundCue *cue1 = [[CHSoundCue alloc] initWithSession:session andAsset:asset withTriggers:[NSArray arrayWithObject:trigger] withTags:tags withCompletionBlock:voidBlock];
+    CHSoundCue *cue2 = [[CHSoundCue alloc] initWithSession:session andAsset:asset withTriggers:[NSArray arrayWithObject:trigger] withTags:tags withCompletionBlock:voidBlock];
+    CHSoundCue *cue3 = [[CHSoundCue alloc] initWithSession:session andAsset:asset withTriggers:[NSArray arrayWithObject:trigger] withTags:tags withCompletionBlock:voidBlock];
+    
+    CHTrigger *episodeTrigger = [[CHTrigger alloc] initWithValue:1 ofType:CHTriggeredByServerSentEvent forMediaType:CHMediaTypeStringEpisode error:&error];
+    
+    NSSet *tempCueset = [NSSet setWithObjects:cue1,cue2,cue3, nil];
+    CHEpisode *episode = [[CHEpisode alloc] initWithId:@"testEpisode" withSession:(CHSession *)session andCues:tempCueset withTriggers:[NSArray arrayWithObject:episodeTrigger] withCompletionBlock:voidBlock error:&error];
     if(error){
         NSLog(@"Error: %@", error);
     }
@@ -196,15 +236,23 @@
     __weak XCTestExpectation *expectation = [self expectationForNotification:@"sound cue finished playing" object:nil handler:nil];
     //http://stackoverflow.com/questions/27555499/xctestexpectation-how-to-avoid-calling-the-fulfill-method-after-the-wait-contex
 
-    NSSet *tags = [NSSet setWithObject:@"all"];
     
+    NSError *error = nil;
+    NSSet *tags = [NSSet setWithObject:@"all"];
     CHSession *session = [[CHSession alloc] init];
+    
+    CHVoidBlock voidBlock;
+    CHTrigger *trigger = [[CHTrigger alloc] initWithValue:0.0 ofType:CHTriggeredAtTime forMediaType:CHMediaTypeStringSound error:&error];
     CHSoundAsset *asset = [[CHSoundAsset alloc] initWithAssetId:@"clicktrack" andFilename:@"clicktrack.m4a" error:nil];
-    CHSoundCue *cue = [[CHSoundCue alloc] initWithSession:session andAsset:asset withTags:tags withTrigger:[[CHTrigger alloc] initWithValue:0.0 andType:CHTriggeredAtTime error:nil]];
+    CHSoundCue *cue = [[CHSoundCue alloc] initWithSession:session andAsset:asset withTriggers:[NSArray arrayWithObject:trigger] withTags:tags withCompletionBlock:^void{
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"sound cue finished playing" object:nil];
+    }];
     
     NSSet *tempCueset = [NSSet setWithObjects:cue, nil];
-    NSError *error = nil;
-    CHEpisode *episode = [[CHEpisode alloc] initWithId:@"testEpisode" withSession:(CHSession *)session andCues:tempCueset error:&error];
+    
+    CHTrigger *episodeTrigger = [[CHTrigger alloc] initWithValue:1 ofType:CHTriggeredByServerSentEvent forMediaType:CHMediaTypeStringEpisode error:&error];
+    
+    CHEpisode *episode = [[CHEpisode alloc] initWithId:@"testEpisode" withSession:(CHSession *)session andCues:tempCueset withTriggers:[NSArray arrayWithObject:episodeTrigger] withCompletionBlock:voidBlock error:&error];
     if(error){
         NSLog(@"Error: %@", error);
     }
@@ -215,9 +263,10 @@
     
     CHParticipant *participant = [[CHParticipant alloc] initWithTags:nil error:nil];
     [episode loadForParticipant:participant withCallback:nil error:nil];
-    [episode start];
-    XCTAssertTrue(episode.hasStarted);
-    XCTAssertTrue(episode.currentlyPlayingCues.count == 1);
+    [episode fire];
+    XCTAssertTrue(episode.isRunning);
+    NSSet *runningCues = [episode cuesCurrentlyRunning];
+    XCTAssertTrue(runningCues.count == 1);
     
     NSTimeInterval timeTilEndOfCue = cue.audio.duration + 3.0;
     
@@ -229,15 +278,22 @@
 }
 
 -(void)testThatItDoesNotPlayTimedCueOfTimeZeroWithNoMatchingTag {
+    NSError *error = nil;
     NSSet *tags = [NSSet setWithObject:@"blue"];
-    
     CHSession *session = [[CHSession alloc] init];
+    
+    CHVoidBlock voidBlock;
+    CHTrigger *trigger = [[CHTrigger alloc] initWithValue:0.0 ofType:CHTriggeredAtTime forMediaType:CHMediaTypeStringSound error:&error];
     CHSoundAsset *asset = [[CHSoundAsset alloc] initWithAssetId:@"clicktrack" andFilename:@"clicktrack.m4a" error:nil];
-    CHSoundCue *cue = [[CHSoundCue alloc] initWithSession:session andAsset:asset withTags:tags withTrigger:[[CHTrigger alloc] initWithValue:0.0 andType:CHTriggeredAtTime error:nil]];
+    CHSoundCue *cue = [[CHSoundCue alloc] initWithSession:session andAsset:asset withTriggers:[NSArray arrayWithObject:trigger] withTags:tags withCompletionBlock:^void{
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"sound cue finished playing" object:nil];
+    }];
     
     NSSet *tempCueset = [NSSet setWithObjects:cue, nil];
-    NSError *error = nil;
-    CHEpisode *episode = [[CHEpisode alloc] initWithId:@"testEpisode" withSession:(CHSession *)session andCues:tempCueset error:&error];
+    
+    CHTrigger *episodeTrigger = [[CHTrigger alloc] initWithValue:1 ofType:CHTriggeredByServerSentEvent forMediaType:CHMediaTypeStringEpisode error:&error];
+    
+    CHEpisode *episode = [[CHEpisode alloc] initWithId:@"testEpisode" withSession:(CHSession *)session andCues:tempCueset withTriggers:[NSArray arrayWithObject:episodeTrigger] withCompletionBlock:voidBlock error:&error];
     if(error){
         NSLog(@"Error: %@", error);
     }
@@ -248,9 +304,57 @@
     
     CHParticipant *participant = [[CHParticipant alloc] initWithTags:nil error:nil];
     [episode loadForParticipant:participant withCallback:nil error:nil];
-    [episode start];
-    XCTAssertTrue(episode.hasStarted);
-    XCTAssertTrue(episode.currentlyPlayingCues.count == 0);
+    [episode fire];
+    XCTAssertTrue(episode.isRunning);
+    NSSet *runningCues = [episode cuesCurrentlyRunning];
+    XCTAssertTrue(runningCues.count == 0);
 }
+
+-(void)testThatItStartsWithOneTimedCueOfTimeZeroViaNotification {
+    __weak XCTestExpectation *expectation = [self expectationForNotification:@"sound cue finished playing" object:nil handler:nil];
+    //http://stackoverflow.com/questions/27555499/xctestexpectation-how-to-avoid-calling-the-fulfill-method-after-the-wait-contex
+    
+    
+    NSError *error = nil;
+    NSSet *tags = [NSSet setWithObject:@"all"];
+    CHSession *session = [[CHSession alloc] init];
+    
+    CHVoidBlock voidBlock;
+    CHTrigger *trigger = [[CHTrigger alloc] initWithValue:0.0 ofType:CHTriggeredAtTime forMediaType:CHMediaTypeStringSound error:&error];
+    CHSoundAsset *asset = [[CHSoundAsset alloc] initWithAssetId:@"clicktrack" andFilename:@"clicktrack.m4a" error:nil];
+    CHSoundCue *cue = [[CHSoundCue alloc] initWithSession:session andAsset:asset withTriggers:[NSArray arrayWithObject:trigger] withTags:tags withCompletionBlock:^void{
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"sound cue finished playing" object:nil];
+    }];
+    
+    NSSet *tempCueset = [NSSet setWithObjects:cue, nil];
+    
+    CHTrigger *episodeTrigger = [[CHTrigger alloc] initWithValue:1 ofType:CHTriggeredByServerSentEvent forMediaType:CHMediaTypeStringEpisode error:&error];
+    
+    CHEpisode *episode = [[CHEpisode alloc] initWithId:@"testEpisode" withSession:(CHSession *)session andCues:tempCueset withTriggers:[NSArray arrayWithObject:episodeTrigger] withCompletionBlock:voidBlock error:&error];
+    if(error){
+        NSLog(@"Error: %@", error);
+    }
+    XCTAssertNotNil(episode);
+    XCTAssertEqual(session, episode.session);
+    XCTAssertNotNil(episode.cues);
+    XCTAssertTrue(episode.cues.count == 1);
+    
+    CHParticipant *participant = [[CHParticipant alloc] initWithTags:nil error:nil];
+    [episode loadForParticipant:participant withCallback:nil error:nil];
+    [episode fire];
+    XCTAssertTrue(episode.isRunning);
+    NSSet *runningCues = [episode cuesCurrentlyRunning];
+    XCTAssertTrue(runningCues.count == 1);
+    
+    NSTimeInterval timeTilEndOfCue = cue.audio.duration + 3.0;
+    
+    [self waitForExpectationsWithTimeout:timeTilEndOfCue handler:^(NSError *error) {
+        if (error) {
+            NSLog(@"Timeout Error: %@", error);
+        }
+    }];
+}
+
+// test that load throws error if participant or triggers are nil/zero
 
 @end

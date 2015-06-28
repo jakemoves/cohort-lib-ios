@@ -13,7 +13,7 @@
 @interface CHSession : NSObject
 
 @property (strong, nonatomic) AEAudioController *audioController;
-@property (strong, nonatomic) AEBlockScheduler *cueScheduler;
+@property (strong, nonatomic) AEBlockScheduler *scheduler;
 @property (strong, nonatomic) EventSource *sseClient;
 
 - (void)listenForCuesWithURL:(NSURL *)url withCompletionHandler:(void (^)(BOOL success, NSError *error))handler;

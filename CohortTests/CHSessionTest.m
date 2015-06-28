@@ -74,7 +74,8 @@
     }];
 }
 
-- (void)testThatItReceivesSSE {
+- (void)testThatItReceivesAndProcessesSSE {
+    // server must be running to pass
     CHSession *session = [[CHSession alloc] init];
     __weak XCTestExpectation *expectation = [self expectationForNotification:@"sound-1-go" object:nil handler:nil];
     //http://stackoverflow.com/questions/27555499/xctestexpectation-how-to-avoid-calling-the-fulfill-method-after-the-wait-contex
@@ -129,7 +130,7 @@
     }];
 }
 
-- (void)MANUALtestThatItClosesSSEConnectionWhenDeallocd {
+- (void)MANUALtestThatItClosesSSEConnectionWhenDeallocated {
     __block CHSession *session = [[CHSession alloc] init];
     
     [session listenForCuesWithURL:[[NSURL alloc] initWithString:@"http://169.254.135.25:8000/listen"]

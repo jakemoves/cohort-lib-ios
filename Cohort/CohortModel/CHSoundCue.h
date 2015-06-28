@@ -9,16 +9,17 @@
 #import <Foundation/Foundation.h>
 #import "CHSoundAsset.h"
 #import "CHSession.h"
-#import "CHCueing.h"
+#import "CHCueable.h"
 #import "TheAmazingAudioEngine.h"
 #import "AEAudioUnitFilePlayer.h"
+#import "CHTrigger.h"
 
-@interface CHSoundCue : NSObject <CHCueing>
+@interface CHSoundCue : NSObject <CHCueable>
 
 @property (strong, nonatomic) CHSession *session;
 @property (strong, nonatomic) CHSoundAsset *asset;
 @property (strong, nonatomic) AEAudioUnitFilePlayer *audio;
 
-- (id)initWithSession: (CHSession *)session andAsset:(CHSoundAsset *)asset withTags:(NSSet *)tags withTrigger:(CHTrigger *)trigger;
+- (id)initWithSession: (CHSession *)session andAsset:(CHSoundAsset *)asset withTriggers:(NSArray *)triggers withTags:(NSSet *)tags withCompletionBlock:(CHVoidBlock)completionBlock;
 
 @end

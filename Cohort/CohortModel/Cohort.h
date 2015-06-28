@@ -8,13 +8,20 @@
 
 typedef NS_ENUM(NSInteger, CHMediaType) {
     CHMediaTypeUnknown,
-    CHMediaTypeSound
-    //Add episode type
+    CHMediaTypeSound,
+    CHMediaTypeEpisode
 };
+
+typedef NSString * CHMediaTypeString;
+#define CHMediaTypeStringUnknown    @""
+#define CHMediaTypeStringSound      @"sound"
+#define CHMediaTypeStringEpisode    @"episode"
 
 typedef NS_ENUM(NSInteger, CHTriggerType) {
     CHTriggerTypeUnknown,
     CHTriggeredAtTime,
-    CHTriggeredOverNetwork,
+    CHTriggeredByServerSentEvent,
     CHTriggeredByUserInteraction
 };
+
+typedef void (^CHVoidBlock)();
