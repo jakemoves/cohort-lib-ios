@@ -7,12 +7,17 @@
 		<key>Cohort.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>9</integer>
+			<integer>1</integer>
 		</dict>
 		<key>CohortSampleApp.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>0</integer>
+		</dict>
+		<key>UniversalLib.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>10</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
@@ -23,6 +28,11 @@
 			<true/>
 		</dict>
 		<key>0E5890EC1B3FB22F000D205B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>0E83AFF51B3FC5C800E4ABB0</key>
 		<dict>
 			<key>primary</key>
 			<true/>
