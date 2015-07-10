@@ -9,13 +9,15 @@
 typedef NS_ENUM(NSInteger, CHMediaType) {
     CHMediaTypeUnknown,
     CHMediaTypeSound,
-    CHMediaTypeEpisode
+    CHMediaTypeEpisode,
+    CHMediaTypeVideo
 };
 
 typedef NSString * CHMediaTypeString;
 #define CHMediaTypeStringUnknown    @""
 #define CHMediaTypeStringSound      @"sound"
 #define CHMediaTypeStringEpisode    @"episode"
+#define CHMediaTypeStringVideo      @"video"
 
 typedef NS_ENUM(NSInteger, CHTriggerType) {
     CHTriggerTypeUnknown,

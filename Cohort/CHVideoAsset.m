@@ -1,14 +1,14 @@
 //
-//  CHSoundAsset.m
+//  CHVideoAsset.m
 //  Cohort
 //
-//  Created by Jacob Niedzwiecki on 2015-06-09.
+//  Created by Jacob Niedzwiecki on 2015-07-10.
 //  Copyright (c) 2015 Jacob Niedzwiecki. All rights reserved.
 //
 
-#import "CHSoundAsset.h"
+#import "CHVideoAsset.h"
 
-@implementation CHSoundAsset
+@implementation CHVideoAsset
 
 @synthesize sourceFile = _sourceFile;
 @synthesize mediaType = _mediaType;
@@ -18,18 +18,18 @@
     if (self = [super init]) {
         // custom initialization
         
-        _mediaType = CHMediaTypeSound;
+        _mediaType = CHMediaTypeVideo;
         
         // not tested yet!
         if(assetId){
             if([assetId isEqualToString:@""]){
-                NSDictionary *tempDic = @{NSLocalizedDescriptionKey: @"Could not create sound asset because the assetId is an empty string"};
+                NSDictionary *tempDic = @{NSLocalizedDescriptionKey: @"Could not create video asset because the assetId is an empty string"};
                 *error = [[NSError alloc] initWithDomain:@"rocks.cohort.Asset.ErrorDomain" code:2 userInfo:tempDic];
             } else {
                 _assetId = assetId;
             }
         } else {
-            NSDictionary *tempDic = @{NSLocalizedDescriptionKey: @"Could not create sound asset because the assetId is nil"};
+            NSDictionary *tempDic = @{NSLocalizedDescriptionKey: @"Could not create video asset because the assetId is nil"};
             *error = [[NSError alloc] initWithDomain:@"rocks.cohort.Episode.ErrorDomain" code:1 userInfo:tempDic];
         }
         
@@ -37,8 +37,10 @@
         NSString *filepath = [assetPath stringByAppendingPathComponent:filename];
         if([[NSFileManager defaultManager] fileExistsAtPath: filepath] == NO)
         {
+#ifdef DEBUG
             NSLog(@"Didn't find file");
-            NSDictionary *tempDic = @{NSLocalizedDescriptionKey: [NSString stringWithFormat:@"Could not create sound asset because file '%@' does not exist at path ' %@", filename, filepath]};
+#endif
+            NSDictionary *tempDic = @{NSLocalizedDescriptionKey: [NSString stringWithFormat:@"Could not create video asset because file '%@' does not exist at path ' %@", filename, filepath]};
             *error = [[NSError alloc] initWithDomain:@"rocks.cohort.Asset.ErrorDomain" code:3 userInfo:tempDic];
         } else {
             _sourceFile = [[NSURL alloc] initWithString:filepath];

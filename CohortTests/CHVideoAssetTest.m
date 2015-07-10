@@ -1,22 +1,19 @@
 //
-//  CHSoundAssetTest.m
+//  CHVideoCueTest.m
 //  Cohort
 //
-//  Created by Jacob Niedzwiecki on 2015-06-09.
+//  Created by Jacob Niedzwiecki on 2015-07-10.
 //  Copyright (c) 2015 Jacob Niedzwiecki. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
-#import "CHSoundAsset.h"
+#import "CHVideoAsset.h"
 
-@interface CHSoundAssetTest : XCTestCase
-
-@property (nonatomic, strong) XCTestExpectation *tempExpectation;
+@interface CHVideoCueTest : XCTestCase
 
 @end
 
-@implementation CHSoundAssetTest
+@implementation CHVideoCueTest
 
 - (void)setUp {
     [super setUp];
@@ -31,16 +28,16 @@
 - (void)testThatItInits {
     NSError *error = nil;
     NSBundle *bundle = [NSBundle bundleForClass:[self class]];
-    CHSoundAsset *asset = [[CHSoundAsset alloc] initWithAssetId:@"clicktrack" inBundle:bundle andFilename:@"clicktrack.m4a" error:&error];
+    CHVideoAsset *asset = [[CHVideoAsset alloc] initWithAssetId:@"testPattern" inBundle:bundle andFilename:@"testpattern-540.m4v" error:&error];
     XCTAssertNotNil(asset);
-    XCTAssertTrue(asset.mediaType == CHMediaTypeSound);
-    XCTAssertTrue([asset.assetId isEqualToString:@"clicktrack"]);
+    XCTAssertTrue(asset.mediaType == CHMediaTypeVideo);
+    XCTAssertTrue([asset.assetId isEqualToString:@"testPattern"]);
 }
 
 - (void)testThatItThrowsErrorOnEmptyAssetId {
     NSError *error = nil;
     NSBundle *bundle = [NSBundle bundleForClass:[self class]];
-    CHSoundAsset *asset = [[CHSoundAsset alloc] initWithAssetId:@"" inBundle:bundle andFilename:@"clicktrack.m4a" error:&error];
+    CHVideoAsset *asset = [[CHVideoAsset alloc] initWithAssetId:@"" inBundle:bundle andFilename:@"testpattern-540.m4v" error:&error];
     XCTAssertNil(asset);
     XCTAssertNotNil(error);
     XCTAssertTrue(error.code == 2);
@@ -49,7 +46,7 @@
 - (void)testThatItThrowsErrorOnNilAssetId {
     NSError *error = nil;
     NSBundle *bundle = [NSBundle bundleForClass:[self class]];
-    CHSoundAsset *asset = [[CHSoundAsset alloc] initWithAssetId:nil inBundle:bundle andFilename:@"clicktrack.m4a" error:&error];
+    CHVideoAsset *asset = [[CHVideoAsset alloc] initWithAssetId:nil inBundle:bundle andFilename:@"testpattern-540.m4v" error:&error];
     XCTAssertNil(asset);
     XCTAssertNotNil(error);
     XCTAssertTrue(error.code == 1);
@@ -58,7 +55,7 @@
 - (void)testThatItThrowsErrorOnNonexistentFile {
     NSError *error = nil;
     NSBundle *bundle = [NSBundle bundleForClass:[self class]];
-    CHSoundAsset *asset = [[CHSoundAsset alloc] initWithAssetId:@"clicktrack" inBundle:bundle andFilename:@"clicktrak.m4a" error:&error];
+    CHVideoAsset *asset = [[CHVideoAsset alloc] initWithAssetId:@"testPattern" inBundle:bundle andFilename:@"testpattern.m4v" error:&error];
     XCTAssertNil(asset);
     XCTAssertNotNil(error);
     XCTAssertTrue(error.code == 3);
