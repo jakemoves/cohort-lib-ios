@@ -1,5 +1,5 @@
 //
-//  CHVideoCueTest.m
+//  CHVideoAssetTest.m
 //  Cohort
 //
 //  Created by Jacob Niedzwiecki on 2015-07-10.
@@ -9,11 +9,11 @@
 #import <XCTest/XCTest.h>
 #import "CHVideoAsset.h"
 
-@interface CHVideoCueTest : XCTestCase
+@interface CHVideoAssetTest : XCTestCase
 
 @end
 
-@implementation CHVideoCueTest
+@implementation CHVideoAssetTest
 
 - (void)setUp {
     [super setUp];

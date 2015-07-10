@@ -17,6 +17,6 @@
 @property (strong, nonatomic) CHSession *session;
 @property (strong, nonatomic) CHVideoAsset *asset;
 
-- (id)initWithSession: (CHSession *)session andAsset:(CHVideoAsset *)asset withTriggers:(NSArray *)triggers withTags:(NSSet *)tags withCompletionBlock:(CHVoidBlock)completionBlock;
+- (id)initWithSession: (CHSession *)session andAsset:(CHVideoAsset *)asset withTriggers:(NSArray *)triggers withTags:(NSSet *)tags error:(NSError **)error withCompletionBlock:(CHVoidBlock)completionBlock;
 
 @end

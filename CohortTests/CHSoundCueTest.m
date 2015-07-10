@@ -26,7 +26,7 @@
     [super tearDown];
 }
 
-- (void)testThatItInitsWithAValidMediaAsset {
+- (void)testThatItInitsWithAValidSoundAsset {
     NSError *error = nil;
     NSError *secondaryError = nil;
     CHSession *session = [[CHSession alloc] init];
