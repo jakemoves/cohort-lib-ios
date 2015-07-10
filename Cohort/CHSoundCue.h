@@ -20,6 +20,6 @@
 @property (strong, nonatomic) CHSoundAsset *asset;
 @property (strong, nonatomic) AEAudioUnitFilePlayer *audio;
 
-- (id)initWithSession: (CHSession *)session andAsset:(CHSoundAsset *)asset withTriggers:(NSArray *)triggers withTags:(NSSet *)tags withCompletionBlock:(CHVoidBlock)completionBlock;
+- (id)initWithSession: (CHSession *)session andAsset:(CHSoundAsset *)asset withTriggers:(NSArray *)triggers withTags:(NSSet *)tags error:(NSError **)error withCompletionBlock:(CHVoidBlock)completionBlock;
 
 @end

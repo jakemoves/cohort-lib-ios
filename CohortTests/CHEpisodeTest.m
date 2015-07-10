@@ -64,7 +64,7 @@
     CHTrigger *trigger = [[CHTrigger alloc] initWithValue:1.0 ofType:CHTriggeredByServerSentEvent forMediaType:CHMediaTypeStringSound error:&error];
     NSBundle *bundle = [NSBundle bundleForClass:[self class]];
     CHSoundAsset *asset = [[CHSoundAsset alloc] initWithAssetId:@"clicktrack" inBundle:bundle andFilename:@"clicktrack.m4a" error:&error];
-    CHSoundCue *cue = [[CHSoundCue alloc] initWithSession:session andAsset:asset withTriggers:[NSArray arrayWithObject:trigger] withTags:nil withCompletionBlock:voidBlock];
+    CHSoundCue *cue = [[CHSoundCue alloc] initWithSession:session andAsset:asset withTriggers:[NSArray arrayWithObject:trigger] withTags:nil error:nil withCompletionBlock:voidBlock];
     
     NSArray *triggers = [NSArray arrayWithObject:trigger];
 
@@ -85,7 +85,7 @@
     CHTrigger *trigger = [[CHTrigger alloc] initWithValue:1.0 ofType:CHTriggeredByServerSentEvent forMediaType:CHMediaTypeStringSound error:&error];
     NSBundle *bundle = [NSBundle bundleForClass:[self class]];
     CHSoundAsset *asset = [[CHSoundAsset alloc] initWithAssetId:@"clicktrack" inBundle:bundle andFilename:@"clicktrack.m4a" error:&error];
-    CHSoundCue *cue = [[CHSoundCue alloc] initWithSession:session andAsset:asset withTriggers:[NSArray arrayWithObject:trigger] withTags:nil withCompletionBlock:voidBlock];
+    CHSoundCue *cue = [[CHSoundCue alloc] initWithSession:session andAsset:asset withTriggers:[NSArray arrayWithObject:trigger] withTags:nil error:nil withCompletionBlock:voidBlock];
     
     NSArray *triggers = [NSArray arrayWithObject:trigger];
     
@@ -106,7 +106,7 @@
     CHTrigger *trigger = [[CHTrigger alloc] initWithValue:1.0 ofType:CHTriggeredByServerSentEvent forMediaType:CHMediaTypeStringSound error:&error];
     NSBundle *bundle = [NSBundle bundleForClass:[self class]];
     CHSoundAsset *asset = [[CHSoundAsset alloc] initWithAssetId:@"clicktrack" inBundle:bundle andFilename:@"clicktrack.m4a" error:&error];
-    CHSoundCue *cue = [[CHSoundCue alloc] initWithSession:session andAsset:asset withTriggers:[NSArray arrayWithObject:trigger] withTags:nil withCompletionBlock:voidBlock];
+    CHSoundCue *cue = [[CHSoundCue alloc] initWithSession:session andAsset:asset withTriggers:[NSArray arrayWithObject:trigger] withTags:nil error:nil withCompletionBlock:voidBlock];
     
     NSArray *triggers = [NSArray arrayWithObject:trigger];
     
@@ -128,7 +128,7 @@
     CHTrigger *trigger = [[CHTrigger alloc] initWithValue:1.0 ofType:CHTriggeredByServerSentEvent forMediaType:CHMediaTypeStringSound error:&error];
     NSBundle *bundle = [NSBundle bundleForClass:[self class]];
     CHSoundAsset *asset = [[CHSoundAsset alloc] initWithAssetId:@"clicktrack" inBundle:bundle andFilename:@"clicktrack.m4a" error:&error];
-    CHSoundCue *cue = [[CHSoundCue alloc] initWithSession:session andAsset:asset withTriggers:[NSArray arrayWithObject:trigger] withTags:tags withCompletionBlock:voidBlock];
+    CHSoundCue *cue = [[CHSoundCue alloc] initWithSession:session andAsset:asset withTriggers:[NSArray arrayWithObject:trigger] withTags:tags error:nil withCompletionBlock:voidBlock];
     
     CHTrigger *episodeTrigger = [[CHTrigger alloc] initWithValue:1 ofType:CHTriggeredByServerSentEvent forMediaType:CHMediaTypeStringEpisode error:&error];
     
@@ -163,9 +163,9 @@
      CHTrigger *trigger = [[CHTrigger alloc] initWithValue:1.0 ofType:CHTriggeredByServerSentEvent forMediaType:CHMediaTypeStringSound error:&error];
      NSBundle *bundle = [NSBundle bundleForClass:[self class]];
      CHSoundAsset *asset = [[CHSoundAsset alloc] initWithAssetId:@"clicktrack" inBundle:bundle andFilename:@"clicktrack.m4a" error:&error];
-     CHSoundCue *cue1 = [[CHSoundCue alloc] initWithSession:session andAsset:asset withTriggers:[NSArray arrayWithObject:trigger] withTags:tags withCompletionBlock:voidBlock];
-     CHSoundCue *cue2 = [[CHSoundCue alloc] initWithSession:session andAsset:asset withTriggers:[NSArray arrayWithObject:trigger] withTags:tags withCompletionBlock:voidBlock];
-     CHSoundCue *cue3 = [[CHSoundCue alloc] initWithSession:session andAsset:asset withTriggers:[NSArray arrayWithObject:trigger] withTags:tags withCompletionBlock:voidBlock];
+     CHSoundCue *cue1 = [[CHSoundCue alloc] initWithSession:session andAsset:asset withTriggers:[NSArray arrayWithObject:trigger] withTags:tags error:nil withCompletionBlock:voidBlock];
+     CHSoundCue *cue2 = [[CHSoundCue alloc] initWithSession:session andAsset:asset withTriggers:[NSArray arrayWithObject:trigger] withTags:tags error:nil withCompletionBlock:voidBlock];
+     CHSoundCue *cue3 = [[CHSoundCue alloc] initWithSession:session andAsset:asset withTriggers:[NSArray arrayWithObject:trigger] withTags:tags error:nil withCompletionBlock:voidBlock];
      
      CHTrigger *episodeTrigger = [[CHTrigger alloc] initWithValue:1 ofType:CHTriggeredByServerSentEvent forMediaType:CHMediaTypeStringEpisode error:&error];
      
@@ -199,9 +199,9 @@
     CHSession *session = [[CHSession alloc] init];
     NSBundle *bundle = [NSBundle bundleForClass:[self class]];
     CHSoundAsset *asset = [[CHSoundAsset alloc] initWithAssetId:@"clicktrack" inBundle:bundle andFilename:@"clicktrack.m4a" error:&error];
-    CHSoundCue *cue1 = [[CHSoundCue alloc] initWithSession:session andAsset:asset withTriggers:[NSArray arrayWithObject:trigger] withTags:tags withCompletionBlock:voidBlock];
+    CHSoundCue *cue1 = [[CHSoundCue alloc] initWithSession:session andAsset:asset withTriggers:[NSArray arrayWithObject:trigger] withTags:tags error:nil withCompletionBlock:voidBlock];
     NSObject *cue2 = [[NSObject alloc] init];
-    CHSoundCue *cue3 = [[CHSoundCue alloc] initWithSession:session andAsset:asset withTriggers:[NSArray arrayWithObject:trigger] withTags:tags withCompletionBlock:voidBlock];
+    CHSoundCue *cue3 = [[CHSoundCue alloc] initWithSession:session andAsset:asset withTriggers:[NSArray arrayWithObject:trigger] withTags:tags error:nil withCompletionBlock:voidBlock];
     
     CHTrigger *episodeTrigger = [[CHTrigger alloc] initWithValue:1 ofType:CHTriggeredByServerSentEvent forMediaType:CHMediaTypeStringEpisode error:&error];
     
@@ -222,9 +222,10 @@
     CHVoidBlock voidBlock;
     CHTrigger *trigger = [[CHTrigger alloc] initWithValue:1.0 ofType:CHTriggeredByServerSentEvent forMediaType:CHMediaTypeStringSound error:&error];
     NSBundle *bundle = [NSBundle bundleForClass:[self class]];
-    CHSoundAsset *asset = [[CHSoundAsset alloc] initWithAssetId:@"clicktrack" inBundle:bundle andFilename:@"clicktrack.m4a" error:&error];    CHSoundCue *cue1 = [[CHSoundCue alloc] initWithSession:session andAsset:asset withTriggers:[NSArray arrayWithObject:trigger] withTags:tags withCompletionBlock:voidBlock];
-    CHSoundCue *cue2 = [[CHSoundCue alloc] initWithSession:session andAsset:asset withTriggers:[NSArray arrayWithObject:trigger] withTags:tags withCompletionBlock:voidBlock];
-    CHSoundCue *cue3 = [[CHSoundCue alloc] initWithSession:session andAsset:asset withTriggers:[NSArray arrayWithObject:trigger] withTags:tags withCompletionBlock:voidBlock];
+    CHSoundAsset *asset = [[CHSoundAsset alloc] initWithAssetId:@"clicktrack" inBundle:bundle andFilename:@"clicktrack.m4a" error:&error];
+    CHSoundCue *cue1 = [[CHSoundCue alloc] initWithSession:session andAsset:asset withTriggers:[NSArray arrayWithObject:trigger] withTags:tags error:nil withCompletionBlock:voidBlock];
+    CHSoundCue *cue2 = [[CHSoundCue alloc] initWithSession:session andAsset:asset withTriggers:[NSArray arrayWithObject:trigger] withTags:tags error:nil withCompletionBlock:voidBlock];
+    CHSoundCue *cue3 = [[CHSoundCue alloc] initWithSession:session andAsset:asset withTriggers:[NSArray arrayWithObject:trigger] withTags:tags error:nil withCompletionBlock:voidBlock];
     
     CHTrigger *episodeTrigger = [[CHTrigger alloc] initWithValue:1 ofType:CHTriggeredByServerSentEvent forMediaType:CHMediaTypeStringEpisode error:&error];
     
@@ -251,7 +252,7 @@
     CHTrigger *trigger = [[CHTrigger alloc] initWithValue:0.0 ofType:CHTriggeredAtTime forMediaType:CHMediaTypeStringSound error:&error];
     NSBundle *bundle = [NSBundle bundleForClass:[self class]];
     CHSoundAsset *asset = [[CHSoundAsset alloc] initWithAssetId:@"clicktrack" inBundle:bundle andFilename:@"clicktrack.m4a" error:&error];
-    CHSoundCue *cue = [[CHSoundCue alloc] initWithSession:session andAsset:asset withTriggers:[NSArray arrayWithObject:trigger] withTags:tags withCompletionBlock:^void{
+    CHSoundCue *cue = [[CHSoundCue alloc] initWithSession:session andAsset:asset withTriggers:[NSArray arrayWithObject:trigger] withTags:tags error:nil withCompletionBlock:^void{
         [[NSNotificationCenter defaultCenter] postNotificationName:@"sound cue finished playing" object:nil];
     }];
     
@@ -293,7 +294,7 @@
     CHTrigger *trigger = [[CHTrigger alloc] initWithValue:0.0 ofType:CHTriggeredAtTime forMediaType:CHMediaTypeStringSound error:&error];
     NSBundle *bundle = [NSBundle bundleForClass:[self class]];
     CHSoundAsset *asset = [[CHSoundAsset alloc] initWithAssetId:@"clicktrack" inBundle:bundle andFilename:@"clicktrack.m4a" error:&error];
-    CHSoundCue *cue = [[CHSoundCue alloc] initWithSession:session andAsset:asset withTriggers:[NSArray arrayWithObject:trigger] withTags:tags withCompletionBlock:^void{
+    CHSoundCue *cue = [[CHSoundCue alloc] initWithSession:session andAsset:asset withTriggers:[NSArray arrayWithObject:trigger] withTags:tags error:nil withCompletionBlock:^void{
         [[NSNotificationCenter defaultCenter] postNotificationName:@"sound cue finished playing" object:nil];
     }];
     
@@ -329,7 +330,7 @@
     CHTrigger *trigger = [[CHTrigger alloc] initWithValue:0.0 ofType:CHTriggeredAtTime forMediaType:CHMediaTypeStringSound error:&error];
     NSBundle *bundle = [NSBundle bundleForClass:[self class]];
     CHSoundAsset *asset = [[CHSoundAsset alloc] initWithAssetId:@"clicktrack" inBundle:bundle andFilename:@"clicktrack.m4a" error:&error];
-    CHSoundCue *cue = [[CHSoundCue alloc] initWithSession:session andAsset:asset withTriggers:[NSArray arrayWithObject:trigger] withTags:tags withCompletionBlock:^void{
+    CHSoundCue *cue = [[CHSoundCue alloc] initWithSession:session andAsset:asset withTriggers:[NSArray arrayWithObject:trigger] withTags:tags error:nil withCompletionBlock:^void{
         [expectation fulfill];
     }];
     

@@ -19,38 +19,62 @@
 @synthesize duration = _duration;
 @synthesize completionBlock = _completionBlock;
 
-- (id)initWithSession: (CHSession *)session andAsset:(CHSoundAsset *)asset withTriggers:(NSArray *)triggers withTags:(NSSet *)tags withCompletionBlock:(CHVoidBlock)completionBlock {
+- (id)initWithSession: (CHSession *)session andAsset:(CHSoundAsset *)asset withTriggers:(NSArray *)triggers withTags:(NSSet *)tags error:(NSError **)error withCompletionBlock:(CHVoidBlock)completionBlock {
     if (self = [super init]) {
         // custom initialization
         
-        // TODO add error handling as per CHEpisode
-        _session = session;
-        _asset = asset;
         _mediaType = CHMediaTypeSound;
         _mediaTypeAsString = CHMediaTypeStringSound;
         _isLoaded = false;
         _isRunning = false;
         _completionBlock = completionBlock;
         
+        // warnings first
         if(tags){
             _targetTags = [NSSet setWithSet:tags];
         } else {
             _targetTags = [[NSSet alloc] init];
+            NSDictionary *tempDic = @{NSLocalizedDescriptionKey: @"Warning: created sound cue with no target tags"};
+            *error = [[NSError alloc] initWithDomain:@"rocks.cohort.SoundCue.ErrorDomain" code:3 userInfo:tempDic];
         }
         
         if(triggers){
             _triggers = triggers;
         } else {
             _triggers = [[NSArray alloc] init];
+            NSDictionary *tempDic = @{NSLocalizedDescriptionKey: @"Warning: sound cue with no triggers will never play"};
+            *error = [[NSError alloc] initWithDomain:@"rocks.cohort.SoundCue.ErrorDomain" code:4 userInfo:tempDic];
         }
         
-        _audio = [[AEAudioUnitFilePlayer alloc] initAudioUnitFilePlayerWithAudioController:_session.audioController error:nil];
+        if(session){
+            _session = session;
+        } else {
+            NSDictionary *tempDic = @{NSLocalizedDescriptionKey: @"Could not create sound cue because the session is nil"};
+            *error = [[NSError alloc] initWithDomain:@"rocks.cohort.SoundCue.ErrorDomain" code:1 userInfo:tempDic];
+        }
         
-        _audio.loop = false;
-        _audio.volume = 1.0;
+        if(asset){
+            _asset = asset;
+        } else {
+            NSDictionary *tempDic = @{NSLocalizedDescriptionKey: @"Could not create sound cue because the asset is nil"};
+            *error = [[NSError alloc] initWithDomain:@"rocks.cohort.SoundCue.ErrorDomain" code:2 userInfo:tempDic];
+        }
+        
+        if(!_session || !_asset){
+            self = nil;
+        } else {
+            // finish setup
+            _audio = [[AEAudioUnitFilePlayer alloc] initAudioUnitFilePlayerWithAudioController:_session.audioController error:nil];
+            
+            _audio.loop = false;
+            _audio.volume = 1.0;
+        }
     }
+    
     return self;
 }
+
+// CHCueable ________________________
 
 - (void)load:(NSError **)error {
     [_audio loadAudioFileFromUrl:_asset.sourceFile];
