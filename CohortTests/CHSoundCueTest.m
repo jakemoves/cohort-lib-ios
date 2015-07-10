@@ -28,9 +28,10 @@
 
 - (void)testThatItInitsWithAValidMediaAsset {
     NSError *error = nil;
+    NSError *secondaryError = nil;
     CHSession *session = [[CHSession alloc] init];
     NSBundle *bundle = [NSBundle bundleForClass:[self class]];
-    CHSoundAsset *asset = [[CHSoundAsset alloc] initWithAssetId:@"clicktrack" inBundle:bundle andFilename:@"clicktrack.m4a" error:&error];
+    CHSoundAsset *asset = [[CHSoundAsset alloc] initWithAssetId:@"clicktrack" inBundle:bundle andFilename:@"clicktrack.m4a" error:&secondaryError];
     CHVoidBlock voidBlock;
     CHSoundCue *cue = [[CHSoundCue alloc] initWithSession:session andAsset:asset withTriggers:nil withTags:nil error:&error withCompletionBlock:voidBlock];
     XCTAssertTrue([cue conformsToProtocol:@protocol(CHCueable)]);
@@ -40,9 +41,10 @@
 
 - (void)testThatItLoadsTheSoundCue {
     NSError *error = nil;
+    NSError *secondaryError = nil;
     CHSession *session = [[CHSession alloc] init];
     NSBundle *bundle = [NSBundle bundleForClass:[self class]];
-    CHSoundAsset *asset = [[CHSoundAsset alloc] initWithAssetId:@"clicktrack" inBundle:bundle andFilename:@"clicktrack.m4a" error:&error];
+    CHSoundAsset *asset = [[CHSoundAsset alloc] initWithAssetId:@"clicktrack" inBundle:bundle andFilename:@"clicktrack.m4a" error:&secondaryError];
     CHVoidBlock voidBlock;
     CHSoundCue *cue = [[CHSoundCue alloc] initWithSession:session andAsset:asset withTriggers:nil withTags:nil error:&error withCompletionBlock:voidBlock];
     [cue load:&error];
@@ -51,9 +53,10 @@
 
 - (void)testThatItPlaysTheSoundCue {
     NSError *error = nil;
+    NSError *secondaryError = nil;
     CHSession *session = [[CHSession alloc] init];
     NSBundle *bundle = [NSBundle bundleForClass:[self class]];
-    CHSoundAsset *asset = [[CHSoundAsset alloc] initWithAssetId:@"clicktrack" inBundle:bundle andFilename:@"clicktrack.m4a" error:&error];
+    CHSoundAsset *asset = [[CHSoundAsset alloc] initWithAssetId:@"clicktrack" inBundle:bundle andFilename:@"clicktrack.m4a" error:&secondaryError];
     CHVoidBlock voidBlock;
     CHSoundCue *cue = [[CHSoundCue alloc] initWithSession:session andAsset:asset withTriggers:nil withTags:nil error:&error withCompletionBlock:voidBlock];
     [cue load:&error];
@@ -63,13 +66,14 @@
 
 - (void)testThatItFiresTheCompletionCallback {
     NSError *error = nil;
+    NSError *secondaryError = nil;
     __weak XCTestExpectation *expectation = [self expectationForNotification:@"sound cue finished playing" object:nil handler:nil];
     //http://stackoverflow.com/questions/27555499/xctestexpectation-how-to-avoid-calling-the-fulfill-method-after-the-wait-contex
     
     CHSession *session = [[CHSession alloc] init];
     
     NSBundle *bundle = [NSBundle bundleForClass:[self class]];
-    CHSoundAsset *asset = [[CHSoundAsset alloc] initWithAssetId:@"clicktrack" inBundle:bundle andFilename:@"clicktrack.m4a" error:&error];
+    CHSoundAsset *asset = [[CHSoundAsset alloc] initWithAssetId:@"clicktrack" inBundle:bundle andFilename:@"clicktrack.m4a" error:&secondaryError];
     CHSoundCue *cue = [[CHSoundCue alloc] initWithSession:session andAsset:asset withTriggers:nil withTags:nil error:&error withCompletionBlock:^void(){
         NSLog(@"sound cue finished playing");
         [[NSNotificationCenter defaultCenter] postNotificationName:@"sound cue finished playing" object:nil];
@@ -89,8 +93,9 @@
 
 - (void)testThatItThrowsErrorWithNilSession {
     NSError *error = nil;
+    NSError *secondaryError = nil;
     NSBundle *bundle = [NSBundle bundleForClass:[self class]];
-    CHSoundAsset *asset = [[CHSoundAsset alloc] initWithAssetId:@"clicktrack" inBundle:bundle andFilename:@"clicktrack.m4a" error:&error];
+    CHSoundAsset *asset = [[CHSoundAsset alloc] initWithAssetId:@"clicktrack" inBundle:bundle andFilename:@"clicktrack.m4a" error:&secondaryError];
     CHVoidBlock voidBlock;
     CHSoundCue *cue = [[CHSoundCue alloc] initWithSession:nil andAsset:asset withTriggers:nil withTags:nil error:&error withCompletionBlock:voidBlock];
     XCTAssertNil(cue);

@@ -27,11 +27,10 @@
     [super tearDown];
 }
 
-- (void)testCreateSession {
+- (void)testThatItInits {
     CHSession *session = [[CHSession alloc] init];
     XCTAssertNotNil(session, @"Session is nil");
     XCTAssertNotNil(session.audioController, @"Session audioController is nil");
-    XCTAssertNotNil(session.sseClient, @"Session sseClient is nil");
 }
 
 - (void)testThatItReportsReachability {
