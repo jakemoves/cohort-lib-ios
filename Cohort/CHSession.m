@@ -14,17 +14,30 @@
     if (self = [super init]) {
         // custom initialization
         
-        // start up audio functionality
+        // audio functionality
         _audioController = [[AEAudioController alloc] initWithAudioDescription:[AEAudioController nonInterleaved16BitStereoAudioDescription]];
         _audioController.preferredBufferDuration = 0.005;
         _audioController.useMeasurementMode = YES;
         [_audioController start:NULL];
         
+        
+        // video functionality
+        _videoController = [[MPMoviePlayerController alloc] init];
+        _videoController.fullscreen = false;
+        _videoController.allowsAirPlay = false;
+        _videoController.controlStyle = MPMovieControlStyleNone;
+        _videoController.shouldAutoplay = false;
+        _view = [[UIView alloc] init];
+        
+        
+        // scheduling / cue timing
         _scheduler = [[AEBlockScheduler alloc] initWithAudioController:_audioController];
         [_audioController addTimingReceiver:_scheduler];
         
         _sseClient = nil;
         
+        
+        // networking
         [[AFNetworkReachabilityManager sharedManager] setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
             switch (status) {
                 case AFNetworkReachabilityStatusUnknown:

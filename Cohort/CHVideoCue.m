@@ -23,8 +23,8 @@
     if (self = [super init]) {
         // custom initialization
         
-        _mediaType = CHMediaTypeSound;
-        _mediaTypeAsString = CHMediaTypeStringSound;
+        _mediaType = CHMediaTypeVideo;
+        _mediaTypeAsString = CHMediaTypeStringVideo;
         _isLoaded = false;
         _isRunning = false;
         _completionBlock = completionBlock;
@@ -64,6 +64,7 @@
             self = nil;
         } else {
             // finish setup
+            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onLoadStateDidChange:) name:MPMoviePlayerLoadStateDidChangeNotification object:nil];
         }
     }
 
@@ -75,18 +76,42 @@
 
 - (void)load:(NSError *__autoreleasing *)error {
     
+    _session.videoController.contentURL = _asset.sourceFile;
+    [_session.videoController prepareToPlay];
+    
 }
 
 - (void)fire {
-    
+    if(true){
+        [self play];
+    }
 }
 
 - (void)play {
-    
+    //[_video play];
 }
 
 - (void)pause {
+    //[_video pause];
+}
+
+// end CHCueable_______________________
+
+-(void)onLoadStateDidChange:(NSNotification *)notification {
+    NSLog(@"load state changed: %@", notification);
     
+
+//    if(_triggers && _triggers.count > 0){
+//        for(CHTrigger *trigger in _triggers){
+//            // arm the trigger
+//            __weak id weakSelf = self;
+//            [trigger arm:^{
+//                [weakSelf fire];
+//            }];
+//        }
+//    } else {
+//        // TODO add error handling as per CHEpisode
+//    }
 }
 
 @end

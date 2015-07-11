@@ -64,8 +64,9 @@
             self = nil;
         } else {
             // finish setup
-            _audio = [[AEAudioUnitFilePlayer alloc] initAudioUnitFilePlayerWithAudioController:_session.audioController error:nil];
             
+            // we may want to move this to the load method depending on memory impact
+            _audio = [[AEAudioUnitFilePlayer alloc] initAudioUnitFilePlayerWithAudioController:_session.audioController error:nil];
             _audio.loop = false;
             _audio.volume = 1.0;
         }

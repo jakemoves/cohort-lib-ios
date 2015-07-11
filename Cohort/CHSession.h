@@ -7,6 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
+#import <MediaPlayer/MediaPlayer.h>
 #import "AFNetworking.h"
 #import "TheAmazingAudioEngine.h"
 #import "EventSource.h"
@@ -14,7 +16,9 @@
 
 @interface CHSession : NSObject
 
+@property (strong, nonatomic) UIView *view;
 @property (strong, nonatomic) AEAudioController *audioController;
+@property (strong, nonatomic) MPMoviePlayerController *videoController;
 @property (strong, nonatomic) AEBlockScheduler *scheduler;
 @property (strong, nonatomic) EventSource *sseClient;
 

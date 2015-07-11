@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <MediaPlayer/MediaPlayer.h>
 #import "CHCueable.h"
 #import "CHSession.h"
 #import "CHVideoAsset.h"
@@ -16,6 +17,7 @@
 
 @property (strong, nonatomic) CHSession *session;
 @property (strong, nonatomic) CHVideoAsset *asset;
+@property (strong, nonatomic) MPMoviePlayerController *video;
 
 - (id)initWithSession: (CHSession *)session andAsset:(CHVideoAsset *)asset withTriggers:(NSArray *)triggers withTags:(NSSet *)tags error:(NSError **)error withCompletionBlock:(CHVoidBlock)completionBlock;
 
