@@ -12,6 +12,7 @@
 #import "CHEvent.h"
 #import "CHEpisode.h"
 #import "CHSoundCue.h"
+#import "CHSoundSampleCue.h"
 #import "CHSoundAsset.h"
 #import "CHVideoAsset.h"
 #import "CHTrigger.h"
