@@ -11,7 +11,7 @@
 
 @interface CHParticipant : NSObject
 
-@property (strong, readonly) NSSet *tags;
+@property (strong) NSSet *tags;
 
 -(id)initWithTags:(NSSet *)tags error:(NSError **)error;
 
