@@ -91,6 +91,9 @@
             if([sseEventData objectForKey:@"action"]){
                 NSDictionary *userInfo = [[NSDictionary alloc] initWithObjectsAndKeys:[[NSNumber alloc] initWithLongLong:[AEBlockScheduler now]], @"receivedAt", nil];
                 [[NSNotificationCenter defaultCenter] postNotificationName:[sseEventData objectForKey:@"action"] object:nil userInfo:userInfo];
+            } else if([sseEventData objectForKey:@"data"]){
+                NSDictionary *userInfo = [[NSDictionary alloc] initWithObjectsAndKeys:[[NSNumber alloc] initWithLongLong:[AEBlockScheduler now]], @"receivedAt", [sseEventData objectForKey:@"data"], @"data", nil];
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"data" object:nil userInfo:userInfo];
             }
         } else {
             // TODO add error handling
