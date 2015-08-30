@@ -94,6 +94,9 @@
             } else if([sseEventData objectForKey:@"data"]){
                 NSDictionary *userInfo = [[NSDictionary alloc] initWithObjectsAndKeys:[[NSNumber alloc] initWithLongLong:[AEBlockScheduler now]], @"receivedAt", [sseEventData objectForKey:@"data"], @"data", nil];
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"data" object:nil userInfo:userInfo];
+            } else if([sseEventData objectForKey:@"instruction"]){
+                NSDictionary *userInfo = [[NSDictionary alloc] initWithObjectsAndKeys:[[NSNumber alloc] initWithLongLong:[AEBlockScheduler now]], @"receivedAt", [sseEventData objectForKey:@"instruction"], @"instruction", [sseEventData objectForKey:@"tag"], @"tag", nil];
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"instruction" object:nil userInfo:userInfo];
             }
         } else {
             // TODO add error handling
