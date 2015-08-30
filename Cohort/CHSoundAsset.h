@@ -11,4 +11,6 @@
 
 @interface CHSoundAsset : NSObject <CHMediaAsset>
 
+- (id)initWithAssetId:(NSString *)assetId inBundle:(NSBundle *)bundle andFilename:(NSString *)filename error:(NSError **)error;
+
 @end
