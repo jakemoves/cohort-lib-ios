@@ -21,8 +21,6 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
-		0E3CD2DB1B91081F0046C9B6 /* CHSoundSampleCue.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E3CD2DA1B91081F0046C9B6 /* CHSoundSampleCue.m */; };
-		0E3CD2DD1B9108A60046C9B6 /* CHSoundSampleCueTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E3CD2DC1B9108A60046C9B6 /* CHSoundSampleCueTest.m */; };
 		0E5890EE1B3FB22F000D205B /* libCohort.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E5890E31B3FB22F000D205B /* libCohort.a */; };
 		0E5891131B3FB279000D205B /* CHEpisode.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E5890FD1B3FB279000D205B /* CHEpisode.m */; };
 		0E5891141B3FB279000D205B /* CHEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E5890FF1B3FB279000D205B /* CHEvent.m */; };
@@ -85,9 +83,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		0E3CD2D91B91081F0046C9B6 /* CHSoundSampleCue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHSoundSampleCue.h; sourceTree = "<group>"; };
-		0E3CD2DA1B91081F0046C9B6 /* CHSoundSampleCue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHSoundSampleCue.m; sourceTree = "<group>"; };
-		0E3CD2DC1B9108A60046C9B6 /* CHSoundSampleCueTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHSoundSampleCueTest.m; sourceTree = "<group>"; };
 		0E5890E31B3FB22F000D205B /* libCohort.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libCohort.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		0E5890ED1B3FB22F000D205B /* CohortTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CohortTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0E5890F31B3FB22F000D205B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -180,8 +175,6 @@
 				0E5891081B3FB279000D205B /* CHSoundCue.m */,
 				0E78D7AE1B504ED500A7F955 /* CHVideoCue.h */,
 				0E78D7AF1B504ED500A7F955 /* CHVideoCue.m */,
-				0E3CD2D91B91081F0046C9B6 /* CHSoundSampleCue.h */,
-				0E3CD2DA1B91081F0046C9B6 /* CHSoundSampleCue.m */,
 				0E5891051B3FB279000D205B /* CHSoundAsset.h */,
 				0E5891061B3FB279000D205B /* CHSoundAsset.m */,
 				0E78D7A91B50496400A7F955 /* CHVideoAsset.h */,
@@ -207,7 +200,6 @@
 				0E58911F1B3FB2AA000D205B /* CHSoundAssetTest.m */,
 				0E78D7B71B507DA800A7F955 /* CHVideoCueTest.m */,
 				0E5891201B3FB2AA000D205B /* CHSoundCueTest.m */,
-				0E3CD2DC1B9108A60046C9B6 /* CHSoundSampleCueTest.m */,
 				0E58911D1B3FB2AA000D205B /* CHParticipantTest.m */,
 				0E58911C1B3FB2AA000D205B /* CHEventTest.m */,
 				0E58911B1B3FB2AA000D205B /* CHEpisodeTest.m */,
@@ -471,7 +463,6 @@
 			files = (
 				0E5891131B3FB279000D205B /* CHEpisode.m in Sources */,
 				0E5891161B3FB279000D205B /* CHSession.m in Sources */,
-				0E3CD2DB1B91081F0046C9B6 /* CHSoundSampleCue.m in Sources */,
 				0E78D7B01B504ED500A7F955 /* CHVideoCue.m in Sources */,
 				0E5891181B3FB279000D205B /* CHSoundCue.m in Sources */,
 				0E5891191B3FB279000D205B /* CHTrigger.m in Sources */,
@@ -489,7 +480,6 @@
 			files = (
 				0E5891221B3FB2AA000D205B /* CHEpisodeTest.m in Sources */,
 				0E5891251B3FB2AA000D205B /* CHSessionTest.m in Sources */,
-				0E3CD2DD1B9108A60046C9B6 /* CHSoundSampleCueTest.m in Sources */,
 				0E5891271B3FB2AA000D205B /* CHSoundCueTest.m in Sources */,
 				0E5891231B3FB2AA000D205B /* CHEventTest.m in Sources */,
 				0E5891241B3FB2AA000D205B /* CHParticipantTest.m in Sources */,
