@@ -28,6 +28,8 @@
         _isLoaded = false;
         _isRunning = false;
         _completionBlock = completionBlock;
+        _useAccessibleAlternative = false;
+        _altText = nil;
         
         // warnings first
         if(tags){
@@ -98,12 +100,38 @@
     _isLoaded = true;
 }
 
+- (void)loadWithAccessibleAlternative:(NSError **)error {
+    NSError *secondaryError = nil;
+    if(_altText){
+        _useAccessibleAlternative = true;
+        [self load:&secondaryError];
+    } else {
+        NSDictionary *tempDic = @{NSLocalizedDescriptionKey: @"Could not create accessible sound cue because sound cue has no alt text"};
+        *error = [[NSError alloc] initWithDomain:@"rocks.cohort.SoundCue.ErrorDomain" code:5 userInfo:tempDic];
+    }
+}
+
 - (void)fire {
     if(_completionBlock){
         _audio.completionBlock = _completionBlock;
     }
     
     [self play];
+    
+    if(_useAccessibleAlternative){
+        // send notification with alt text
+        UILocalNotification *notification = [[UILocalNotification alloc] init];
+        notification.soundName = UILocalNotificationDefaultSoundName;
+        notification.alertBody = _altText;
+        [[UIApplication sharedApplication] presentLocalNotificationNow:notification];
+        
+        // works in background only — for foreground, add the following function to app delegate
+        /*- (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification
+            {
+            UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"Notification Received" message:notification.alertBody delegate:nil 	cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+            [alertView show];
+         }*/
+    }
 }
 
 - (void)play {

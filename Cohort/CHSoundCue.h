@@ -19,6 +19,8 @@
 @property (strong, nonatomic) CHSession *session;
 @property (strong, nonatomic) CHSoundAsset *asset;
 @property (strong, nonatomic) AEAudioUnitFilePlayer *audio;
+@property (strong, nonatomic) NSString *altText; // used for participants with accessibility needs (i.e. users who are Deaf / deafened / hard of hearing)
+@property (nonatomic) BOOL useAccessibleAlternative;
 
 - (id)initWithSession: (CHSession *)session andAsset:(CHSoundAsset *)asset withTriggers:(NSArray *)triggers withTags:(NSSet *)tags error:(NSError **)error withCompletionBlock:(CHVoidBlock)completionBlock;
 

@@ -137,7 +137,12 @@
     if(_participant){
         for(id<NSObject, CHCueable> cue in _cues){
             if([cue.targetTags intersectsSet:_participant.tags]){
-                [cue load:&cueError];
+                // check if participant has accessibility flags set for this cue type
+                if([_participant.tags containsObject:cue.mediaTypeAsString]){
+                    [cue loadWithAccessibleAlternative:&cueError];
+                } else {
+                    [cue load:&cueError];
+                }
             }
         }
     } else {

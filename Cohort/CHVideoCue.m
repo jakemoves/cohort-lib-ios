@@ -81,6 +81,11 @@
     
 }
 
+
+-(void) loadWithAccessibleAlternative:(NSError **)error {
+    [self load:error];
+}
+
 - (void)fire {
     if(true){
         [self play];
