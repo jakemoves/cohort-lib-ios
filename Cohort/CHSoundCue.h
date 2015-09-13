@@ -8,7 +8,6 @@
 
 #import <Foundation/Foundation.h>
 #import "TheAmazingAudioEngine.h"
-#import "libs/AEAudioUnitFilePlayer.h"
 #import "CHCueable.h"
 #import "CHSession.h"
 #import "CHSoundAsset.h"
@@ -18,7 +17,7 @@
 
 @property (strong, nonatomic) CHSession *session;
 @property (strong, nonatomic) CHSoundAsset *asset;
-@property (strong, nonatomic) AEAudioUnitFilePlayer *audio;
+@property (strong, nonatomic) AEAudioFilePlayer *audio;
 @property (strong, nonatomic) NSString *altText; // used for participants with accessibility needs (i.e. users who are Deaf / deafened / hard of hearing)
 @property (nonatomic) BOOL useAccessibleAlternative;
 

@@ -29,7 +29,6 @@
 		0E5891171B3FB279000D205B /* CHSoundAsset.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E5891061B3FB279000D205B /* CHSoundAsset.m */; };
 		0E5891181B3FB279000D205B /* CHSoundCue.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E5891081B3FB279000D205B /* CHSoundCue.m */; };
 		0E5891191B3FB279000D205B /* CHTrigger.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E58910A1B3FB279000D205B /* CHTrigger.m */; };
-		0E58911A1B3FB279000D205B /* AEAudioUnitFilePlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E58910F1B3FB279000D205B /* AEAudioUnitFilePlayer.m */; };
 		0E5891221B3FB2AA000D205B /* CHEpisodeTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E58911B1B3FB2AA000D205B /* CHEpisodeTest.m */; };
 		0E5891231B3FB2AA000D205B /* CHEventTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E58911C1B3FB2AA000D205B /* CHEventTest.m */; };
 		0E5891241B3FB2AA000D205B /* CHParticipantTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E58911D1B3FB2AA000D205B /* CHParticipantTest.m */; };
@@ -47,6 +46,7 @@
 		0E78D7B81B507DA800A7F955 /* CHVideoCueTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E78D7B71B507DA800A7F955 /* CHVideoCueTest.m */; };
 		0E83AFF21B3FBD5200E4ABB0 /* clicktrack.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 0E83AFF11B3FBD5200E4ABB0 /* clicktrack.m4a */; };
 		0E83AFF41B3FC35D00E4ABB0 /* Cohort.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0E5891291B3FB2ED000D205B /* Cohort.h */; };
+		605F837EDAC3735662D2CFF9 /* libPods-Cohort.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F2C240D8EC6EF4280C42AEB9 /* libPods-Cohort.a */; };
 		B3A7497C0F72F6CF01528062 /* libPods-CohortTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E8DA03C177D595CF0EA3742 /* libPods-CohortTests.a */; };
 /* End PBXBuildFile section */
 
@@ -104,8 +104,6 @@
 		0E58910A1B3FB279000D205B /* CHTrigger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHTrigger.m; sourceTree = "<group>"; };
 		0E58910B1B3FB279000D205B /* CHTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHTypes.h; sourceTree = "<group>"; };
 		0E58910C1B3FB279000D205B /* Cohort.README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Cohort.README; sourceTree = "<group>"; };
-		0E58910E1B3FB279000D205B /* AEAudioUnitFilePlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AEAudioUnitFilePlayer.h; sourceTree = "<group>"; };
-		0E58910F1B3FB279000D205B /* AEAudioUnitFilePlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AEAudioUnitFilePlayer.m; sourceTree = "<group>"; };
 		0E5891121B3FB279000D205B /* outline */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = outline; sourceTree = "<group>"; };
 		0E58911B1B3FB2AA000D205B /* CHEpisodeTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHEpisodeTest.m; sourceTree = "<group>"; };
 		0E58911C1B3FB2AA000D205B /* CHEventTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHEventTest.m; sourceTree = "<group>"; };
@@ -143,6 +141,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				605F837EDAC3735662D2CFF9 /* libPods-Cohort.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -184,7 +183,6 @@
 				0E5891011B3FB279000D205B /* CHParticipant.h */,
 				0E5891021B3FB279000D205B /* CHParticipant.m */,
 				0E58910C1B3FB279000D205B /* Cohort.README */,
-				0E58910D1B3FB279000D205B /* libs */,
 				0E5891121B3FB279000D205B /* outline */,
 			);
 			path = Cohort;
@@ -214,15 +212,6 @@
 				0E5890F31B3FB22F000D205B /* Info.plist */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		0E58910D1B3FB279000D205B /* libs */ = {
-			isa = PBXGroup;
-			children = (
-				0E58910E1B3FB279000D205B /* AEAudioUnitFilePlayer.h */,
-				0E58910F1B3FB279000D205B /* AEAudioUnitFilePlayer.m */,
-			);
-			path = libs;
 			sourceTree = "<group>";
 		};
 		0E5891101B3FB279000D205B /* media */ = {
@@ -470,7 +459,6 @@
 				0E5891171B3FB279000D205B /* CHSoundAsset.m in Sources */,
 				0E5891141B3FB279000D205B /* CHEvent.m in Sources */,
 				0E78D7AB1B50496400A7F955 /* CHVideoAsset.m in Sources */,
-				0E58911A1B3FB279000D205B /* AEAudioUnitFilePlayer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

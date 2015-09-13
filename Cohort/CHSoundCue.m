@@ -68,9 +68,15 @@
             // finish setup
             
             // we may want to move this to the load method depending on memory impact
-            _audio = [[AEAudioUnitFilePlayer alloc] initAudioUnitFilePlayerWithAudioController:_session.audioController error:nil];
-            _audio.loop = false;
-            _audio.volume = 1.0;
+            NSError *secondaryError = nil;
+            _audio = [[AEAudioFilePlayer alloc] initWithURL:_asset.sourceFile error:&secondaryError];
+            if(!secondaryError){
+                _audio.channelIsPlaying = false;
+                _audio.loop = false;
+                _audio.volume = 1.0;
+            } else {
+                self = nil;
+            }
         }
     }
     
@@ -81,8 +87,8 @@
 // CHCueable ________________________
 
 - (void)load:(NSError **)error {
-    [_audio loadAudioFileFromUrl:_asset.sourceFile];
     [_session.audioController addChannels:[NSArray arrayWithObject:_audio]];
+    
     _duration = _audio.duration;
     
     if(_triggers && _triggers.count > 0){
@@ -137,13 +143,13 @@
 
 - (void)play {
     _isRunning = true;
-    [_audio play];
+    _audio.channelIsPlaying = true;
 }
 
 // not tested yet!
 - (void)pause {
     _isRunning = false;
-    [_audio stop];
+    _audio.channelIsPlaying = false;
 }
 
 @end
