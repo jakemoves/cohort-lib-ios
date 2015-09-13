@@ -106,7 +106,7 @@
         _useAccessibleAlternative = true;
         [self load:&secondaryError];
     } else {
-        NSDictionary *tempDic = @{NSLocalizedDescriptionKey: @"Could not create accessible sound cue because sound cue has no alt text"};
+        NSDictionary *tempDic = @{NSLocalizedDescriptionKey: @"Could not load accessible sound cue because sound cue has no alt text"};
         *error = [[NSError alloc] initWithDomain:@"rocks.cohort.SoundCue.ErrorDomain" code:5 userInfo:tempDic];
     }
 }
