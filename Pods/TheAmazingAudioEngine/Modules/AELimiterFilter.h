@@ -40,8 +40,10 @@ extern "C" {
 
 /*!
  * Initialise
+ *
+ * @param audioController The Audio Controller
  */
-- (id)init;
+- (id)initWithAudioController:(AEAudioController*)audioController;
 
 @property (nonatomic, assign) UInt32 hold;
 @property (nonatomic, assign) UInt32 attack;

@@ -24,7 +24,15 @@
 //
 
 #import "AEFloatConverter.h"
-#import "AEUtilities.h"
+
+#define checkResult(result,operation) (_checkResult((result),(operation),strrchr(__FILE__, '/')+1,__LINE__))
+static inline BOOL _checkResult(OSStatus result, const char *operation, const char* file, int line) {
+    if ( result != noErr ) {
+        NSLog(@"%s:%d: %s result %d %08X %4.4s", file, line, operation, (int)result, (int)result, (char*)&result);
+        return NO;
+    }
+    return YES;
+}
 
 #define                        kNoMoreDataErr                            -2222
 
@@ -98,8 +106,8 @@ static OSStatus complexInputDataProc(AudioConverterRef             inAudioConver
     }
     
     if ( memcmp(&_sourceAudioDescription, &_floatAudioDescription, sizeof(AudioStreamBasicDescription)) != 0 ) {
-        AECheckOSStatus(AudioConverterNew(&_sourceAudioDescription, &_floatAudioDescription, &_toFloatConverter), "AudioConverterNew");
-        AECheckOSStatus(AudioConverterNew(&_floatAudioDescription, &_sourceAudioDescription, &_fromFloatConverter), "AudioConverterNew");
+        checkResult(AudioConverterNew(&_sourceAudioDescription, &_floatAudioDescription, &_toFloatConverter), "AudioConverterNew");
+        checkResult(AudioConverterNew(&_floatAudioDescription, &_sourceAudioDescription, &_fromFloatConverter), "AudioConverterNew");
         _scratchFloatBufferList = (AudioBufferList*)malloc(sizeof(AudioBufferList) + (_floatAudioDescription.mChannelsPerFrame-1)*sizeof(AudioBuffer));
         _scratchFloatBufferList->mNumberBuffers = _floatAudioDescription.mChannelsPerFrame;
         for ( int i=0; i<_scratchFloatBufferList->mNumberBuffers; i++ ) {
@@ -139,7 +147,7 @@ BOOL AEFloatConverterToFloat(__unsafe_unretained AEFloatConverter* THIS, AudioBu
             sourceBuffer->mBuffers[i].mDataByteSize = priorDataByteSize;
         }
         
-        if ( !AECheckOSStatus(result, "AudioConverterConvertComplexBuffer") ) {
+        if ( !checkResult(result, "AudioConverterConvertComplexBuffer") ) {
             return NO;
         }
         
@@ -187,7 +195,7 @@ BOOL AEFloatConverterFromFloat(__unsafe_unretained AEFloatConverter* THIS, float
             targetBuffer->mBuffers[i].mDataByteSize = priorDataByteSize;
         }
         
-        if ( !AECheckOSStatus(result, "AudioConverterConvertComplexBuffer") ) {
+        if ( !checkResult(result, "AudioConverterConvertComplexBuffer") ) {
             return NO;
         }
     } else {

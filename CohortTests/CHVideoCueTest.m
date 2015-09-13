@@ -25,7 +25,7 @@
     [super tearDown];
 }
 
-- (void)testThatItInitsWithAValidVideoAsset {
+- (void)testThatItInitsWithAValidSoundAsset {
     NSError *error = nil;
     NSError *secondaryError = nil;
  

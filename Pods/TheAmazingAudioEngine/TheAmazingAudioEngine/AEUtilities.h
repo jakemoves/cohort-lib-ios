@@ -24,7 +24,6 @@
 //
 
 #import <AudioToolbox/AudioToolbox.h>
-#import <Foundation/Foundation.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -118,58 +117,6 @@ AudioComponentDescription AEAudioComponentDescriptionMake(OSType manufacturer, O
  */
 void AEAudioStreamBasicDescriptionSetChannelsPerFrame(AudioStreamBasicDescription *audioDescription, int numberOfChannels);
 
-/*!
- * Get current global timestamp, in host ticks
- */
-uint64_t AECurrentTimeInHostTicks(void);
-
-/*!
- * Get current global timestamp, in seconds
- */
-double AECurrentTimeInSeconds(void);
-
-/*!
- * Convert time in seconds to host ticks
- *
- * @param seconds The time in seconds
- * @return The time in host ticks
- */
-uint64_t AEHostTicksFromSeconds(double seconds);
-
-/*!
- * Convert time in host ticks to seconds
- *
- * @param ticks The time in host ticks
- * @return The time in seconds
- */
-double AESecondsFromHostTicks(uint64_t ticks);
-    
-/*!
- * Rate limit an operation
- *
- *  This can be used to prevent spamming error messages to the console
- *  when something goes wrong.
- */
-BOOL AERateLimit(void);
-
-/*!
- * Check an OSStatus condition
- *
- * @param result The result
- * @param operation A description of the operation, for logging purposes
- */
-#define AECheckOSStatus(result,operation) (_AECheckOSStatus((result),(operation),strrchr(__FILE__, '/')+1,__LINE__))
-static inline BOOL _AECheckOSStatus(OSStatus result, const char *operation, const char* file, int line) {
-    if ( result != noErr ) {
-        if ( AERateLimit() ) {
-            int fourCC = CFSwapInt32HostToBig(result);
-            NSLog(@"TAAE: %s:%d: %s result %d %08X %4.4s", file, line, operation, (int)result, (int)result, (char*)&fourCC);
-        }
-        return NO;
-    }
-    return YES;
-}
-    
 #ifdef __cplusplus
 }
 #endif

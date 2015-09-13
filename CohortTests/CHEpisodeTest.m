@@ -373,8 +373,6 @@
     }];
 }
 
-
-// test that episode can be played more than once
 // test that loadWithAccessibleAlternative is used if participant has accessibility flags set
 // test that load throws error if participant or triggers are nil/zero
 
