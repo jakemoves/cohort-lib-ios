@@ -182,4 +182,6 @@
     XCTAssertEqual(cue.audio.channelIsPlaying, true);
 }
 
+// test that it can play sound cue twice
+
 @end

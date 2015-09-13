@@ -21,16 +21,16 @@ PODS:
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
   - EventSource (1.0.0)
-  - TheAmazingAudioEngine (1.4.6)
+  - TheAmazingAudioEngine (1.5)
 
 DEPENDENCIES:
   - AFNetworking (~> 2.0)
   - EventSource (~> 1.0)
-  - TheAmazingAudioEngine (~> 1.4)
+  - TheAmazingAudioEngine (~> 1.5)
 
 SPEC CHECKSUMS:
   AFNetworking: 05edc0ac4c4c8cf57bcf4b84be5b0744b6d8e71e
   EventSource: 58cfd8560bbe8a809e987f1bfa336168b8781873
-  TheAmazingAudioEngine: 014e942f20456feaf5ccb48f440402306350abf8
+  TheAmazingAudioEngine: 17fd69d482b0c0979dcfe2f268f3dc7bef445727
 
 COCOAPODS: 0.37.2

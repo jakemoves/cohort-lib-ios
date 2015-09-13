@@ -15,10 +15,12 @@
         // custom initialization
         
         // audio functionality
+        NSLog(@"starting audio init");
         _audioController = [[AEAudioController alloc] initWithAudioDescription:[AEAudioController nonInterleaved16BitStereoAudioDescription]];
         _audioController.preferredBufferDuration = 0.005;
         _audioController.useMeasurementMode = YES;
         [_audioController start:NULL];
+        NSLog(@"finishing audio init");
         
         
         // video functionality

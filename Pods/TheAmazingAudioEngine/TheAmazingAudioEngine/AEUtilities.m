@@ -23,7 +23,11 @@
 //  3. This notice may not be removed or altered from any source distribution.
 //
 
-#include "AEUtilities.h"
+#import "AEUtilities.h"
+#import <mach/mach_time.h>
+
+static double __hostTicksToSeconds = 0.0;
+static double __secondsToHostTicks = 0.0;
 
 AudioBufferList *AEAllocateAndInitAudioBufferList(AudioStreamBasicDescription audioFormat, int frameCount) {
     int numberOfBuffers = audioFormat.mFormatFlags & kAudioFormatFlagIsNonInterleaved ? audioFormat.mChannelsPerFrame : 1;
@@ -114,3 +118,51 @@ void AEAudioStreamBasicDescriptionSetChannelsPerFrame(AudioStreamBasicDescriptio
     }
     audioDescription->mChannelsPerFrame = numberOfChannels;
 }
+
+static void AETimeInit() {
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        mach_timebase_info_data_t tinfo;
+        mach_timebase_info(&tinfo);
+        __hostTicksToSeconds = ((double)tinfo.numer / tinfo.denom) * 1.0e-9;
+        __secondsToHostTicks = 1.0 / __hostTicksToSeconds;
+    });
+}
+
+uint64_t AECurrentTimeInHostTicks(void) {
+    return mach_absolute_time();
+}
+
+double AECurrentTimeInSeconds(void) {
+    if ( !__hostTicksToSeconds ) AETimeInit();
+    return mach_absolute_time() * __hostTicksToSeconds;
+}
+
+uint64_t AEHostTicksFromSeconds(double seconds) {
+    if ( !__secondsToHostTicks ) AETimeInit();
+    assert(seconds >= 0);
+    return seconds * __secondsToHostTicks;
+}
+
+double AESecondsFromHostTicks(uint64_t ticks) {
+    if ( !__hostTicksToSeconds ) AETimeInit();
+    return ticks * __hostTicksToSeconds;
+}
+
+BOOL AERateLimit(void) {
+    static double lastMessage = 0;
+    static int messageCount=0;
+    double now = AECurrentTimeInSeconds();
+    if ( now-lastMessage > 1 ) {
+        messageCount = 0;
+        lastMessage = now;
+    }
+    if ( ++messageCount >= 10 ) {
+        if ( messageCount == 10 ) {
+            NSLog(@"TAAE: Suppressing some messages");
+        }
+        return NO;
+    }
+    return YES;
+}
+
