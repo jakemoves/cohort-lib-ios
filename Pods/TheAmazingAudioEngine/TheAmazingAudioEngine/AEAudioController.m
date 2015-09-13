@@ -807,7 +807,7 @@ static OSStatus ioUnitRenderNotifyCallback(void *inRefCon, AudioUnitRenderAction
     if ( !(self = [super init]) ) return nil;
 
     NSAssert([NSThread isMainThread], @"Should be initialized on the main thread");
-    //NSAssert(!__AEAllocated, @"You may only use one TAAE instance at a time");
+    NSAssert(!__AEAllocated, @"You may only use one TAAE instance at a time");
     __AEAllocated = YES;
     
     NSAssert(audioDescription.mFormatID == kAudioFormatLinearPCM, @"Only linear PCM supported");

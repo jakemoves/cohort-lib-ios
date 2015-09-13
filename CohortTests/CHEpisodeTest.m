@@ -18,13 +18,11 @@
 - (void)setUp {
     [super setUp];
     // Put setup code here. This method is called before the invocation of each test method in the class.
-    sleep(1.0);
 }
 
 - (void)tearDown {
     // Put teardown code here. This method is called after the invocation of each test method in the class.
     [super tearDown];
-    sleep(1.0);
 }
 
 - (void)testThatItDoesNotInitWithNilCueset {
@@ -91,8 +89,7 @@
     CHTrigger *trigger = [[CHTrigger alloc] initWithValue:1.0 ofType:CHTriggeredByServerSentEvent forMediaType:CHMediaTypeStringSound error:&secondaryError];
     NSBundle *bundle = [NSBundle bundleForClass:[self class]];
     CHSoundAsset *asset = [[CHSoundAsset alloc] initWithAssetId:@"clicktrack" inBundle:bundle andFilename:@"clicktrack.m4a" error:&secondaryError];
-    CHSoundCue *cue = [[CHSoundCue alloc] initWithSession:session andAsset:asset withTriggers:[NSArray arrayWithObject:trigger] withTags:[NSSet setWithObject: @"all"] error:&secondaryError withCompletionBlock:voidBlock];
-    XCTAssertNil(secondaryError);
+    CHSoundCue *cue = [[CHSoundCue alloc] initWithSession:session andAsset:asset withTriggers:[NSArray arrayWithObject:trigger] withTags:nil error:&secondaryError withCompletionBlock:voidBlock];
     
     NSArray *triggers = [NSArray arrayWithObject:trigger];
     

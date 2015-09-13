@@ -15,10 +15,13 @@
         // custom initialization
         
         // audio functionality
+        NSLog(@"starting audio init");
         _audioController = [[AEAudioController alloc] initWithAudioDescription:[AEAudioController nonInterleaved16BitStereoAudioDescription]];
         _audioController.preferredBufferDuration = 0.005;
         _audioController.useMeasurementMode = YES;
         [_audioController start:NULL];
+        NSLog(@"finishing audio init");
+        
         
         // video functionality
         _videoController = [[MPMoviePlayerController alloc] init];
@@ -36,12 +39,7 @@
         // local notifications
         UIUserNotificationType types = UIUserNotificationTypeAlert | UIUserNotificationTypeSound;
         UIUserNotificationSettings *notificationSettings = [UIUserNotificationSettings settingsForTypes:types categories:nil]; // maybe should not live in library
-        if([[UIApplication sharedApplication] respondsToSelector:@selector(registerUserNotificationSettings:)]){
-            // ios 8
-            [[UIApplication sharedApplication] registerUserNotificationSettings:notificationSettings]; // maybe should not live in library
-        } else {
-            //ios 7
-        }
+        [[UIApplication sharedApplication] registerUserNotificationSettings:notificationSettings]; // maybe should not live in library
         
         // networking
         _sseClient = nil;
