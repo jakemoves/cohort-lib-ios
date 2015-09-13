@@ -128,6 +128,7 @@
         // works in background only — for foreground, add the following function to app delegate
         /*- (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification
             {
+            // do stuff, i.e. show an alert and play a sound
             UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"Notification Received" message:notification.alertBody delegate:nil 	cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
             [alertView show];
          }*/
