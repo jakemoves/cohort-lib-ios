@@ -37,7 +37,10 @@
         // local notifications
         UIUserNotificationType types = UIUserNotificationTypeAlert | UIUserNotificationTypeSound;
         UIUserNotificationSettings *notificationSettings = [UIUserNotificationSettings settingsForTypes:types categories:nil]; // maybe should not live in library
-        [[UIApplication sharedApplication] registerUserNotificationSettings:notificationSettings]; // maybe should not live in library
+        if([UIApplication sharedApplication] respondsToSelector:@selector(registerUserNotificationSettings:)){
+            //iOS 8+
+            [[UIApplication sharedApplication] registerUserNotificationSettings:notificationSettings]; // maybe should not live in library
+        }
         
         // networking
         _sseClient = nil;
