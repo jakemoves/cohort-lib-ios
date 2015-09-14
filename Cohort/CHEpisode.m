@@ -224,7 +224,14 @@
     for(int i = 0; i < _session.channelGroups.count; i++){
         AEChannelGroupRef currentGroup;
         [[_session.channelGroups objectAtIndex:i] getValue:&currentGroup];
-        [_session.audioController removeChannelGroup:currentGroup];
+        NSArray *channels = [_session.audioController channelsInChannelGroup:currentGroup];
+   
+        for(int i = 0; i < channels.count; i++){
+            AEAudioFilePlayer *audio = [channels objectAtIndex:i];
+            if(!audio.channelIsPlaying){
+                [_session.audioController removeChannels:[NSArray arrayWithObject:audio]];
+            }
+        }
     }
     
     // remove cues
@@ -238,8 +245,6 @@
         [trigger disarm];
     }
     _triggers = nil;
-    
-    
 }
 
 // end CHCueable
