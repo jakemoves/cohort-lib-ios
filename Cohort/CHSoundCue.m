@@ -68,15 +68,7 @@
             // finish setup
             
             // we may want to move this to the load method depending on memory impact
-            NSError *secondaryError = nil;
-            _audio = [[AEAudioFilePlayer alloc] initWithURL:_asset.sourceFile error:&secondaryError];
-            if(!secondaryError){
-                _audio.channelIsPlaying = false;
-                _audio.loop = false;
-                _audio.volume = 1.0;
-            } else {
-                self = nil;
-            }
+            
         }
     }
     
@@ -87,7 +79,36 @@
 // CHCueable ________________________
 
 - (void)load:(NSError **)error {
-    [_session.audioController addChannels:[NSArray arrayWithObject:_audio]];
+    //NSLog(@"loading cue");
+    if(_session.channelGroups.count == 0){
+        //NSLog(@"making first channel group");
+        [self addChannelGroup];
+    } else {
+        //NSLog(@"checking how many channels in this group");
+        AEChannelGroupRef currentGroup;
+        [[_session.channelGroups objectAtIndex:_session.channelGroups.count-1] getValue:&currentGroup];
+        NSArray *channelsInGroup =[_session.audioController channelsInChannelGroup:currentGroup];
+        uint8_t channelCount = channelsInGroup.count;
+        if(channelCount == 98 /*AEAudioController kMaximumChannelsPerGroup*/){
+           // NSLog(@"at max channels, making new group");
+            [self addChannelGroup];
+        }
+    }
+    
+    //NSLog(@"adding cue to channel group %i", (_session.channelGroups.count-1));
+    
+    AEChannelGroupRef currentGroup;
+    [[_session.channelGroups objectAtIndex:_session.channelGroups.count-1] getValue:&currentGroup];
+    NSError *secondaryError = nil;
+    _audio = [[AEAudioFilePlayer alloc] initWithURL:_asset.sourceFile error:&secondaryError];
+    if(!secondaryError){
+        _audio.channelIsPlaying = false;
+        _audio.loop = false;
+    }
+    [_session.audioController addChannels:[NSArray arrayWithObject:_audio]
+                           toChannelGroup:currentGroup];
+    
+    //[_session.audioController addChannels:[NSArray arrayWithObject:_audio]];
     
     _duration = _audio.duration;
     
@@ -150,6 +171,16 @@
 - (void)pause {
     _isRunning = false;
     _audio.channelIsPlaying = false;
+}
+
+    
+// Other methods
+    
+-(void)addChannelGroup{
+    //NSLog(@"making first channel group: 1");
+    AEChannelGroupRef group =[_session.audioController createChannelGroup];
+    //NSLog(@"making first channel group: 2");
+    [_session.channelGroups addObject:[NSValue value:&group withObjCType:@encode(AEChannelGroupRef)]];
 }
 
 @end

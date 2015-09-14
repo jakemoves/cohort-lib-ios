@@ -18,11 +18,13 @@
 @property (readonly, strong, nonatomic) CHSession *session;
 @property (strong, nonatomic) NSSet *cues;
 @property (readonly) uint64_t startTime;
-@property (strong, nonatomic) CHParticipant *participant;
+@property (nonatomic) BOOL cuesArePreparedForParticipant;
+@property (nonatomic) AEChannelGroupRef channels;
 
 - (id)initWithId:(NSString *)episodeId withSession:(CHSession *)session andCues:(NSSet *)cues withTriggers:(NSArray *)triggers withCompletionBlock:(CHVoidBlock)completionBlock error:(NSError **)error;
 - (NSSet *)cuesOfMediaType: (CHMediaType)mediaType;
 - (NSSet *)cuesCurrentlyRunning;
-- (void) loadForParticipant:(CHParticipant *)participant error:(NSError **)error;
+- (void) prepareCuesForParticipant:(CHParticipant *)participant error:(NSError **)error;
+- (void) stop;
 
 @end

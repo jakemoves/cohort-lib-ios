@@ -13,6 +13,7 @@
 #import "TheAmazingAudioEngine.h"
 #import "EventSource.h"
 #import "CHTypes.h"
+#import "CHParticipant.h"
 
 @interface CHSession : NSObject
 
@@ -21,6 +22,8 @@
 @property (strong, nonatomic) MPMoviePlayerController *videoController;
 @property (strong, nonatomic) AEBlockScheduler *scheduler;
 @property (strong, nonatomic) EventSource *sseClient;
+@property (strong, nonatomic) NSMutableArray *channelGroups;
+@property (strong, nonatomic) CHParticipant *participant;
 
 - (void)listenForCuesWithURL:(NSURL *)url withCompletionHandler:(void (^)(BOOL success, NSError *error))handler;
 

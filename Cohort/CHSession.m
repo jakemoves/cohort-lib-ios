@@ -14,11 +14,14 @@
     if (self = [super init]) {
         // custom initialization
         
+        _participant = nil;
+        
         // audio functionality
         _audioController = [[AEAudioController alloc] initWithAudioDescription:[AEAudioController nonInterleaved16BitStereoAudioDescription]];
         _audioController.preferredBufferDuration = 0.005;
         _audioController.useMeasurementMode = YES;
         [_audioController start:NULL];
+        _channelGroups = [[NSMutableArray alloc] init];
         
         
         // video functionality
