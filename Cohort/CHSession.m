@@ -15,6 +15,10 @@
         // custom initialization
         
         _participant = nil;
+        _episodeIsPlaying = false;
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setEpisodeIsPlayingOn) name:@"episode started" object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setEpisodeIsPlayingOff) name:@"episode stopped" object:nil];
+        
         
         // audio functionality
         _audioController = [[AEAudioController alloc] initWithAudioDescription:[AEAudioController nonInterleaved16BitStereoAudioDescription]];
@@ -90,6 +94,7 @@
         handler(false, event.error);
     }];
     
+    __weak id weakSelf = self;
     [_sseClient addEventListener:@"cohortMessage" handler:^(Event *event) {
         NSLog(@"SSE: %@, %@", event.event, event.data);
         NSError *error = nil;
@@ -99,7 +104,26 @@
         if(!error){
             if([sseEventData objectForKey:@"action"]){
                 NSDictionary *userInfo = [[NSDictionary alloc] initWithObjectsAndKeys:[[NSNumber alloc] initWithLongLong:[AEBlockScheduler now]], @"receivedAt", nil];
-                [[NSNotificationCenter defaultCenter] postNotificationName:[sseEventData objectForKey:@"action"] object:nil userInfo:userInfo];
+                // this should all be handled in CHEvent, sigh
+                NSString *action = [sseEventData objectForKey:@"action"];
+                NSArray *actionComponents = [action componentsSeparatedByString:@"-"];
+                
+                //NSLog(@"action to 7: %@", action);
+                if([[actionComponents objectAtIndex:0] isEqualToString:@"episode"]){
+                    if([weakSelf episodeIsPlaying] == false){
+                        // if nothing's running, start the episode
+                        if([[actionComponents objectAtIndex:2] isEqualToString:CHTriggerActionTypeGo]){
+                            [[NSNotificationCenter defaultCenter] postNotificationName:[sseEventData objectForKey:@"action"] object:nil userInfo:userInfo];
+                        }
+                    } else {
+                        // if something is running, stop the episode
+                        if([[actionComponents objectAtIndex:2] isEqualToString:CHTriggerActionTypeStop]){
+                            [[NSNotificationCenter defaultCenter] postNotificationName:[sseEventData objectForKey:@"action"] object:nil userInfo:userInfo];
+                        }
+                    }
+                } else {
+                    [[NSNotificationCenter defaultCenter] postNotificationName:[sseEventData objectForKey:@"action"] object:nil userInfo:userInfo];
+                }
             }
         } else {
             // TODO add error handling
@@ -107,10 +131,30 @@
     }];
 }
 
+-(void)setEpisodeIsPlayingOn {
+    _episodeIsPlaying = true;
+    NSLog(@"set episodeIsPlaying to %hhd", _episodeIsPlaying);
+}
+
+-(void)setEpisodeIsPlayingOff {
+    _episodeIsPlaying = false;
+    NSLog(@"set episodeIsPlaying to %hhd", _episodeIsPlaying);
+}
+
 - (void)dealloc{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     [_sseClient close];
     _scheduler = nil;
-    [_audioController removeChannels:[_audioController channels]];
+    NSArray *channels = [_audioController channels];
+
+    
+    for(int i = 0; i < channels.count; i++){
+        AEAudioFilePlayer *audio = [channels objectAtIndex:i];
+        audio.channelIsPlaying = false;
+        [_audioController removeChannels:[NSArray arrayWithObject:audio]];
+        audio = nil;
+    }
+    [_audioController stop];
     _audioController = nil;
 }
 

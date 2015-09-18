@@ -183,4 +183,25 @@
     [_session.channelGroups addObject:[NSValue value:&group withObjCType:@encode(AEChannelGroupRef)]];
 }
 
+- (void)dealloc{
+#ifdef DEBUG
+    //NSLog(@"deallocating sound cue");
+#endif
+    
+    _triggers = nil;
+    
+    //NSLog(@"   aa");
+    
+    if(_isRunning){
+        [self pause];
+    }
+    //NSLog(@"   bb");
+    
+    if(_isLoaded){
+        [_session.audioController removeChannels:[NSArray arrayWithObject:_audio]];
+    }
+    
+    //NSLog(@"   cc");
+}
+
 @end

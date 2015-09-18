@@ -133,9 +133,15 @@
     if(_triggers && _triggers.count > 0){
         for(CHTrigger *trigger in _triggers){
             __weak id weakSelf = self;
-            [trigger arm:^{
-                [weakSelf fire];
-            }];
+            if([trigger.action isEqualToString:CHTriggerActionTypeGo]){
+                [trigger arm:^{
+                    [weakSelf fire];
+                }];
+            } else if([trigger.action isEqualToString:CHTriggerActionTypeStop]){
+                [trigger arm:^{
+                    [weakSelf stop];
+                }];
+            }
         }
     } else {
         NSDictionary *tempDic = @{NSLocalizedDescriptionKey: @"Could not load episode with no triggers"};
@@ -145,6 +151,8 @@
 }
 
 -(void) fire {
+    NSDictionary *tempDic = [[NSDictionary alloc] initWithObjectsAndKeys:_episodeId, @"episodeId", nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"firing episode" object:nil userInfo:tempDic];
     if(_cuesArePreparedForParticipant){
         [self play];
     } else {
@@ -155,6 +163,8 @@
         NSError *error = nil;
         [self prepareCuesForParticipant:_session.participant error:&error];
     }
+    _isRunning = true;
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"episode started" object:nil];
 }
 
 -(void) play {
@@ -199,8 +209,6 @@
             }
         }
     }
-
-    _isRunning = true;
 }
 
 -(void) pause {
@@ -221,30 +229,33 @@
 
 - (void) stop {
     // remove channels
-    for(int i = 0; i < _session.channelGroups.count; i++){
-        AEChannelGroupRef currentGroup;
-        [[_session.channelGroups objectAtIndex:i] getValue:&currentGroup];
-        NSArray *channels = [_session.audioController channelsInChannelGroup:currentGroup];
-   
-        for(int i = 0; i < channels.count; i++){
-            AEAudioFilePlayer *audio = [channels objectAtIndex:i];
-            if(!audio.channelIsPlaying){
-                [_session.audioController removeChannels:[NSArray arrayWithObject:audio]];
-            }
-        }
-    }
-    
-    // remove cues
-    for(__strong id<CHCueable> cue in _cues){
-        cue = nil;
-    }
+//    for(int i = 0; i < _session.channelGroups.count; i++){
+//        AEChannelGroupRef currentGroup;
+//        [[_session.channelGroups objectAtIndex:i] getValue:&currentGroup];
+//        NSArray *channels = [_session.audioController channelsInChannelGroup:currentGroup];
+//   
+//        for(int i = 0; i < channels.count; i++){
+//            AEAudioFilePlayer *audio = [channels objectAtIndex:i];
+//            if(audio.channelIsPlaying){
+//                audio.channelIsPlaying = false;
+//            }
+//            [_session.audioController removeChannels:[NSArray arrayWithObject:audio]];
+//        }
+//    }
+    //NSLog(@"   a");
     _cues = nil;
-    
-    // remove triggers
-    for(CHTrigger *trigger in _triggers){
-        [trigger disarm];
-    }
+   // NSLog(@"   b");
     _triggers = nil;
+   // NSLog(@"   c");
+    NSArray *schedules = [_session.scheduler schedules];
+    
+    if(_isRunning){
+        [_session.scheduler cancelScheduleWithIdentifier:@"CHCue"];
+        _isRunning = false;
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"episode stopped" object:nil];
+    }
+    
+
 }
 
 // end CHCueable
@@ -283,7 +294,7 @@
     }
                                         atTime:timestamp
                                  timingContext:AEAudioTimingContextOutput
-                                    identifier:@"my event"
+                                    identifier:@"CHCue"
                        mainThreadResponseBlock:^(const AudioTimeStamp *time, UInt32 offset) {
                            // We are now on the main thread at *time*, which is *offset* frames
                            // before the time we scheduled, *timestamp*.
@@ -308,6 +319,10 @@
         }
     }];
     return cueSubset;
+}
+
+-(void)dealloc{
+    [self stop];
 }
 
 @end
