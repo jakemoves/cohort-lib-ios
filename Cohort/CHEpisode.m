@@ -247,7 +247,6 @@
    // NSLog(@"   b");
     _triggers = nil;
    // NSLog(@"   c");
-    NSArray *schedules = [_session.scheduler schedules];
     
     if(_isRunning){
         [_session.scheduler cancelScheduleWithIdentifier:@"CHCue"];

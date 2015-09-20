@@ -85,18 +85,33 @@
     _sseClient = [EventSource eventSourceWithURL:url];
     
     [_sseClient onOpen:^(Event *event) {
-        //NSLog(@"SSE: onOpen, %@", event);
+#ifdef DEBUG
+        NSLog(@"SSE: onOpen, %@", event);
+#endif
         handler(true, nil);
     }];
     
     [_sseClient onError:^(Event *event) {
-        //NSLog(@"SSE: onError, %@", event);
+#ifdef DEBUG
+        NSLog(@"SSE: onError, %@", event);
+#endif
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Sorry..." message:@"There seems to be an issue connecting to the FluxDelux server (sometimes this happens if you're using a VPN on your iPhone). Please see one of our volunteers for assistance." delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"SSE-error" object:nil];
+        
+        UILocalNotification *notification = [[UILocalNotification alloc] init];
+        notification.soundName = UILocalNotificationDefaultSoundName;
+        notification.alertBody = @"There seems to be an issue connecting to the FluxDelux server. Please see one of our volunteers for assistance.";
+        [[UIApplication sharedApplication] presentLocalNotificationNow:notification];
+        
+        [alert show];
         handler(false, event.error);
     }];
     
     __weak id weakSelf = self;
     [_sseClient addEventListener:@"cohortMessage" handler:^(Event *event) {
+#ifdef DEBUG
         NSLog(@"SSE: %@, %@", event.event, event.data);
+#endif
         NSError *error = nil;
         
         NSDictionary *sseEventData = [NSJSONSerialization JSONObjectWithData:[event.data dataUsingEncoding:NSUTF8StringEncoding] options:kNilOptions error:&error];
@@ -133,12 +148,16 @@
 
 -(void)setEpisodeIsPlayingOn {
     _episodeIsPlaying = true;
+#ifdef DEBUG
     NSLog(@"set episodeIsPlaying to %hhd", _episodeIsPlaying);
+#endif
 }
 
 -(void)setEpisodeIsPlayingOff {
     _episodeIsPlaying = false;
+#ifdef DEBUG
     NSLog(@"set episodeIsPlaying to %hhd", _episodeIsPlaying);
+#endif
 }
 
 - (void)dealloc{

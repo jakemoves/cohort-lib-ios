@@ -78,7 +78,9 @@
                 nf.numberStyle = NSNumberFormatterDecimalStyle;
                 NSString *value = [nf stringFromNumber:_value];
                 NSString *triggerString = [NSString stringWithFormat:@"%@-%@-%@", _mediaTypeAsString, value, _action];
+#ifdef DEBUG
                 NSLog(@"arming trigger for NSNotification: %@", triggerString);
+#endif
                 [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pullWithNotification:) name:triggerString object:nil];
             
                 break;
