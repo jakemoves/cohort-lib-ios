@@ -47,6 +47,8 @@
         if([[UIApplication sharedApplication] respondsToSelector:@selector(registerUserNotificationSettings:)]){
             //iOS 8+
             [[UIApplication sharedApplication] registerUserNotificationSettings:notificationSettings]; // maybe should not live in library
+        } else {
+            [[UIApplication sharedApplication] registerForRemoteNotificationTypes:UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeSound];
         }
         
         // networking
