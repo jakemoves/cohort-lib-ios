@@ -25,6 +25,7 @@
 @property (strong, nonatomic) NSMutableArray *channelGroups;
 @property (strong, nonatomic) CHParticipant *participant;
 @property (nonatomic) BOOL episodeIsPlaying;
+@property (nonatomic) BOOL didNotifyUserAboutSSEError;
 
 - (void)listenForCuesWithURL:(NSURL *)url withCompletionHandler:(void (^)(BOOL success, NSError *error))handler;
 
