@@ -15,6 +15,7 @@
         // custom initialization
         
         _isArmed = false;
+        _delay = 0;
         
         // init value
         if(value < 0.0){
@@ -71,6 +72,20 @@
                 break;
             case CHTriggeredAtTime:
                 break;
+            case CHTriggeredByServerSentEventWithCanon:
+            {
+                //case CHTriggeredByServerSentEvent, CHTriggeredByUserInteraction
+                NSNumberFormatter *nf = [[NSNumberFormatter alloc] init];
+                nf.numberStyle = NSNumberFormatterDecimalStyle;
+                NSString *value = [nf stringFromNumber:_value];
+                NSString *triggerString = [NSString stringWithFormat:@"%@-%@-%@", _mediaTypeAsString, value, _action];
+#ifdef DEBUG
+                NSLog(@"arming trigger for NSNotification: %@", triggerString);
+#endif
+                [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pullWithDelayAndNotification:) name:triggerString object:nil];
+                
+                break;
+            }
             default:
             {
                 //case CHTriggeredByServerSentEvent, CHTriggeredByUserInteraction
@@ -114,6 +129,12 @@
 
 -(void) pullWithNotification:(NSNotification *) notification {
     [self pull];
+}
+
+-(void) pullWithDelayAndNotification:(NSNotification *) notification {
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(_delay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self pull];
+    });
 }
 
 -(void)dealloc {
