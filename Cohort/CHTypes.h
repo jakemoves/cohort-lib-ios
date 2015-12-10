@@ -23,7 +23,8 @@ typedef NS_ENUM(NSInteger, CHTriggerType) {
     CHTriggerTypeUnknown,
     CHTriggeredAtTime,
     CHTriggeredByServerSentEvent,
-    CHTriggeredByUserInteraction
+    CHTriggeredByUserInteraction,
+    CHTriggeredByServerSentEventWithCanon
 };
 
 typedef NSString * CHTriggerActionType;

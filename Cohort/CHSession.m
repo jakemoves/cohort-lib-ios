@@ -50,6 +50,7 @@
         } else {
             [[UIApplication sharedApplication] registerForRemoteNotificationTypes:UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeSound];
         }
+        _didNotifyUserAboutSSEError = false;
         
         // networking
         _sseClient = nil;
@@ -90,22 +91,29 @@
 #ifdef DEBUG
         NSLog(@"SSE: onOpen, %@", event);
 #endif
+        _didNotifyUserAboutSSEError = false;
         handler(true, nil);
     }];
     
     [_sseClient onError:^(Event *event) {
 #ifdef DEBUG
         NSLog(@"SSE: onError, %@", event);
-#endif
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Sorry..." message:@"There seems to be an issue connecting to the FluxDelux server (sometimes this happens if you're using a VPN on your iPhone). Please see one of our volunteers for assistance." delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil];
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"SSE-error" object:nil];
+#endif  
+        if(!_didNotifyUserAboutSSEError){
+            // should actually be based on 'is user checked in'
+            UILocalNotification *notification = [[UILocalNotification alloc] init];
+            notification.soundName = UILocalNotificationDefaultSoundName;
+            notification.alertBody = @"There seems to be an issue connecting to the Jacqueries server. Please see one of our volunteers for assistance.";
+            [[UIApplication sharedApplication] presentLocalNotificationNow:notification];
+            _didNotifyUserAboutSSEError = true;
+            
+            
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Sorry..." message:@"There seems to be an issue connecting to the Jacqueries server. Please see one of our volunteers for assistance." delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"SSE-error" object:nil];
+            
+            [alert show];
+        }
         
-        UILocalNotification *notification = [[UILocalNotification alloc] init];
-        notification.soundName = UILocalNotificationDefaultSoundName;
-        notification.alertBody = @"There seems to be an issue connecting to the FluxDelux server. Please see one of our volunteers for assistance.";
-        [[UIApplication sharedApplication] presentLocalNotificationNow:notification];
-        
-        [alert show];
         handler(false, event.error);
     }];
     

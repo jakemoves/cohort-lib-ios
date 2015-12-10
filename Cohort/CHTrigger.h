@@ -17,6 +17,7 @@
 @property (nonatomic) NSNumber *value;
 @property (nonatomic, copy) CHVoidBlock fireBlock;
 @property (nonatomic) BOOL isArmed;
+@property (nonatomic) double delay;
 
 -(id)initWithValue:(double)value withAction:(CHTriggerActionType)action ofType:(CHTriggerType)type forMediaType:(CHMediaTypeString)mediaTypeAsString error:(NSError **)error;
 
