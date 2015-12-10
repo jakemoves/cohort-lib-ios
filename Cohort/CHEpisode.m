@@ -30,6 +30,7 @@
         
         _isRunning = false;
         _isLoaded = false;
+        _cuesArePreparedForParticipant = false;
         
         _completionBlock = completionBlock;
         
@@ -98,22 +99,30 @@
     return self;
 }
 
--(void) loadForParticipant:(CHParticipant *)participant error:(NSError **)error {
+-(void) prepareCuesForParticipant:(CHParticipant *)participant error:(NSError **)error {
     
-    if(participant){
-        _participant = participant;
+    if(_session.participant){
+        NSError *loadError = nil;
+        NSError *cueError = nil;
+        for(id<NSObject, CHCueable> cue in _cues){
+            if([cue.targetTags intersectsSet:_session.participant.tags]){
+                // check if participant has accessibility flags set for this cue type
+                if([_session.participant.tags containsObject:cue.mediaTypeAsString]){
+                    [cue loadWithAccessibleAlternative:&cueError];
+                } else {
+                    [cue load:&cueError];
+                }
+            }
+        }
+        if(loadError){
+            *error = loadError;
+        } else {
+            _cuesArePreparedForParticipant = true;
+        }
     } else {
         NSDictionary *tempDic = @{NSLocalizedDescriptionKey: @"Could not load episode because the participant is nil"};
         *error = [[NSError alloc] initWithDomain:@"rocks.cohort.Episode.ErrorDomain" code:7 userInfo:tempDic];
         return;
-    }
-    
-    if(_participant){
-        NSError *loadError = nil;
-        [self load:&loadError];
-        if(loadError){
-            *error = loadError;
-        }
     }
 }
 
@@ -124,38 +133,46 @@
     if(_triggers && _triggers.count > 0){
         for(CHTrigger *trigger in _triggers){
             __weak id weakSelf = self;
-            [trigger arm:^{
-                [weakSelf fire];
-            }];
+            if([trigger.action isEqualToString:CHTriggerActionTypeGo]){
+                [trigger arm:^{
+                    [weakSelf fire];
+                }];
+            } else if([trigger.action isEqualToString:CHTriggerActionTypeStop]){
+                [trigger arm:^{
+                    [weakSelf stop];
+                }];
+            }
         }
     } else {
         NSDictionary *tempDic = @{NSLocalizedDescriptionKey: @"Could not load episode with no triggers"};
         *error = [[NSError alloc] initWithDomain:@"rocks.cohort.Episode.ErrorDomain" code:8 userInfo:tempDic];
     }
-    
-    NSError *cueError = nil;
-    if(_participant){
-        for(id<NSObject, CHCueable> cue in _cues){
-            if([cue.targetTags intersectsSet:_participant.tags]){
-                [cue load:&cueError];
-            }
-        }
-    } else {
-        NSDictionary *tempDic = @{NSLocalizedDescriptionKey: @"Could not load episode with nil participant"};
-        *error = [[NSError alloc] initWithDomain:@"rocks.cohort.Episode.ErrorDomain" code:9 userInfo:tempDic];
-    }
-    
     _isLoaded = true;
 }
 
 -(void) fire {
-    if(_isLoaded){
+    NSDictionary *tempDic = [[NSDictionary alloc] initWithObjectsAndKeys:_episodeId, @"episodeId", nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"firing episode" object:nil userInfo:tempDic];
+    if(_cuesArePreparedForParticipant){
         [self play];
+    } else {
+        // set 5sec delay for loading, UGH
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self play];
+        });
+        NSError *error = nil;
+        [self prepareCuesForParticipant:_session.participant error:&error];
     }
+    _isRunning = true;
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"episode started" object:nil];
 }
 
 -(void) play {
     _startTime = [AEBlockScheduler now];
+    double endingTimestamp = [AEBlockScheduler timestampWithSeconds:_duration fromTimestamp:_startTime];
+    [self scheduleForExecutionAtTime:endingTimestamp withMainThreadBlock:^{
+        [self stop];
+    }];
     _isRunning = true;
     
     // this was a performance hack but may not be necessary anymore
@@ -164,7 +181,7 @@
     NSSet *immediateCues = [timedCues objectsPassingTest:^BOOL(id<CHCueable> obj, BOOL *stop) {
         if(obj.triggers.count > 0){
             for(CHTrigger *trigger in obj.triggers){
-                if(((double)[trigger.value doubleValue] == 0.0) && ([obj.targetTags intersectsSet:_participant.tags])){
+                if(((double)[trigger.value doubleValue] == 0.0) && ([obj.targetTags intersectsSet:_session.participant.tags])){
                     return YES;
                 }
             }
@@ -184,7 +201,7 @@
     for(id<CHCueable> cue in [self cuesWithTriggersOfType:CHTriggeredAtTime]){
         double timestamp;
         for(CHTrigger *trigger in cue.triggers){
-            if(((double)[trigger.value doubleValue] != 0.0) && ([cue.targetTags intersectsSet:_participant.tags])){
+            if(((double)[trigger.value doubleValue] != 0.0) && ([cue.targetTags intersectsSet:_session.participant.tags])){
                 timestamp = [AEBlockScheduler timestampWithSeconds:[trigger.value longLongValue] fromTimestamp:_startTime];
                 [self scheduleForExecutionAtTime:timestamp withMainThreadBlock:^{
                     [trigger pull];
@@ -192,8 +209,6 @@
             }
         }
     }
-
-    _isRunning = true;
 }
 
 -(void) pause {
@@ -210,6 +225,36 @@
         }
     }];
     return cueSubset;
+}
+
+- (void) stop {
+    // remove channels
+//    for(int i = 0; i < _session.channelGroups.count; i++){
+//        AEChannelGroupRef currentGroup;
+//        [[_session.channelGroups objectAtIndex:i] getValue:&currentGroup];
+//        NSArray *channels = [_session.audioController channelsInChannelGroup:currentGroup];
+//   
+//        for(int i = 0; i < channels.count; i++){
+//            AEAudioFilePlayer *audio = [channels objectAtIndex:i];
+//            if(audio.channelIsPlaying){
+//                audio.channelIsPlaying = false;
+//            }
+//            [_session.audioController removeChannels:[NSArray arrayWithObject:audio]];
+//        }
+//    }
+    //NSLog(@"   a");
+    _cues = nil;
+   // NSLog(@"   b");
+    _triggers = nil;
+   // NSLog(@"   c");
+    
+    if(_isRunning){
+        [_session.scheduler cancelScheduleWithIdentifier:@"CHCue"];
+        _isRunning = false;
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"episode stopped" object:nil];
+    }
+    
+
 }
 
 // end CHCueable
@@ -248,7 +293,7 @@
     }
                                         atTime:timestamp
                                  timingContext:AEAudioTimingContextOutput
-                                    identifier:@"my event"
+                                    identifier:@"CHCue"
                        mainThreadResponseBlock:^(const AudioTimeStamp *time, UInt32 offset) {
                            // We are now on the main thread at *time*, which is *offset* frames
                            // before the time we scheduled, *timestamp*.
@@ -273,6 +318,10 @@
         }
     }];
     return cueSubset;
+}
+
+-(void)dealloc{
+    [self stop];
 }
 
 @end

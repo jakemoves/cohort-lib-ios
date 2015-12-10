@@ -13,11 +13,12 @@
 
 @property (readonly, nonatomic) CHTriggerType type;
 @property (readonly, nonatomic) CHMediaTypeString mediaTypeAsString;
+@property (readonly, nonatomic) CHTriggerActionType action;
 @property (nonatomic) NSNumber *value;
 @property (nonatomic, copy) CHVoidBlock fireBlock;
 @property (nonatomic) BOOL isArmed;
 
--(id)initWithValue:(double)value ofType:(CHTriggerType)type forMediaType:(CHMediaTypeString)mediaTypeAsString error:(NSError **)error;
+-(id)initWithValue:(double)value withAction:(CHTriggerActionType)action ofType:(CHTriggerType)type forMediaType:(CHMediaTypeString)mediaTypeAsString error:(NSError **)error;
 
 -(void) arm:(void (^)())fireBlock;
 -(void) disarm;

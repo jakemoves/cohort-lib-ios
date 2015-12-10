@@ -37,7 +37,9 @@
         NSString *filepath = [assetPath stringByAppendingPathComponent:filename];
         if([[NSFileManager defaultManager] fileExistsAtPath: filepath] == NO)
         {
+#ifdef DEBUG
             NSLog(@"Didn't find file");
+#endif
             NSDictionary *tempDic = @{NSLocalizedDescriptionKey: [NSString stringWithFormat:@"Could not create sound asset because file '%@' does not exist at path ' %@", filename, filepath]};
             *error = [[NSError alloc] initWithDomain:@"rocks.cohort.Asset.ErrorDomain" code:3 userInfo:tempDic];
         } else {

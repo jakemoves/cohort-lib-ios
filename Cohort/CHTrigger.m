@@ -10,7 +10,7 @@
 
 @implementation CHTrigger
 
--(id)initWithValue:(double)value ofType:(CHTriggerType)type forMediaType:(CHMediaTypeString)mediaTypeAsString error:(NSError **)error {
+-(id)initWithValue:(double)value withAction:(CHTriggerActionType)action ofType:(CHTriggerType)type forMediaType:(CHMediaTypeString)mediaTypeAsString error:(NSError **)error {
     if (self = [super init]) {
         // custom initialization
         
@@ -23,6 +23,14 @@
             
         } else {
             _value = [NSNumber numberWithDouble:value];
+        }
+        
+        // init action
+        if(!action){
+            NSDictionary *tempDic = @{NSLocalizedDescriptionKey: @"Could not create trigger because action is nil"};
+            *error = [[NSError alloc] initWithDomain:@"rocks.cohort.Trigger.ErrorDomain" code:5 userInfo:tempDic];
+        } else {
+            _action = action;
         }
         
         // init type
@@ -69,8 +77,10 @@
                 NSNumberFormatter *nf = [[NSNumberFormatter alloc] init];
                 nf.numberStyle = NSNumberFormatterDecimalStyle;
                 NSString *value = [nf stringFromNumber:_value];
-                NSString *triggerString = [NSString stringWithFormat:@"%@-%@-go", _mediaTypeAsString, value];
+                NSString *triggerString = [NSString stringWithFormat:@"%@-%@-%@", _mediaTypeAsString, value, _action];
+#ifdef DEBUG
                 NSLog(@"arming trigger for NSNotification: %@", triggerString);
+#endif
                 [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pullWithNotification:) name:triggerString object:nil];
             
                 break;
@@ -107,6 +117,7 @@
 }
 
 -(void)dealloc {
+    //NSLog(@"deallocating trigger");
     [self disarm];
 }
 

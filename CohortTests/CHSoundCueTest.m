@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
 #import "CHSoundCue.h"
+#import "CHEpisode.h"
 
 @interface CHSoundCueTest : XCTestCase
 
@@ -112,4 +113,73 @@
     XCTAssertNotNil(error);
     XCTAssert(error.code == 2);
 }
+
+- (void)testThatItLoadsSoundCueWithAccessibleAlternative {
+    NSError *error = nil;
+    NSError *secondaryError = nil;
+    
+    CHSession *session = [[CHSession alloc] init];
+    
+    NSBundle *bundle = [NSBundle bundleForClass:[self class]];
+    CHSoundAsset *asset = [[CHSoundAsset alloc] initWithAssetId:@"clicktrack" inBundle:bundle andFilename:@"clicktrack.m4a" error:&secondaryError];
+    CHSoundCue *cue = [[CHSoundCue alloc] initWithSession:session andAsset:asset withTriggers:nil withTags:nil error:&secondaryError withCompletionBlock:^void(){
+        NSLog(@"sound cue finished playing");
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"sound cue finished playing" object:nil];
+    }];
+    XCTAssertNotNil(cue);
+    
+    cue.altText = @"A one-minute percussion track.";
+    XCTAssertNotNil(cue.altText);
+    
+    [cue loadWithAccessibleAlternative:&error];
+    XCTAssertNil(error);
+    XCTAssertTrue(cue.isLoaded);
+    
+}
+
+- (void)testThatItThrowsErrorWhenLoadingWithAccessibleAlternativeAndNoAltText {
+    NSError *error = nil;
+    NSError *secondaryError = nil;
+    
+    CHSession *session = [[CHSession alloc] init];
+    
+    NSBundle *bundle = [NSBundle bundleForClass:[self class]];
+    CHSoundAsset *asset = [[CHSoundAsset alloc] initWithAssetId:@"clicktrack" inBundle:bundle andFilename:@"clicktrack.m4a" error:&secondaryError];
+    CHSoundCue *cue = [[CHSoundCue alloc] initWithSession:session andAsset:asset withTriggers:nil withTags:nil error:&secondaryError withCompletionBlock:^void(){
+        NSLog(@"sound cue finished playing");
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"sound cue finished playing" object:nil];
+    }];
+    XCTAssertNotNil(cue);
+    
+    XCTAssertNil(cue.altText);
+    
+    [cue loadWithAccessibleAlternative:&error];
+    XCTAssertNotNil(error);
+    XCTAssertTrue(error.code == 5);
+    XCTAssertFalse(cue.isLoaded);
+}
+
+- (void)testThatItPlaysSoundCueWithAccessibleAlternative {
+    // no idea how to test if the alt text local notification is actually displayed...
+    NSError *error = nil;
+    NSError *secondaryError = nil;
+    
+    CHSession *session = [[CHSession alloc] init];
+    
+    NSBundle *bundle = [NSBundle bundleForClass:[self class]];
+    CHSoundAsset *asset = [[CHSoundAsset alloc] initWithAssetId:@"clicktrack" inBundle:bundle andFilename:@"clicktrack.m4a" error:&secondaryError];
+    CHVoidBlock voidBlock;
+    CHSoundCue *cue = [[CHSoundCue alloc] initWithSession:session andAsset:asset withTriggers:nil withTags:nil error:&secondaryError withCompletionBlock:voidBlock];
+    XCTAssertNotNil(cue);
+    
+    cue.altText = @"A one-minute percussion track.";
+    XCTAssertNotNil(cue.altText);
+    
+    [cue loadWithAccessibleAlternative:&error];
+    XCTAssertNil(error);
+    
+    [cue fire];
+    XCTAssertEqual(cue.audio.channelIsPlaying, true);
+}
+
 @end

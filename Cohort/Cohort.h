@@ -6,13 +6,11 @@
 //  Copyright (c) 2015 Jacob Niedzwiecki. All rights reserved.
 //
 
-#import "libs/AEAudioUnitFilePlayer.h"
 #import "CHTypes.h"
 #import "CHSession.h"
 #import "CHEvent.h"
 #import "CHEpisode.h"
 #import "CHSoundCue.h"
-#import "CHSoundSampleCue.h"
 #import "CHSoundAsset.h"
 #import "CHVideoAsset.h"
 #import "CHTrigger.h"
