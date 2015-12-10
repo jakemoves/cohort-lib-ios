@@ -103,12 +103,12 @@
             // should actually be based on 'is user checked in'
             UILocalNotification *notification = [[UILocalNotification alloc] init];
             notification.soundName = UILocalNotificationDefaultSoundName;
-            notification.alertBody = @"There seems to be an issue connecting to the Jacqueries server. Please see one of our volunteers for assistance.";
+            notification.alertBody = @"There seems to be an issue connecting to the FluxDelux server. Please see one of our volunteers for assistance.";
             [[UIApplication sharedApplication] presentLocalNotificationNow:notification];
             _didNotifyUserAboutSSEError = true;
             
             
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Sorry..." message:@"There seems to be an issue connecting to the Jacqueries server. Please see one of our volunteers for assistance." delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Sorry..." message:@"There seems to be an issue connecting to the FluxDelux server. Please see one of our volunteers for assistance." delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil];
             [[NSNotificationCenter defaultCenter] postNotificationName:@"SSE-error" object:nil];
             
             [alert show];
