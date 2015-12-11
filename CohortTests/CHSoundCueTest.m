@@ -182,4 +182,9 @@
     XCTAssertEqual(cue.audio.channelIsPlaying, true);
 }
 
+- (void)testThatItInitsWith101Cues {
+    // maximum channels per channel group is 98
+    // TODO
+}
+
 @end

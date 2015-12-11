@@ -48,6 +48,7 @@
             *error = [[NSError alloc] initWithDomain:@"rocks.cohort.SoundCue.ErrorDomain" code:4 userInfo:tempDic];
         }
         
+        // then errors
         if(session){
             _session = session;
         } else {
@@ -66,9 +67,6 @@
             self = nil;
         } else {
             // finish setup
-            
-            // we may want to move this to the load method depending on memory impact
-            
         }
     }
     
@@ -169,8 +167,8 @@
 
 // not tested yet!
 - (void)pause {
-    _isRunning = false;
-    _audio.channelIsPlaying = false;
+//    _isRunning = false;
+//    _audio.channelIsPlaying = false;
 }
 
     

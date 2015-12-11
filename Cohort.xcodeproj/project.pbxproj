@@ -57,6 +57,13 @@
 			remoteGlobalIDString = 0E5890E21B3FB22F000D205B;
 			remoteInfo = Cohort;
 		};
+		0E6DC1521C1B5A4600F4590F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0ED7E6DD1B262CE800ABE472 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 0E5890E21B3FB22F000D205B;
+			remoteInfo = Cohort;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -112,6 +119,7 @@
 		0E5891201B3FB2AA000D205B /* CHSoundCueTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHSoundCueTest.m; sourceTree = "<group>"; };
 		0E5891211B3FB2AA000D205B /* CHTriggerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHTriggerTest.m; sourceTree = "<group>"; };
 		0E5891291B3FB2ED000D205B /* Cohort.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Cohort.h; sourceTree = "<group>"; };
+		0E6DC13B1C1B5A1800F4590F /* CohortSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CohortSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0E78D7A11B5047A500A7F955 /* testpattern-180.m4v */ = {isa = PBXFileReference; lastKnownFileType = file; name = "testpattern-180.m4v"; path = "CohortTests/media/testpattern-180.m4v"; sourceTree = SOURCE_ROOT; };
 		0E78D7A21B5047A500A7F955 /* testpattern-360.m4v */ = {isa = PBXFileReference; lastKnownFileType = file; name = "testpattern-360.m4v"; path = "CohortTests/media/testpattern-360.m4v"; sourceTree = SOURCE_ROOT; };
 		0E78D7A31B5047A500A7F955 /* testpattern-540.m4v */ = {isa = PBXFileReference; lastKnownFileType = file; name = "testpattern-540.m4v"; path = "CohortTests/media/testpattern-540.m4v"; sourceTree = SOURCE_ROOT; };
@@ -123,6 +131,7 @@
 		0E78D7B51B507D4100A7F955 /* CHVideoAssetTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHVideoAssetTest.m; sourceTree = "<group>"; };
 		0E78D7B71B507DA800A7F955 /* CHVideoCueTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHVideoCueTest.m; sourceTree = "<group>"; };
 		0E83AFF11B3FBD5200E4ABB0 /* clicktrack.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; name = clicktrack.m4a; path = CohortTests/media/clicktrack.m4a; sourceTree = SOURCE_ROOT; };
+		0E9B93B51C1B574D002EF050 /* libAFNetworking.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libAFNetworking.a; path = "Pods/../build/Debug-iphoneos/libAFNetworking.a"; sourceTree = "<group>"; };
 		0EB4C7F91B3FB6B50097D78D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		0ECFA0B31B28C73C0052DDC7 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		0ECFA0B51B28C7430052DDC7 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
@@ -149,6 +158,13 @@
 			files = (
 				0E5890EE1B3FB22F000D205B /* libCohort.a in Frameworks */,
 				B3A7497C0F72F6CF01528062 /* libPods-CohortTests.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0E6DC1381C1B5A1800F4590F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -241,6 +257,7 @@
 			children = (
 				0E5890E31B3FB22F000D205B /* libCohort.a */,
 				0E5890ED1B3FB22F000D205B /* CohortTests.xctest */,
+				0E6DC13B1C1B5A1800F4590F /* CohortSample.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -248,6 +265,7 @@
 		2123114B5BFB363FE04B2E21 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0E9B93B51C1B574D002EF050 /* libAFNetworking.a */,
 				0EB4C7F91B3FB6B50097D78D /* Foundation.framework */,
 				0ECFA0B71B28C74A0052DDC7 /* AVFoundation.framework */,
 				0ECFA0B51B28C7430052DDC7 /* AudioToolbox.framework */,
@@ -312,6 +330,24 @@
 			productReference = 0E5890ED1B3FB22F000D205B /* CohortTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		0E6DC13A1C1B5A1800F4590F /* CohortSample */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0E6DC1511C1B5A1800F4590F /* Build configuration list for PBXNativeTarget "CohortSample" */;
+			buildPhases = (
+				0E6DC1371C1B5A1800F4590F /* Sources */,
+				0E6DC1381C1B5A1800F4590F /* Frameworks */,
+				0E6DC1391C1B5A1800F4590F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				0E6DC1531C1B5A4600F4590F /* PBXTargetDependency */,
+			);
+			name = CohortSample;
+			productName = CohortSample;
+			productReference = 0E6DC13B1C1B5A1800F4590F /* CohortSample.app */;
+			productType = "com.apple.product-type.application";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -326,6 +362,9 @@
 					};
 					0E5890EC1B3FB22F000D205B = {
 						CreatedOnToolsVersion = 6.3.1;
+					};
+					0E6DC13A1C1B5A1800F4590F = {
+						CreatedOnToolsVersion = 7.0;
 					};
 					0E83AFF51B3FC5C800E4ABB0 = {
 						CreatedOnToolsVersion = 6.3.1;
@@ -348,6 +387,7 @@
 				0E5890E21B3FB22F000D205B /* Cohort */,
 				0E5890EC1B3FB22F000D205B /* CohortTests */,
 				0E83AFF51B3FC5C800E4ABB0 /* UniversalLib */,
+				0E6DC13A1C1B5A1800F4590F /* CohortSample */,
 			);
 		};
 /* End PBXProject section */
@@ -362,6 +402,13 @@
 				0E78D7A61B5047A500A7F955 /* testpattern-360.m4v in Resources */,
 				0E83AFF21B3FBD5200E4ABB0 /* clicktrack.m4a in Resources */,
 				0E78D7A81B5047A500A7F955 /* testpattern-1080.m4v in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0E6DC1391C1B5A1800F4590F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -476,6 +523,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		0E6DC1371C1B5A1800F4590F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -483,6 +537,11 @@
 			isa = PBXTargetDependency;
 			target = 0E5890E21B3FB22F000D205B /* Cohort */;
 			targetProxy = 0E5890EF1B3FB22F000D205B /* PBXContainerItemProxy */;
+		};
+		0E6DC1531C1B5A4600F4590F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 0E5890E21B3FB22F000D205B /* Cohort */;
+			targetProxy = 0E6DC1521C1B5A4600F4590F /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -541,6 +600,32 @@
 				INFOPLIST_FILE = CohortTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				OTHER_LDFLAGS = "$(inherited)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		0E6DC14F1C1B5A1800F4590F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_TESTABILITY = YES;
+				INFOPLIST_FILE = CohortSample/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.jacob-n.CohortSample";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		0E6DC1501C1B5A1800F4590F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = CohortSample/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.jacob-n.CohortSample";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -665,6 +750,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		0E6DC1511C1B5A1800F4590F /* Build configuration list for PBXNativeTarget "CohortSample" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0E6DC14F1C1B5A1800F4590F /* Debug */,
+				0E6DC1501C1B5A1800F4590F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 		0E83AFF81B3FC5C800E4ABB0 /* Build configuration list for PBXAggregateTarget "UniversalLib" */ = {
 			isa = XCConfigurationList;

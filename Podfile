@@ -12,4 +12,3 @@ target 'CohortTests' do
 	pod 'EventSource', '~> 1.0'
 	pod 'AFNetworking', '~> 2.0'
 end
-

@@ -133,15 +133,9 @@
     if(_triggers && _triggers.count > 0){
         for(CHTrigger *trigger in _triggers){
             __weak id weakSelf = self;
-            if([trigger.action isEqualToString:CHTriggerActionTypeGo]){
-                [trigger arm:^{
-                    [weakSelf fire];
-                }];
-            } else if([trigger.action isEqualToString:CHTriggerActionTypeStop]){
-                [trigger arm:^{
-                    [weakSelf stop];
-                }];
-            }
+            [trigger arm:^{
+                [weakSelf fire];
+            }];
         }
     } else {
         NSDictionary *tempDic = @{NSLocalizedDescriptionKey: @"Could not load episode with no triggers"};
@@ -215,18 +209,6 @@
     
 }
 
-- (NSSet *)cuesOfMediaType: (CHMediaType)mediaType {
-    NSSet *cueSubset = [_cues objectsPassingTest:^BOOL(id<CHCueable> obj, BOOL *stop) {
-        CHMediaType cueType = (CHMediaType)obj.mediaType;
-        if(cueType == mediaType){
-            return YES;
-        } else {
-            return NO;
-        }
-    }];
-    return cueSubset;
-}
-
 - (void) stop {
     // remove channels
 //    for(int i = 0; i < _session.channelGroups.count; i++){
@@ -242,24 +224,33 @@
 //            [_session.audioController removeChannels:[NSArray arrayWithObject:audio]];
 //        }
 //    }
-    //NSLog(@"   a");
-    _cues = nil;
-   // NSLog(@"   b");
-    _triggers = nil;
-   // NSLog(@"   c");
-    
-    if(_isRunning){
-        [_session.scheduler cancelScheduleWithIdentifier:@"CHCue"];
-        _isRunning = false;
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"episode stopped" object:nil];
-    }
-    
-
+//    //NSLog(@"   a");
+//    _cues = nil;
+//   // NSLog(@"   b");
+//    _triggers = nil;
+//   // NSLog(@"   c");
+//    
+//    if(_isRunning){
+//        [_session.scheduler cancelScheduleWithIdentifier:@"CHCue"];
+//        _isRunning = false;
+//        [[NSNotificationCenter defaultCenter] postNotificationName:@"episode stopped" object:nil];
+//    }
 }
 
 // end CHCueable
 // ______________________________________
 
+- (NSSet *)cuesOfMediaType: (CHMediaType)mediaType {
+    NSSet *cueSubset = [_cues objectsPassingTest:^BOOL(id<CHCueable> obj, BOOL *stop) {
+        CHMediaType cueType = (CHMediaType)obj.mediaType;
+        if(cueType == mediaType){
+            return YES;
+        } else {
+            return NO;
+        }
+    }];
+    return cueSubset;
+}
 
 - (NSSet *)cuesWithTriggersOfType: (CHTriggerType)triggerType {
     NSSet *cueSubset = [_cues objectsPassingTest:^BOOL(id<CHCueable> obj, BOOL *stop) {

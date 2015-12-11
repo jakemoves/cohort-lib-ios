@@ -30,6 +30,5 @@ typedef NS_ENUM(NSInteger, CHTriggerType) {
 typedef NSString * CHTriggerActionType;
 #define CHTriggerActionTypeUnknown  @""
 #define CHTriggerActionTypeGo       @"go"
-#define CHTriggerActionTypeStop     @"stop"
 
 typedef void (^CHVoidBlock)();

@@ -10,12 +10,13 @@
 
 @implementation CHTrigger
 
--(id)initWithValue:(double)value withAction:(CHTriggerActionType)action ofType:(CHTriggerType)type forMediaType:(CHMediaTypeString)mediaTypeAsString error:(NSError **)error {
+-(id)initWithValue:(double)value ofType:(CHTriggerType)type forMediaType:(CHMediaTypeString)mediaTypeAsString error:(NSError **)error {
     if (self = [super init]) {
         // custom initialization
         
         _isArmed = false;
         _delay = 0;
+        _action = CHTriggerActionTypeGo;
         
         // init value
         if(value < 0.0){
@@ -26,13 +27,6 @@
             _value = [NSNumber numberWithDouble:value];
         }
         
-        // init action
-        if(!action){
-            NSDictionary *tempDic = @{NSLocalizedDescriptionKey: @"Could not create trigger because action is nil"};
-            *error = [[NSError alloc] initWithDomain:@"rocks.cohort.Trigger.ErrorDomain" code:5 userInfo:tempDic];
-        } else {
-            _action = action;
-        }
         
         // init type
         if(type != CHMediaTypeUnknown){
@@ -72,20 +66,20 @@
                 break;
             case CHTriggeredAtTime:
                 break;
-            case CHTriggeredByServerSentEventWithCanon:
-            {
-                //case CHTriggeredByServerSentEvent, CHTriggeredByUserInteraction
-                NSNumberFormatter *nf = [[NSNumberFormatter alloc] init];
-                nf.numberStyle = NSNumberFormatterDecimalStyle;
-                NSString *value = [nf stringFromNumber:_value];
-                NSString *triggerString = [NSString stringWithFormat:@"%@-%@-%@", _mediaTypeAsString, value, _action];
-#ifdef DEBUG
-                NSLog(@"arming trigger for NSNotification: %@", triggerString);
-#endif
-                [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pullWithDelayAndNotification:) name:triggerString object:nil];
-                
-                break;
-            }
+//            case CHTriggeredByServerSentEventWithCanon:
+//            {
+//                //case CHTriggeredByServerSentEvent, CHTriggeredByUserInteraction
+//                NSNumberFormatter *nf = [[NSNumberFormatter alloc] init];
+//                nf.numberStyle = NSNumberFormatterDecimalStyle;
+//                NSString *value = [nf stringFromNumber:_value];
+//                NSString *triggerString = [NSString stringWithFormat:@"%@-%@-%@", _mediaTypeAsString, value, _action];
+//#ifdef DEBUG
+//                NSLog(@"arming trigger for NSNotification: %@", triggerString);
+//#endif
+//                [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pullWithDelayAndNotification:) name:triggerString object:nil];
+//                
+//                break;
+//            }
             default:
             {
                 //case CHTriggeredByServerSentEvent, CHTriggeredByUserInteraction

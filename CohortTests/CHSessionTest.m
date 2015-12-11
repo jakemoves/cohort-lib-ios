@@ -90,7 +90,7 @@
     __weak XCTestExpectation *expectation = [self expectationForNotification:@"sound-1-go" object:nil handler:nil];
     //http://stackoverflow.com/questions/27555499/xctestexpectation-how-to-avoid-calling-the-fulfill-method-after-the-wait-contex
 
-    [session listenForCuesWithURL:[[NSURL alloc] initWithString:@"http://jqrs.org/test/listen"]
+    [session listenForCuesWithURL:[[NSURL alloc] initWithString:@"http://cohort-server.herokuapp.com/listen"]
             withCompletionHandler:^(BOOL success, NSError *error) {
                 if(success){
                     NSURL *baseURL = [NSURL URLWithString:@"http://cohort-server.herokuapp.com/"];

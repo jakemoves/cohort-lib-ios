@@ -140,11 +140,6 @@
                         if([[actionComponents objectAtIndex:2] isEqualToString:CHTriggerActionTypeGo]){
                             [[NSNotificationCenter defaultCenter] postNotificationName:[sseEventData objectForKey:@"action"] object:nil userInfo:userInfo];
                         }
-                    } else {
-                        // if something is running, stop the episode
-                        if([[actionComponents objectAtIndex:2] isEqualToString:CHTriggerActionTypeStop]){
-                            [[NSNotificationCenter defaultCenter] postNotificationName:[sseEventData objectForKey:@"action"] object:nil userInfo:userInfo];
-                        }
                     }
                 } else {
                     [[NSNotificationCenter defaultCenter] postNotificationName:[sseEventData objectForKey:@"action"] object:nil userInfo:userInfo];
