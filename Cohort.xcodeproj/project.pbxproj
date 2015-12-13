@@ -109,7 +109,7 @@
 		0E5891091B3FB279000D205B /* CHTrigger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHTrigger.h; sourceTree = "<group>"; };
 		0E58910A1B3FB279000D205B /* CHTrigger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHTrigger.m; sourceTree = "<group>"; };
 		0E58910B1B3FB279000D205B /* CHTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHTypes.h; sourceTree = "<group>"; };
-		0E58910C1B3FB279000D205B /* Cohort.README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Cohort.README; sourceTree = "<group>"; };
+		0E58910C1B3FB279000D205B /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		0E5891121B3FB279000D205B /* outline */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = outline; sourceTree = "<group>"; };
 		0E58911B1B3FB2AA000D205B /* CHEpisodeTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHEpisodeTest.m; sourceTree = "<group>"; };
 		0E58911C1B3FB2AA000D205B /* CHEventTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHEventTest.m; sourceTree = "<group>"; };
@@ -196,7 +196,7 @@
 				0E58910A1B3FB279000D205B /* CHTrigger.m */,
 				0E5891011B3FB279000D205B /* CHParticipant.h */,
 				0E5891021B3FB279000D205B /* CHParticipant.m */,
-				0E58910C1B3FB279000D205B /* Cohort.README */,
+				0E58910C1B3FB279000D205B /* README.md */,
 				0E5891121B3FB279000D205B /* outline */,
 			);
 			path = Cohort;
@@ -758,6 +758,7 @@
 				0E6DC1501C1B5A1800F4590F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		0E83AFF81B3FC5C800E4ABB0 /* Build configuration list for PBXAggregateTarget "UniversalLib" */ = {
 			isa = XCConfigurationList;
