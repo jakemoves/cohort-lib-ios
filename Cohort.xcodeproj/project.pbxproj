@@ -21,6 +21,7 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		0E53655D1C1DFD61005B176E /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 0E53655C1C1DFD61005B176E /* README.md */; };
 		0E5890EE1B3FB22F000D205B /* libCohort.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E5890E31B3FB22F000D205B /* libCohort.a */; };
 		0E5891131B3FB279000D205B /* CHEpisode.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E5890FD1B3FB279000D205B /* CHEpisode.m */; };
 		0E5891141B3FB279000D205B /* CHEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E5890FF1B3FB279000D205B /* CHEvent.m */; };
@@ -82,6 +83,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0E53655C1C1DFD61005B176E /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../../../.Trash/README.md; sourceTree = "<group>"; };
 		0E5890E31B3FB22F000D205B /* libCohort.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libCohort.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		0E5890ED1B3FB22F000D205B /* CohortTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CohortTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0E5890F31B3FB22F000D205B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -102,7 +104,6 @@
 		0E5891091B3FB279000D205B /* CHTrigger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHTrigger.h; sourceTree = "<group>"; };
 		0E58910A1B3FB279000D205B /* CHTrigger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHTrigger.m; sourceTree = "<group>"; };
 		0E58910B1B3FB279000D205B /* CHTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHTypes.h; sourceTree = "<group>"; };
-		0E58910C1B3FB279000D205B /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		0E5891121B3FB279000D205B /* outline */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = outline; sourceTree = "<group>"; };
 		0E58911B1B3FB2AA000D205B /* CHEpisodeTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHEpisodeTest.m; sourceTree = "<group>"; };
 		0E58911C1B3FB2AA000D205B /* CHEventTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHEventTest.m; sourceTree = "<group>"; };
@@ -180,7 +181,6 @@
 				0E58910A1B3FB279000D205B /* CHTrigger.m */,
 				0E5891011B3FB279000D205B /* CHParticipant.h */,
 				0E5891021B3FB279000D205B /* CHParticipant.m */,
-				0E58910C1B3FB279000D205B /* README.md */,
 				0E5891121B3FB279000D205B /* outline */,
 			);
 			path = Cohort;
@@ -228,6 +228,7 @@
 		0ED7E6DC1B262CE800ABE472 = {
 			isa = PBXGroup;
 			children = (
+				0E53655C1C1DFD61005B176E /* README.md */,
 				0E5890E41B3FB22F000D205B /* Cohort */,
 				0E5890F11B3FB22F000D205B /* CohortTests */,
 				0ED7E6E61B262CE800ABE472 /* Products */,
@@ -450,6 +451,7 @@
 			files = (
 				0E5891131B3FB279000D205B /* CHEpisode.m in Sources */,
 				0E5891161B3FB279000D205B /* CHSession.m in Sources */,
+				0E53655D1C1DFD61005B176E /* README.md in Sources */,
 				0E78D7B01B504ED500A7F955 /* CHVideoCue.m in Sources */,
 				0E5891181B3FB279000D205B /* CHSoundCue.m in Sources */,
 				0E5891191B3FB279000D205B /* CHTrigger.m in Sources */,
