@@ -96,9 +96,10 @@
             
             // do we need to verify episode has cues?
             for(NSDictionary *cueInfo in episode[@"cues"]){
-//                #ifdef DEBUG
-//                NSLog(@"%@", cueInfo);
-//                #endif
+                #ifdef DEBUG
+                // NSLog(@"parsing cue %@", cueInfo[@"cueNumber"]);
+                // NSLog(@"%@", cueInfo);
+                #endif
                 
                 // ASSET
                 CHSoundAsset *asset = [[CHSoundAsset alloc] initWithAssetId:[cueInfo[@"filename"] stringByDeletingPathExtension] inBundle:bundle andFilename:cueInfo [@"filename"] error:&assetError];
@@ -144,6 +145,7 @@
             
             if(!*error){
                 // EPISODE TRIGGER
+                NSLog(@"episode number: %@", episode[@"episodeNumber"]);
                 CHTrigger *episodeTrigger = [self createTriggerFromJSON:episode[@"episodeTrigger"] forCueNumber:episode[@"episodeNumber"] forMediaType:CHMediaTypeStringEpisode error:&episodeTriggerError];
                 
                 if(episodeTriggerError){
@@ -187,6 +189,7 @@
     NSError *triggerError;
     
     NSString *triggerTypeString = triggerJSON[@"type"];
+    
     CHTriggerType triggerType = CHTriggerTypeUnknown;
     
     // time for timed triggers, cue number for called triggers
@@ -230,7 +233,8 @@
     }
     
     if(!*error){
-        trigger = [[CHTrigger alloc] initWithValue:[mainValue doubleValue] ofType:triggerType forMediaType:CHMediaTypeStringSound error:&triggerError];
+//        NSLog(@"mainValue: %@", mainValue);
+        trigger = [[CHTrigger alloc] initWithValue:[mainValue doubleValue] ofType:triggerType forMediaType:mediaType error:&triggerError];
         
         if(!triggerError){
             if(trigger.type == CHTriggeredAtTimeWithCanon || trigger.type == CHTriggeredByServerSentEventWithCanon){

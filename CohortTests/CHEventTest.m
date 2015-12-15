@@ -113,6 +113,22 @@
     XCTAssertNotNil(event);
 }
 
+- (void)testThatEpisodeDoesNotPlayWhenLoaded {
+    CHSession *session = [[CHSession alloc] init];
+    NSBundle *bundle = [NSBundle bundleForClass:[self class]];
+    NSError *error;
+    CHEvent *event = [[CHEvent alloc] initWithJSONShowbook:@"test-event.json" andSession:session inBundle:bundle error:&error];
+
+    NSAssert(event, @"Event should not be nil");
+    error = [event loadEpisodes];
+    NSAssert(!error, @"Error loading episodes");
+    for(NSString *key in event.episodes){
+        CHEpisode *episode = event.episodes[key];
+        NSLog(@"%@", episode.episodeId);
+        NSAssert(!episode.isRunning, @"Episode should not start running on load");
+    }
+}
+
 - (void)testThatMoreThanOneEpisodeLoads {
     CHSession *session = [[CHSession alloc] init];
     NSBundle *bundle = [NSBundle bundleForClass:[self class]];

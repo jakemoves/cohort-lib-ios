@@ -4,7 +4,7 @@
 	[
 		{
 			"displayName": "Test Episode",
-			"episodeCueNumber": 1,
+			"episodeNumber": 1,
 			"episodeTrigger": {
 				"type": "called"
 			},
@@ -36,7 +36,7 @@
 		            "accessibleDescription": "Check one two, check one two."
 		        },
 		        {
-					"cueNumber": 2,
+					"cueNumber": 3,
 					"cueTrigger": {
 						"type": "called"
 					},
@@ -47,7 +47,7 @@
 		            "accessibleDescription": "Check one two, check one two."
 		        },
 		        {
-					"cueNumber": 2,
+					"cueNumber": 4,
 					"cueTrigger": {
 						"type": "calledWithCanon",
 						"canonDelay": 0.5
