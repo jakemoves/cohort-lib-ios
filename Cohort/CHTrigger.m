@@ -23,10 +23,7 @@
             NSDictionary *tempDic = @{NSLocalizedDescriptionKey: @"Could not create trigger with a negative value"};
             *error = [[NSError alloc] initWithDomain:@"rocks.cohort.Trigger.ErrorDomain" code:2 userInfo:tempDic];
         } else {
-            NSLog(@"value: %f", value);
             _value = [NSNumber numberWithDouble:value];
-            NSAssert(_value, @"_value should not be nil");
-            NSAssert(value == [_value doubleValue], @"_value should equal the passed value");
         }
         
         // init type

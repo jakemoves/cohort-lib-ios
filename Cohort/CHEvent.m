@@ -145,7 +145,6 @@
             
             if(!*error){
                 // EPISODE TRIGGER
-                NSLog(@"episode number: %@", episode[@"episodeNumber"]);
                 CHTrigger *episodeTrigger = [self createTriggerFromJSON:episode[@"episodeTrigger"] forCueNumber:episode[@"episodeNumber"] forMediaType:CHMediaTypeStringEpisode error:&episodeTriggerError];
                 
                 if(episodeTriggerError){
