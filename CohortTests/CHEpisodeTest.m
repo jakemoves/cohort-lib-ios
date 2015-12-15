@@ -124,7 +124,7 @@
     XCTAssertTrue(error.code == 6);
 }
 
--(void)testThatItInitsAndLoadsWithOneValidCue {
+-(void)testThatItInitsAndPrepsWithOneValidCue {
     NSError *error = nil;
     NSError *secondaryError = nil;
     NSSet *tags = [NSSet setWithObject:@"all"];
@@ -148,19 +148,19 @@
     XCTAssertNotNil(episode.cues);
     XCTAssertTrue(episode.cues.count == 1);
     
-    CHParticipant *participant = [[CHParticipant alloc] initWithTags:nil error:&secondaryError];
-    [episode prepareCuesForParticipant:participant error:&error];
+    session.participant = [[CHParticipant alloc] initWithTags:nil error:&secondaryError];
+    [episode prepareCuesForParticipant:session.participant error:&error];
     
     for(id<NSObject, CHCueable> cue in episode.cues){
         if([cue conformsToProtocol:@protocol(CHCueable)]){
             XCTAssertTrue(cue.isLoaded);
         }
     }
-    XCTAssertTrue(episode.isLoaded);
+    XCTAssertTrue(episode.cuesArePreparedForParticipant);
 }
 
 
- -(void)testThatItInitsAndLoadsWithSeveralValidCues {
+ -(void)testThatItInitsAndPrepsWithSeveralValidCues {
      NSError *error = nil;
      NSError *secondaryError = nil;
      NSSet *tags = [NSSet setWithObject:@"all"];
@@ -186,15 +186,19 @@
      XCTAssertNotNil(episode.cues);
      XCTAssertTrue(episode.cues.count == 3);
      
-     CHParticipant *participant = [[CHParticipant alloc] initWithTags:nil error:&secondaryError];
-     [episode prepareCuesForParticipant:participant error:&error];
+     session.participant = [[CHParticipant alloc] initWithTags:nil error:&secondaryError];
+     [episode prepareCuesForParticipant:session.participant error:&error];
+     
+     if(error){
+         NSLog(@"Error: %@", error);
+     }
      
      for(id<NSObject, CHCueable> cue in episode.cues){
          if([cue conformsToProtocol:@protocol(CHCueable)]){
              XCTAssertTrue(cue.isLoaded);
          }
      }
-     XCTAssertTrue(episode.isLoaded);
+     XCTAssertTrue(episode.cuesArePreparedForParticipant);
 }
 
 -(void)testThatItReturnsErrorOnInitWithCueArrayContainingNonCueObjects {
@@ -278,8 +282,8 @@
     XCTAssertNotNil(episode.cues);
     XCTAssertTrue(episode.cues.count == 1);
     
-    CHParticipant *participant = [[CHParticipant alloc] initWithTags:nil error:&secondaryError];
-    [episode prepareCuesForParticipant:participant error:&error];
+    session.participant = [[CHParticipant alloc] initWithTags:nil error:&secondaryError];
+    [episode prepareCuesForParticipant:session.participant error:&error];
     [episode fire];
     XCTAssertTrue(episode.isRunning);
     NSSet *runningCues = [episode cuesCurrentlyRunning];
@@ -321,8 +325,8 @@
     XCTAssertNotNil(episode.cues);
     XCTAssertTrue(episode.cues.count == 1);
     
-    CHParticipant *participant = [[CHParticipant alloc] initWithTags:nil error:&secondaryError];
-    [episode prepareCuesForParticipant:participant error:&error];
+    session.participant = [[CHParticipant alloc] initWithTags:nil error:&secondaryError];
+    [episode prepareCuesForParticipant:session.participant error:&error];
     [episode fire];
     XCTAssertTrue(episode.isRunning);
     NSSet *runningCues = [episode cuesCurrentlyRunning];
@@ -355,12 +359,16 @@
     }
     NSLog(@"created episode");
     
-    CHParticipant *participant = [[CHParticipant alloc] initWithTags:[NSSet setWithObject:@"all"] error:&secondaryError];
-    [episode prepareCuesForParticipant:participant error:&error];
+    session.participant = [[CHParticipant alloc] initWithTags:[NSSet setWithObject:@"all"] error:&secondaryError];
+    [episode prepareCuesForParticipant:session.participant error:&error];
     if(error){
         NSLog(@"Error: %@", error);
     }
-    NSLog(@"loaded episode");
+    [episode load:&error];if(error){
+        NSLog(@"Error: %@", error);
+    } else {
+        NSLog(@"loaded episode");
+    }
     
     [[NSNotificationCenter defaultCenter] postNotificationName:@"episode-1-go" object:nil];
     

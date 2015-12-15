@@ -18,7 +18,7 @@
 @property (nonatomic) BOOL isLoaded;
 @property (nonatomic) BOOL isRunning;
 @property (nonatomic, copy) CHVoidBlock completionBlock;
-// usually an implementation of CHCueable will include a CHMediaAsset, but not always
+// usually an implementation of CHCueable will include a CHMediaAsset, but not always (i.e. an episode has only cues, no assets)
 // implementations of CHCueable should include an accessible alternative (i.e. alt text for a CHSoundCue) for users with disabilities
 
 

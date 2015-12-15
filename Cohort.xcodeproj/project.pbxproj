@@ -47,6 +47,13 @@
 		0E78D7B81B507DA800A7F955 /* CHVideoCueTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E78D7B71B507DA800A7F955 /* CHVideoCueTest.m */; };
 		0E83AFF21B3FBD5200E4ABB0 /* clicktrack.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 0E83AFF11B3FBD5200E4ABB0 /* clicktrack.m4a */; };
 		0E83AFF41B3FC35D00E4ABB0 /* Cohort.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0E5891291B3FB2ED000D205B /* Cohort.h */; };
+		290072651C1F91CA00299EA1 /* test-event.json in Resources */ = {isa = PBXBuildFile; fileRef = 290072641C1F91CA00299EA1 /* test-event.json */; };
+		290072671C1F984700299EA1 /* test-event-invalidsyntax.json in Resources */ = {isa = PBXBuildFile; fileRef = 290072661C1F984700299EA1 /* test-event-invalidsyntax.json */; };
+		290072691C1F9C0F00299EA1 /* test-event-noepisodes.json in Resources */ = {isa = PBXBuildFile; fileRef = 290072681C1F9C0F00299EA1 /* test-event-noepisodes.json */; };
+		2900726B1C1FA62800299EA1 /* test-vocalcue.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 2900726A1C1FA62800299EA1 /* test-vocalcue.m4a */; };
+		2900726E1C1FACF700299EA1 /* test-event-badtriggertype.json in Resources */ = {isa = PBXBuildFile; fileRef = 2900726C1C1FACF700299EA1 /* test-event-badtriggertype.json */; };
+		2900726F1C1FACF700299EA1 /* test-event-noassetfile.json in Resources */ = {isa = PBXBuildFile; fileRef = 2900726D1C1FACF700299EA1 /* test-event-noassetfile.json */; };
+		290072711C1FD9A200299EA1 /* test-event-twoepisodes.json in Resources */ = {isa = PBXBuildFile; fileRef = 290072701C1FD9A200299EA1 /* test-event-twoepisodes.json */; };
 		B3A7497C0F72F6CF01528062 /* libPods-CohortTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E8DA03C177D595CF0EA3742 /* libPods-CohortTests.a */; };
 /* End PBXBuildFile section */
 
@@ -138,6 +145,13 @@
 		0ECFA0B51B28C7430052DDC7 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		0ECFA0B71B28C74A0052DDC7 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		16F64D44EF69B478C6C547B8 /* Pods-Cohort.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cohort.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Cohort/Pods-Cohort.debug.xcconfig"; sourceTree = "<group>"; };
+		290072641C1F91CA00299EA1 /* test-event.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = "test-event.json"; path = "CohortTests/media/test-event.json"; sourceTree = SOURCE_ROOT; };
+		290072661C1F984700299EA1 /* test-event-invalidsyntax.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = "test-event-invalidsyntax.json"; path = "CohortTests/media/test-event-invalidsyntax.json"; sourceTree = SOURCE_ROOT; };
+		290072681C1F9C0F00299EA1 /* test-event-noepisodes.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = "test-event-noepisodes.json"; path = "CohortTests/media/test-event-noepisodes.json"; sourceTree = SOURCE_ROOT; };
+		2900726A1C1FA62800299EA1 /* test-vocalcue.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; name = "test-vocalcue.m4a"; path = "CohortTests/media/test-vocalcue.m4a"; sourceTree = SOURCE_ROOT; };
+		2900726C1C1FACF700299EA1 /* test-event-badtriggertype.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = "test-event-badtriggertype.json"; path = "CohortTests/media/test-event-badtriggertype.json"; sourceTree = SOURCE_ROOT; };
+		2900726D1C1FACF700299EA1 /* test-event-noassetfile.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = "test-event-noassetfile.json"; path = "CohortTests/media/test-event-noassetfile.json"; sourceTree = SOURCE_ROOT; };
+		290072701C1FD9A200299EA1 /* test-event-twoepisodes.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = "test-event-twoepisodes.json"; path = "CohortTests/media/test-event-twoepisodes.json"; sourceTree = SOURCE_ROOT; };
 		9AAE0C2A6907A694B0BBC71E /* Pods-CohortTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CohortTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-CohortTests/Pods-CohortTests.release.xcconfig"; sourceTree = "<group>"; };
 		9E8DA03C177D595CF0EA3742 /* libPods-CohortTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CohortTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D6C01378DFCCA489351D56FB /* Pods-Cohort.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cohort.release.xcconfig"; path = "Pods/Target Support Files/Pods-Cohort/Pods-Cohort.release.xcconfig"; sourceTree = "<group>"; };
@@ -231,11 +245,18 @@
 		0E5891101B3FB279000D205B /* media */ = {
 			isa = PBXGroup;
 			children = (
+				290072641C1F91CA00299EA1 /* test-event.json */,
+				290072661C1F984700299EA1 /* test-event-invalidsyntax.json */,
+				290072681C1F9C0F00299EA1 /* test-event-noepisodes.json */,
+				2900726D1C1FACF700299EA1 /* test-event-noassetfile.json */,
+				2900726C1C1FACF700299EA1 /* test-event-badtriggertype.json */,
+				290072701C1FD9A200299EA1 /* test-event-twoepisodes.json */,
 				0E83AFF11B3FBD5200E4ABB0 /* clicktrack.m4a */,
 				0E78D7A11B5047A500A7F955 /* testpattern-180.m4v */,
 				0E78D7A21B5047A500A7F955 /* testpattern-360.m4v */,
 				0E78D7A31B5047A500A7F955 /* testpattern-540.m4v */,
 				0E78D7A41B5047A500A7F955 /* testpattern-1080.m4v */,
+				2900726A1C1FA62800299EA1 /* test-vocalcue.m4a */,
 			);
 			name = media;
 			path = ../Cohort/media;
@@ -398,11 +419,18 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2900726F1C1FACF700299EA1 /* test-event-noassetfile.json in Resources */,
 				0E78D7A71B5047A500A7F955 /* testpattern-540.m4v in Resources */,
+				290072671C1F984700299EA1 /* test-event-invalidsyntax.json in Resources */,
 				0E78D7A51B5047A500A7F955 /* testpattern-180.m4v in Resources */,
 				0E78D7A61B5047A500A7F955 /* testpattern-360.m4v in Resources */,
 				0E83AFF21B3FBD5200E4ABB0 /* clicktrack.m4a in Resources */,
+				2900726E1C1FACF700299EA1 /* test-event-badtriggertype.json in Resources */,
+				290072651C1F91CA00299EA1 /* test-event.json in Resources */,
+				2900726B1C1FA62800299EA1 /* test-vocalcue.m4a in Resources */,
+				290072711C1FD9A200299EA1 /* test-event-twoepisodes.json in Resources */,
 				0E78D7A81B5047A500A7F955 /* testpattern-1080.m4v in Resources */,
+				290072691C1F9C0F00299EA1 /* test-event-noepisodes.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

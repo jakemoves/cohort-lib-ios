@@ -36,8 +36,7 @@
     CHVoidBlock voidBlock;
     CHSoundCue *cue = [[CHSoundCue alloc] initWithSession:session andAsset:asset withTriggers:nil withTags:nil error:&error withCompletionBlock:voidBlock];
     XCTAssertTrue([cue conformsToProtocol:@protocol(CHCueable)]);
-    XCTAssertNotNil(cue.audio);
-    XCTAssertEqual(cue.audio.volume, 1.0);
+    XCTAssertNotNil(cue);
 }
 
 - (void)testThatItLoadsTheSoundCue {

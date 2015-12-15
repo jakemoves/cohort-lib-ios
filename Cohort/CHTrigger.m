@@ -15,7 +15,6 @@
         // custom initialization
         
         _isArmed = false;
-        _delay = 0;
         _action = CHTriggerActionTypeGo;
         
         // init value
@@ -26,7 +25,6 @@
         } else {
             _value = [NSNumber numberWithDouble:value];
         }
-        
         
         // init type
         if(type != CHMediaTypeUnknown){
@@ -126,7 +124,7 @@
 }
 
 -(void) pullWithDelayAndNotification:(NSNotification *) notification {
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(_delay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(_canonDelay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [self pull];
     });
 }

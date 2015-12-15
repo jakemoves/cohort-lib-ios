@@ -169,9 +169,8 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [_sseClient close];
     _scheduler = nil;
-    NSArray *channels = [_audioController channels];
-
     
+    NSArray *channels = [_audioController channels];
     for(int i = 0; i < channels.count; i++){
         AEAudioFilePlayer *audio = [channels objectAtIndex:i];
         audio.channelIsPlaying = false;

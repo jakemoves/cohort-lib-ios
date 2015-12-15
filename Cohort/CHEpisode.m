@@ -83,7 +83,7 @@
             _triggers = triggers;
         } else {
             NSDictionary *tempDic = @{NSLocalizedDescriptionKey: @"Warning: episode with no triggers will never play"};
-            *error = [[NSError alloc] initWithDomain:@"rocks.cohort.Episode.ErrorDomain" code:6 userInfo:tempDic];
+            *error = [[NSError alloc] initWithDomain:@"rocks.cohort.Episode.ErrorDomain" code:7 userInfo:tempDic];
         }
         
         if(tempCues) {
@@ -100,28 +100,27 @@
 }
 
 -(void) prepareCuesForParticipant:(CHParticipant *)participant error:(NSError **)error {
-    
+
     if(_session.participant){
-        NSError *loadError = nil;
-        NSError *cueError = nil;
+        NSError *cueLoadError = nil;
         for(id<NSObject, CHCueable> cue in _cues){
             if([cue.targetTags intersectsSet:_session.participant.tags]){
                 // check if participant has accessibility flags set for this cue type
                 if([_session.participant.tags containsObject:cue.mediaTypeAsString]){
-                    [cue loadWithAccessibleAlternative:&cueError];
+                    [cue loadWithAccessibleAlternative:&cueLoadError];
                 } else {
-                    [cue load:&cueError];
+                    [cue load:&cueLoadError];
                 }
             }
         }
-        if(loadError){
-            *error = loadError;
+        if(cueLoadError){
+            *error = cueLoadError;
         } else {
             _cuesArePreparedForParticipant = true;
         }
     } else {
         NSDictionary *tempDic = @{NSLocalizedDescriptionKey: @"Could not load episode because the participant is nil"};
-        *error = [[NSError alloc] initWithDomain:@"rocks.cohort.Episode.ErrorDomain" code:7 userInfo:tempDic];
+        *error = [[NSError alloc] initWithDomain:@"rocks.cohort.Episode.ErrorDomain" code:8 userInfo:tempDic];
         return;
     }
 }
@@ -139,7 +138,7 @@
         }
     } else {
         NSDictionary *tempDic = @{NSLocalizedDescriptionKey: @"Could not load episode with no triggers"};
-        *error = [[NSError alloc] initWithDomain:@"rocks.cohort.Episode.ErrorDomain" code:8 userInfo:tempDic];
+        *error = [[NSError alloc] initWithDomain:@"rocks.cohort.Episode.ErrorDomain" code:9 userInfo:tempDic];
     }
     _isLoaded = true;
 }
@@ -150,8 +149,8 @@
     if(_cuesArePreparedForParticipant){
         [self play];
     } else {
-        // set 5sec delay for loading, UGH
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        // set safety delay for loading audio
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.05 * _cues.count * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [self play];
         });
         NSError *error = nil;
