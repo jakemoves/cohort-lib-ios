@@ -21,7 +21,7 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
-		0E53655F1C1DFD9B005B176E /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 0E53655E1C1DFD9B005B176E /* README.md */; };
+		0E5365631C1DFDD7005B176E /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 0E5365621C1DFDD7005B176E /* README.md */; };
 		0E5890EE1B3FB22F000D205B /* libCohort.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E5890E31B3FB22F000D205B /* libCohort.a */; };
 		0E5891131B3FB279000D205B /* CHEpisode.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E5890FD1B3FB279000D205B /* CHEpisode.m */; };
 		0E5891141B3FB279000D205B /* CHEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E5890FF1B3FB279000D205B /* CHEvent.m */; };
@@ -47,11 +47,25 @@
 		0E78D7B81B507DA800A7F955 /* CHVideoCueTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E78D7B71B507DA800A7F955 /* CHVideoCueTest.m */; };
 		0E83AFF21B3FBD5200E4ABB0 /* clicktrack.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 0E83AFF11B3FBD5200E4ABB0 /* clicktrack.m4a */; };
 		0E83AFF41B3FC35D00E4ABB0 /* Cohort.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0E5891291B3FB2ED000D205B /* Cohort.h */; };
+		290072651C1F91CA00299EA1 /* test-event.json in Resources */ = {isa = PBXBuildFile; fileRef = 290072641C1F91CA00299EA1 /* test-event.json */; };
+		290072671C1F984700299EA1 /* test-event-invalidsyntax.json in Resources */ = {isa = PBXBuildFile; fileRef = 290072661C1F984700299EA1 /* test-event-invalidsyntax.json */; };
+		290072691C1F9C0F00299EA1 /* test-event-noepisodes.json in Resources */ = {isa = PBXBuildFile; fileRef = 290072681C1F9C0F00299EA1 /* test-event-noepisodes.json */; };
+		2900726B1C1FA62800299EA1 /* test-vocalcue.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 2900726A1C1FA62800299EA1 /* test-vocalcue.m4a */; };
+		2900726E1C1FACF700299EA1 /* test-event-badtriggertype.json in Resources */ = {isa = PBXBuildFile; fileRef = 2900726C1C1FACF700299EA1 /* test-event-badtriggertype.json */; };
+		2900726F1C1FACF700299EA1 /* test-event-noassetfile.json in Resources */ = {isa = PBXBuildFile; fileRef = 2900726D1C1FACF700299EA1 /* test-event-noassetfile.json */; };
+		290072711C1FD9A200299EA1 /* test-event-twoepisodes.json in Resources */ = {isa = PBXBuildFile; fileRef = 290072701C1FD9A200299EA1 /* test-event-twoepisodes.json */; };
 		B3A7497C0F72F6CF01528062 /* libPods-CohortTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E8DA03C177D595CF0EA3742 /* libPods-CohortTests.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
 		0E5890EF1B3FB22F000D205B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0ED7E6DD1B262CE800ABE472 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 0E5890E21B3FB22F000D205B;
+			remoteInfo = Cohort;
+		};
+		0E6DC1521C1B5A4600F4590F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 0ED7E6DD1B262CE800ABE472 /* Project object */;
 			proxyType = 1;
@@ -83,7 +97,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		0E53655E1C1DFD9B005B176E /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		0E5365621C1DFDD7005B176E /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		0E5890E31B3FB22F000D205B /* libCohort.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libCohort.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		0E5890ED1B3FB22F000D205B /* CohortTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CohortTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0E5890F31B3FB22F000D205B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -113,6 +127,7 @@
 		0E5891201B3FB2AA000D205B /* CHSoundCueTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHSoundCueTest.m; sourceTree = "<group>"; };
 		0E5891211B3FB2AA000D205B /* CHTriggerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHTriggerTest.m; sourceTree = "<group>"; };
 		0E5891291B3FB2ED000D205B /* Cohort.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Cohort.h; sourceTree = "<group>"; };
+		0E6DC13B1C1B5A1800F4590F /* CohortSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CohortSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0E78D7A11B5047A500A7F955 /* testpattern-180.m4v */ = {isa = PBXFileReference; lastKnownFileType = file; name = "testpattern-180.m4v"; path = "CohortTests/media/testpattern-180.m4v"; sourceTree = SOURCE_ROOT; };
 		0E78D7A21B5047A500A7F955 /* testpattern-360.m4v */ = {isa = PBXFileReference; lastKnownFileType = file; name = "testpattern-360.m4v"; path = "CohortTests/media/testpattern-360.m4v"; sourceTree = SOURCE_ROOT; };
 		0E78D7A31B5047A500A7F955 /* testpattern-540.m4v */ = {isa = PBXFileReference; lastKnownFileType = file; name = "testpattern-540.m4v"; path = "CohortTests/media/testpattern-540.m4v"; sourceTree = SOURCE_ROOT; };
@@ -124,11 +139,19 @@
 		0E78D7B51B507D4100A7F955 /* CHVideoAssetTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHVideoAssetTest.m; sourceTree = "<group>"; };
 		0E78D7B71B507DA800A7F955 /* CHVideoCueTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHVideoCueTest.m; sourceTree = "<group>"; };
 		0E83AFF11B3FBD5200E4ABB0 /* clicktrack.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; name = clicktrack.m4a; path = CohortTests/media/clicktrack.m4a; sourceTree = SOURCE_ROOT; };
+		0E9B93B51C1B574D002EF050 /* libAFNetworking.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libAFNetworking.a; path = "Pods/../build/Debug-iphoneos/libAFNetworking.a"; sourceTree = "<group>"; };
 		0EB4C7F91B3FB6B50097D78D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		0ECFA0B31B28C73C0052DDC7 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		0ECFA0B51B28C7430052DDC7 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		0ECFA0B71B28C74A0052DDC7 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		16F64D44EF69B478C6C547B8 /* Pods-Cohort.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cohort.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Cohort/Pods-Cohort.debug.xcconfig"; sourceTree = "<group>"; };
+		290072641C1F91CA00299EA1 /* test-event.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = "test-event.json"; path = "CohortTests/media/test-event.json"; sourceTree = SOURCE_ROOT; };
+		290072661C1F984700299EA1 /* test-event-invalidsyntax.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = "test-event-invalidsyntax.json"; path = "CohortTests/media/test-event-invalidsyntax.json"; sourceTree = SOURCE_ROOT; };
+		290072681C1F9C0F00299EA1 /* test-event-noepisodes.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = "test-event-noepisodes.json"; path = "CohortTests/media/test-event-noepisodes.json"; sourceTree = SOURCE_ROOT; };
+		2900726A1C1FA62800299EA1 /* test-vocalcue.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; name = "test-vocalcue.m4a"; path = "CohortTests/media/test-vocalcue.m4a"; sourceTree = SOURCE_ROOT; };
+		2900726C1C1FACF700299EA1 /* test-event-badtriggertype.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = "test-event-badtriggertype.json"; path = "CohortTests/media/test-event-badtriggertype.json"; sourceTree = SOURCE_ROOT; };
+		2900726D1C1FACF700299EA1 /* test-event-noassetfile.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = "test-event-noassetfile.json"; path = "CohortTests/media/test-event-noassetfile.json"; sourceTree = SOURCE_ROOT; };
+		290072701C1FD9A200299EA1 /* test-event-twoepisodes.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = "test-event-twoepisodes.json"; path = "CohortTests/media/test-event-twoepisodes.json"; sourceTree = SOURCE_ROOT; };
 		9AAE0C2A6907A694B0BBC71E /* Pods-CohortTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CohortTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-CohortTests/Pods-CohortTests.release.xcconfig"; sourceTree = "<group>"; };
 		9E8DA03C177D595CF0EA3742 /* libPods-CohortTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CohortTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D6C01378DFCCA489351D56FB /* Pods-Cohort.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cohort.release.xcconfig"; path = "Pods/Target Support Files/Pods-Cohort/Pods-Cohort.release.xcconfig"; sourceTree = "<group>"; };
@@ -150,6 +173,13 @@
 			files = (
 				0E5890EE1B3FB22F000D205B /* libCohort.a in Frameworks */,
 				B3A7497C0F72F6CF01528062 /* libPods-CohortTests.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0E6DC1381C1B5A1800F4590F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -215,11 +245,18 @@
 		0E5891101B3FB279000D205B /* media */ = {
 			isa = PBXGroup;
 			children = (
+				290072641C1F91CA00299EA1 /* test-event.json */,
+				290072661C1F984700299EA1 /* test-event-invalidsyntax.json */,
+				290072681C1F9C0F00299EA1 /* test-event-noepisodes.json */,
+				2900726D1C1FACF700299EA1 /* test-event-noassetfile.json */,
+				2900726C1C1FACF700299EA1 /* test-event-badtriggertype.json */,
+				290072701C1FD9A200299EA1 /* test-event-twoepisodes.json */,
 				0E83AFF11B3FBD5200E4ABB0 /* clicktrack.m4a */,
 				0E78D7A11B5047A500A7F955 /* testpattern-180.m4v */,
 				0E78D7A21B5047A500A7F955 /* testpattern-360.m4v */,
 				0E78D7A31B5047A500A7F955 /* testpattern-540.m4v */,
 				0E78D7A41B5047A500A7F955 /* testpattern-1080.m4v */,
+				2900726A1C1FA62800299EA1 /* test-vocalcue.m4a */,
 			);
 			name = media;
 			path = ../Cohort/media;
@@ -228,7 +265,7 @@
 		0ED7E6DC1B262CE800ABE472 = {
 			isa = PBXGroup;
 			children = (
-				0E53655E1C1DFD9B005B176E /* README.md */,
+				0E5365621C1DFDD7005B176E /* README.md */,
 				0E5890E41B3FB22F000D205B /* Cohort */,
 				0E5890F11B3FB22F000D205B /* CohortTests */,
 				0ED7E6E61B262CE800ABE472 /* Products */,
@@ -242,6 +279,7 @@
 			children = (
 				0E5890E31B3FB22F000D205B /* libCohort.a */,
 				0E5890ED1B3FB22F000D205B /* CohortTests.xctest */,
+				0E6DC13B1C1B5A1800F4590F /* CohortSample.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -249,6 +287,7 @@
 		2123114B5BFB363FE04B2E21 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0E9B93B51C1B574D002EF050 /* libAFNetworking.a */,
 				0EB4C7F91B3FB6B50097D78D /* Foundation.framework */,
 				0ECFA0B71B28C74A0052DDC7 /* AVFoundation.framework */,
 				0ECFA0B51B28C7430052DDC7 /* AudioToolbox.framework */,
@@ -313,6 +352,24 @@
 			productReference = 0E5890ED1B3FB22F000D205B /* CohortTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		0E6DC13A1C1B5A1800F4590F /* CohortSample */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0E6DC1511C1B5A1800F4590F /* Build configuration list for PBXNativeTarget "CohortSample" */;
+			buildPhases = (
+				0E6DC1371C1B5A1800F4590F /* Sources */,
+				0E6DC1381C1B5A1800F4590F /* Frameworks */,
+				0E6DC1391C1B5A1800F4590F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				0E6DC1531C1B5A4600F4590F /* PBXTargetDependency */,
+			);
+			name = CohortSample;
+			productName = CohortSample;
+			productReference = 0E6DC13B1C1B5A1800F4590F /* CohortSample.app */;
+			productType = "com.apple.product-type.application";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -327,6 +384,9 @@
 					};
 					0E5890EC1B3FB22F000D205B = {
 						CreatedOnToolsVersion = 6.3.1;
+					};
+					0E6DC13A1C1B5A1800F4590F = {
+						CreatedOnToolsVersion = 7.0;
 					};
 					0E83AFF51B3FC5C800E4ABB0 = {
 						CreatedOnToolsVersion = 6.3.1;
@@ -349,6 +409,7 @@
 				0E5890E21B3FB22F000D205B /* Cohort */,
 				0E5890EC1B3FB22F000D205B /* CohortTests */,
 				0E83AFF51B3FC5C800E4ABB0 /* UniversalLib */,
+				0E6DC13A1C1B5A1800F4590F /* CohortSample */,
 			);
 		};
 /* End PBXProject section */
@@ -358,11 +419,25 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2900726F1C1FACF700299EA1 /* test-event-noassetfile.json in Resources */,
 				0E78D7A71B5047A500A7F955 /* testpattern-540.m4v in Resources */,
+				290072671C1F984700299EA1 /* test-event-invalidsyntax.json in Resources */,
 				0E78D7A51B5047A500A7F955 /* testpattern-180.m4v in Resources */,
 				0E78D7A61B5047A500A7F955 /* testpattern-360.m4v in Resources */,
 				0E83AFF21B3FBD5200E4ABB0 /* clicktrack.m4a in Resources */,
+				2900726E1C1FACF700299EA1 /* test-event-badtriggertype.json in Resources */,
+				290072651C1F91CA00299EA1 /* test-event.json in Resources */,
+				2900726B1C1FA62800299EA1 /* test-vocalcue.m4a in Resources */,
+				290072711C1FD9A200299EA1 /* test-event-twoepisodes.json in Resources */,
 				0E78D7A81B5047A500A7F955 /* testpattern-1080.m4v in Resources */,
+				290072691C1F9C0F00299EA1 /* test-event-noepisodes.json in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0E6DC1391C1B5A1800F4590F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -451,7 +526,7 @@
 			files = (
 				0E5891131B3FB279000D205B /* CHEpisode.m in Sources */,
 				0E5891161B3FB279000D205B /* CHSession.m in Sources */,
-				0E53655F1C1DFD9B005B176E /* README.md in Sources */,
+				0E5365631C1DFDD7005B176E /* README.md in Sources */,
 				0E78D7B01B504ED500A7F955 /* CHVideoCue.m in Sources */,
 				0E5891181B3FB279000D205B /* CHSoundCue.m in Sources */,
 				0E5891191B3FB279000D205B /* CHTrigger.m in Sources */,
@@ -478,6 +553,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		0E6DC1371C1B5A1800F4590F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -485,6 +567,11 @@
 			isa = PBXTargetDependency;
 			target = 0E5890E21B3FB22F000D205B /* Cohort */;
 			targetProxy = 0E5890EF1B3FB22F000D205B /* PBXContainerItemProxy */;
+		};
+		0E6DC1531C1B5A4600F4590F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 0E5890E21B3FB22F000D205B /* Cohort */;
+			targetProxy = 0E6DC1521C1B5A4600F4590F /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -543,6 +630,32 @@
 				INFOPLIST_FILE = CohortTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				OTHER_LDFLAGS = "$(inherited)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		0E6DC14F1C1B5A1800F4590F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_TESTABILITY = YES;
+				INFOPLIST_FILE = CohortSample/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.jacob-n.CohortSample";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		0E6DC1501C1B5A1800F4590F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = CohortSample/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.jacob-n.CohortSample";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -664,6 +777,15 @@
 			buildConfigurations = (
 				0E5890F81B3FB22F000D205B /* Debug */,
 				0E5890F91B3FB22F000D205B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		0E6DC1511C1B5A1800F4590F /* Build configuration list for PBXNativeTarget "CohortSample" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0E6DC14F1C1B5A1800F4590F /* Debug */,
+				0E6DC1501C1B5A1800F4590F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

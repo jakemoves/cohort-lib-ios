@@ -14,13 +14,14 @@
     if (self = [super init]) {
         // custom initialization
         
+        _value = nil;
         _isArmed = false;
+        _action = CHTriggerActionTypeGo;
         
         // init value
         if(value < 0.0){
             NSDictionary *tempDic = @{NSLocalizedDescriptionKey: @"Could not create trigger with a negative value"};
             *error = [[NSError alloc] initWithDomain:@"rocks.cohort.Trigger.ErrorDomain" code:2 userInfo:tempDic];
-            
         } else {
             _value = [NSNumber numberWithDouble:value];
         }
@@ -63,14 +64,30 @@
                 break;
             case CHTriggeredAtTime:
                 break;
+//            case CHTriggeredByServerSentEventWithCanon:
+//            {
+//                //case CHTriggeredByServerSentEvent, CHTriggeredByUserInteraction
+//                NSNumberFormatter *nf = [[NSNumberFormatter alloc] init];
+//                nf.numberStyle = NSNumberFormatterDecimalStyle;
+//                NSString *value = [nf stringFromNumber:_value];
+//                NSString *triggerString = [NSString stringWithFormat:@"%@-%@-%@", _mediaTypeAsString, value, _action];
+//#ifdef DEBUG
+//                NSLog(@"arming trigger for NSNotification: %@", triggerString);
+//#endif
+//                [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pullWithDelayAndNotification:) name:triggerString object:nil];
+//                
+//                break;
+//            }
             default:
             {
                 //case CHTriggeredByServerSentEvent, CHTriggeredByUserInteraction
                 NSNumberFormatter *nf = [[NSNumberFormatter alloc] init];
                 nf.numberStyle = NSNumberFormatterDecimalStyle;
                 NSString *value = [nf stringFromNumber:_value];
-                NSString *triggerString = [NSString stringWithFormat:@"%@-%@-go", _mediaTypeAsString, value];
+                NSString *triggerString = [NSString stringWithFormat:@"%@-%@-%@", _mediaTypeAsString, value, _action];
+#ifdef DEBUG
                 NSLog(@"arming trigger for NSNotification: %@", triggerString);
+#endif
                 [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pullWithNotification:) name:triggerString object:nil];
             
                 break;
@@ -106,7 +123,14 @@
     [self pull];
 }
 
+-(void) pullWithDelayAndNotification:(NSNotification *) notification {
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(_canonDelay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self pull];
+    });
+}
+
 -(void)dealloc {
+    //NSLog(@"deallocating trigger");
     [self disarm];
 }
 

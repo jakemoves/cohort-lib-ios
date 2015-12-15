@@ -103,7 +103,9 @@
 // end CHCueable_______________________
 
 -(void)onLoadStateDidChange:(NSNotification *)notification {
+#ifdef DEBUG
     NSLog(@"load state changed: %@", notification);
+#endif
     
 
 //    if(_triggers && _triggers.count > 0){

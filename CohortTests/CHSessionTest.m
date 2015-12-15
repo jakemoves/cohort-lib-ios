@@ -31,6 +31,7 @@
     CHSession *session = [[CHSession alloc] init];
     XCTAssertNotNil(session, @"Session is nil");
     XCTAssertNotNil(session.audioController, @"Session audioController is nil");
+    session = nil;
 }
 
 - (void)testThatItReportsReachability {
@@ -42,6 +43,7 @@
             NSLog(@"Timeout Error: %@", error);
         }
     }];
+    session = nil;
 }
 
 - (void)testThatItConnectsToSSEServer {
@@ -62,6 +64,7 @@
             NSLog(@"Timeout Error: %@", error);
         }
     }];
+    session = nil;
 }
 
 - (void)testThatItReportsBadHostName {
@@ -82,15 +85,16 @@
             NSLog(@"Timeout Error: %@", error);
         }
     }];
+    session = nil;
 }
 
 - (void)testThatItReceivesAndProcessesSSE {
     // server must be running to pass
-    CHSession *session = [[CHSession alloc] init];
+    __block CHSession *session = [[CHSession alloc] init];
     __weak XCTestExpectation *expectation = [self expectationForNotification:@"sound-1-go" object:nil handler:nil];
     //http://stackoverflow.com/questions/27555499/xctestexpectation-how-to-avoid-calling-the-fulfill-method-after-the-wait-contex
 
-    [session listenForCuesWithURL:[[NSURL alloc] initWithString:@"http://jqrs.org/test/listen"]
+    [session listenForCuesWithURL:[[NSURL alloc] initWithString:@"http://cohort-server.herokuapp.com/listen"]
             withCompletionHandler:^(BOOL success, NSError *error) {
                 if(success){
                     NSURL *baseURL = [NSURL URLWithString:@"http://cohort-server.herokuapp.com/"];
@@ -105,8 +109,10 @@
                             success:^(AFHTTPRequestOperation *operation, id responseObject) {
                                 NSLog(@"POST request to cohort server succeeded");
                                 XCTAssertTrue(true);
+                                session = nil;
                             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                 XCTFail(@"POST request to cohort server failed");
+                                session = nil;
                     }];
                 }
     }];
@@ -114,47 +120,48 @@
     [self waitForExpectationsWithTimeout:10.0 handler:^(NSError *error) {
         if (error) {
             NSLog(@"Timeout Error: %@", error);
+            session = nil;
         }
     }];
 }
 
-- (void)DISABLEDtestThatItReportsWhenServerNotRunning {
-    // server should not be running to pass
-    CHSession *session = [[CHSession alloc] init];
-    __weak XCTestExpectation *expectation = [self expectationWithDescription:@"Could not connect to SSE server"];
-    
-    [session listenForCuesWithURL:[[NSURL alloc] initWithString:@"http://jqrs.org/test/"]
-            withCompletionHandler:^(BOOL success, NSError *error) {
-                if(!success){
-                    NSLog(@"SSE: error %@", error);
-                    if((error.code) == 2){
-                        [expectation fulfill];
-                    }
-                }
-            }];
-    
-    [self waitForExpectationsWithTimeout:10.0 handler:^(NSError *error) {
-        if (error) {
-            NSLog(@"Timeout Error: %@", error);
-        }
-    }];
-}
-
-- (void)MANUALtestThatItClosesSSEConnectionWhenDeallocated {
-    __block CHSession *session = [[CHSession alloc] init];
-    
-    [session listenForCuesWithURL:[[NSURL alloc] initWithString:@"http://169.254.135.25:8000/listen"]
-            withCompletionHandler:^(BOOL success, NSError *error) {
-                if(success){
-                    NSLog(@"connected!");
-                }
-            }
-     ];
-    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 10.0 * NSEC_PER_SEC);
-    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-        NSLog(@"killing session");
-        session = nil;
-    });
-}
+//- (void)DISABLEDtestThatItReportsWhenServerNotRunning {
+//    // server should not be running to pass
+//    CHSession *session = [[CHSession alloc] init];
+//    __weak XCTestExpectation *expectation = [self expectationWithDescription:@"Could not connect to SSE server"];
+//    
+//    [session listenForCuesWithURL:[[NSURL alloc] initWithString:@"http://jqrs.org/test/"]
+//            withCompletionHandler:^(BOOL success, NSError *error) {
+//                if(!success){
+//                    NSLog(@"SSE: error %@", error);
+//                    if((error.code) == 2){
+//                        [expectation fulfill];
+//                    }
+//                }
+//            }];
+//    
+//    [self waitForExpectationsWithTimeout:10.0 handler:^(NSError *error) {
+//        if (error) {
+//            NSLog(@"Timeout Error: %@", error);
+//        }
+//    }];
+//}
+//
+//- (void)MANUALtestThatItClosesSSEConnectionWhenDeallocated {
+//    __block CHSession *session = [[CHSession alloc] init];
+//    
+//    [session listenForCuesWithURL:[[NSURL alloc] initWithString:@"http://169.254.135.25:8000/listen"]
+//            withCompletionHandler:^(BOOL success, NSError *error) {
+//                if(success){
+//                    NSLog(@"connected!");
+//                }
+//            }
+//     ];
+//    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 10.0 * NSEC_PER_SEC);
+//    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+//        NSLog(@"killing session");
+//        session = nil;
+//    });
+//}
 
 @end

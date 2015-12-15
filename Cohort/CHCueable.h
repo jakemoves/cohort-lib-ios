@@ -14,11 +14,11 @@
 @property (readonly, nonatomic) CHMediaType mediaType;
 @property (readonly, nonatomic) CHMediaTypeString mediaTypeAsString;
 @property (readonly, nonatomic) NSArray *triggers;
-@property (readonly, nonatomic) double duration;
+@property (nonatomic) double duration;
 @property (nonatomic) BOOL isLoaded;
 @property (nonatomic) BOOL isRunning;
 @property (nonatomic, copy) CHVoidBlock completionBlock;
-// usually an implementation of CHCueable will include a CHMediaAsset, but not always
+// usually an implementation of CHCueable will include a CHMediaAsset, but not always (i.e. an episode has only cues, no assets)
 // implementations of CHCueable should include an accessible alternative (i.e. alt text for a CHSoundCue) for users with disabilities
 
 
@@ -27,6 +27,6 @@
 -(void) fire;
 -(void) play;
 -(void) pause;
-// add unload?
+// add unload/stop?
 
 @end

@@ -23,7 +23,13 @@ typedef NS_ENUM(NSInteger, CHTriggerType) {
     CHTriggerTypeUnknown,
     CHTriggeredAtTime,
     CHTriggeredByServerSentEvent,
-    CHTriggeredByUserInteraction
+    CHTriggeredByUserInteraction,
+    CHTriggeredByServerSentEventWithCanon,
+    CHTriggeredAtTimeWithCanon
 };
+
+typedef NSString * CHTriggerActionType;
+#define CHTriggerActionTypeUnknown  @""
+#define CHTriggerActionTypeGo       @"go"
 
 typedef void (^CHVoidBlock)();
