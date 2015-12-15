@@ -28,5 +28,6 @@
 @property (nonatomic) BOOL didNotifyUserAboutSSEError;
 
 - (void)listenForCuesWithURL:(NSURL *)url withCompletionHandler:(void (^)(BOOL success, NSError *error))handler;
+- (void)endSession;
 
 @end

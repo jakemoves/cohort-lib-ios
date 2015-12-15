@@ -165,7 +165,7 @@
 #endif
 }
 
-- (void)dealloc{
+- (void)endSession {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [_sseClient close];
     _scheduler = nil;
@@ -179,6 +179,10 @@
     }
     [_audioController stop];
     _audioController = nil;
+}
+
+- (void)dealloc{
+    [self endSession];
 }
 
 @end
