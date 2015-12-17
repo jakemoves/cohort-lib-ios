@@ -15,6 +15,7 @@
         // custom initialization
         
         _participant = nil;
+        _participantIndex = [[NSNumber alloc] init];
         _episodeIsPlaying = false;
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setEpisodeIsPlayingOn) name:@"episode started" object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setEpisodeIsPlayingOff) name:@"episode stopped" object:nil];
