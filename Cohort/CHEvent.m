@@ -237,7 +237,8 @@
         
         if(!triggerError){
             if(trigger.type == CHTriggeredAtTimeWithCanon || trigger.type == CHTriggeredByServerSentEventWithCanon){
-                trigger.canonDelay = [canonDelay doubleValue];
+                trigger.canonDelay = [canonDelay doubleValue] * [_session.participantIndex doubleValue];
+                
             }
         } else {
             *error = triggerError;

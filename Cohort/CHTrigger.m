@@ -64,20 +64,20 @@
                 break;
             case CHTriggeredAtTime:
                 break;
-//            case CHTriggeredByServerSentEventWithCanon:
-//            {
-//                //case CHTriggeredByServerSentEvent, CHTriggeredByUserInteraction
-//                NSNumberFormatter *nf = [[NSNumberFormatter alloc] init];
-//                nf.numberStyle = NSNumberFormatterDecimalStyle;
-//                NSString *value = [nf stringFromNumber:_value];
-//                NSString *triggerString = [NSString stringWithFormat:@"%@-%@-%@", _mediaTypeAsString, value, _action];
-//#ifdef DEBUG
-//                NSLog(@"arming trigger for NSNotification: %@", triggerString);
-//#endif
-//                [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pullWithDelayAndNotification:) name:triggerString object:nil];
-//                
-//                break;
-//            }
+            case CHTriggeredByServerSentEventWithCanon:
+            {
+                //case CHTriggeredByServerSentEvent, CHTriggeredByUserInteraction
+                NSNumberFormatter *nf = [[NSNumberFormatter alloc] init];
+                nf.numberStyle = NSNumberFormatterDecimalStyle;
+                NSString *value = [nf stringFromNumber:_value];
+                NSString *triggerString = [NSString stringWithFormat:@"%@-%@-%@", _mediaTypeAsString, value, _action];
+#ifdef DEBUG
+                NSLog(@"arming trigger for NSNotification: %@", triggerString);
+#endif
+                [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pullWithDelayAndNotification:) name:triggerString object:nil];
+                
+                break;
+            }
             default:
             {
                 //case CHTriggeredByServerSentEvent, CHTriggeredByUserInteraction

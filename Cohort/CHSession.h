@@ -26,7 +26,9 @@
 @property (strong, nonatomic) CHParticipant *participant;
 @property (nonatomic) BOOL episodeIsPlaying;
 @property (nonatomic) BOOL didNotifyUserAboutSSEError;
+@property (strong, nonatomic) NSNumber *participantIndex;
 
 - (void)listenForCuesWithURL:(NSURL *)url withCompletionHandler:(void (^)(BOOL success, NSError *error))handler;
+- (void)endSession;
 
 @end

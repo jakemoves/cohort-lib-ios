@@ -15,6 +15,7 @@
         // custom initialization
         
         _participant = nil;
+        _participantIndex = [[NSNumber alloc] init];
         _episodeIsPlaying = false;
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setEpisodeIsPlayingOn) name:@"episode started" object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setEpisodeIsPlayingOff) name:@"episode stopped" object:nil];
@@ -165,7 +166,7 @@
 #endif
 }
 
-- (void)dealloc{
+- (void)endSession {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [_sseClient close];
     _scheduler = nil;
@@ -179,6 +180,10 @@
     }
     [_audioController stop];
     _audioController = nil;
+}
+
+- (void)dealloc{
+    [self endSession];
 }
 
 @end
