@@ -14,6 +14,19 @@ You should now be able to use Cohort in your app.
 ## Using Cohort in your app
 In your App Delegate, create a CHSession. This will handle all networking and A/V playback across all your views.
 
+
+```
+#import <UIKit/UIKit.h>
+#import <cohort.h>
+
+@interface AppDelegate : UIResponder <UIApplicationDelegate>
+
+@property (strong, nonatomic) UIWindow *window;
+@property (strong, nonatomic) CHSession *cohortSession;
+
+@end
+```
+
 You'll need to spin up an instance of the Cohort Server app to handle your networking. It's a basic Server Sent Events (SSE) server written in node. We use Heroku for easy hosting and deployment. This component is outside the scope of this document. However, you'll need to add the following to your Info.plist:
 
 ```
